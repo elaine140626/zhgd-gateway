@@ -84,9 +84,9 @@ public class ProjectElectricityBoxApi {
      * 删除项目电箱
      */
     @PostMapping( "/remove")
-    public AjaxResult remove(String ids)
+    public AjaxResult remove(Integer id,String devCcrq)
     {
-        return client.projectElectricityBoxRemove(ids);
+        return client.projectElectricityBoxRemove(id,devCcrq);
     }
 
 

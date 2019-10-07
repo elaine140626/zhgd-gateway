@@ -55,6 +55,7 @@ public class APP_ProjectWorkersApi {
 
     /**
      * 实名制录入
+     *
      * @return
      */
     @RequestMapping("/insertProjectWorkersTwo")
@@ -62,13 +63,15 @@ public class APP_ProjectWorkersApi {
     public Map<String, Object> insertProjectWorkersTwo(@RequestBody String json) {
         return systemClient.insertProjectWorkersTwo(json);
     }
+
     /**
      * 增加考情记录
+     *
      * @param json
      * @return
      */
     @PostMapping(value = "/addAttendanceRecord")
-    public Map<String,Object> addAttendanceRecord(@RequestBody String json){
+    public Map<String, Object> addAttendanceRecord(@RequestBody String json) {
         return systemClient.addAttendanceRecord(json);
     }
 
@@ -94,7 +97,7 @@ public class APP_ProjectWorkersApi {
     @RequestMapping("/selectConstructionProject")
     @ResponseBody
     public Map<String, Object> selectConstructionProject(ProjectWorkers projectWorkers) {
-        System.out.println("-------------------------------------------------------------"+projectWorkers);
+        System.out.println("-------------------------------------------------------------" + projectWorkers);
         return hjProjectWorkersService.selectConstructionProject(projectWorkers);
     }
 
@@ -108,7 +111,7 @@ public class APP_ProjectWorkersApi {
     @RequestMapping("/insertProjectWorkers")
     @ResponseBody
     public Map<String, Object> insertProjectWorkers(HjProjectWorkers hjProjectWorkers) {
-        System.out.println("-------------------------------------------------------------"+hjProjectWorkers);
+        System.out.println("-------------------------------------------------------------" + hjProjectWorkers);
         return hjProjectWorkersService.insertProjectWorkers(hjProjectWorkers);
     }
 
@@ -120,9 +123,9 @@ public class APP_ProjectWorkersApi {
     @ResponseBody
     public Map<String, Object> queryWitnessComparison(MultipartFile file, String url) throws Exception {
         System.out.println(url);
-        Map<String, Object> map= new HashMap<>();
-        map.put("url",url);
-       return (Map<String, Object>)restTemplateUtil.PostFile(map,Constants.SERVICE_NAME+"provider/projectWorkersApi/queryWitnessComparison",file);
+        Map<String, Object> map = new HashMap<>();
+        map.put("url", url);
+        return (Map<String, Object>) restTemplateUtil.PostFile(map, Constants.SERVICE_NAME + "provider/projectWorkersApi/queryWitnessComparison", file);
     }
 
 
@@ -133,14 +136,29 @@ public class APP_ProjectWorkersApi {
      */
     @RequestMapping("/updateProjectWorkers")
     @ResponseBody
-    public Map<String, Object> updateProjectWorkers(HjProjectWorkers hj, MultipartFile file)throws Exception {
+    public Map<String, Object> updateProjectWorkers(HjProjectWorkers hj, MultipartFile file) throws Exception {
         System.out.println(hj);
 //        System.out.println(file.getOriginalFilename());
         //        return hjProjectWorkersService.updateProjectWorkers(hj);
         hj.setUpdateDate(new SimpleDateFormat().format(new Date()));
-        return (Map<String, Object>)restTemplateUtil.PostFile(hj,Constants.SERVICE_NAME+"provider/projectWorkersApi/updateProjectWorkers",file);
+        return (Map<String, Object>) restTemplateUtil.PostFile(hj, Constants.SERVICE_NAME + "provider/projectWorkersApi/updateProjectWorkers", file);
     }
 
+    /**
+     * 人员银行卡信息 修改
+     *
+     * @return
+     */
+    @RequestMapping("/updateProjectWorkersBank")
+    @ResponseBody
+    public Map<String, Object> updateProjectWorkersBank(int id,String bankName,String cardNum, MultipartFile file) throws Exception {
+        Map<String,Object> map  = new HashMap<>();
+        map.put("id",id);
+        map.put("bankName",bankName);
+        map.put("cardNum",cardNum);
+        return(Map<String,Object>) restTemplateUtil.PostFile(map,Constants.SERVICE_NAME+"provider/projectWorkersApi/updateProjectWorkersBank",file);
+
+    }
     /**
      * 人员信息 是否签订
      *
@@ -165,7 +183,7 @@ public class APP_ProjectWorkersApi {
         System.out.println(configStr);
         Map<String, Object> map = new HashMap<>();
         map.put("configStr", configStr);
-        System.out.println(file.getOriginalFilename()   );
+        System.out.println(file.getOriginalFilename());
         return (Map<String, Object>) restTemplateUtil.PostFile(map, Constants.SERVICE_NAME + "provider/projectWorkersApi/getAliOcrIdCard", file);
     }
 

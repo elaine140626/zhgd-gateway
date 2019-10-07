@@ -1,4 +1,4 @@
-package com.hujiang.project.hs.hsFaceApi;
+package com.hujiang.project.zhgd.sbCurrentTemperature.api;
 
 import com.hujiang.project.zhgd.client.SystemClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,14 +7,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
-@RequestMapping(value = "/api/hs")
-public class HsFaceApi {
+@RequestMapping(value = "/api/electricityBoxExternal")
+public class ElectricityBoxExternalApi {
+
     @Autowired
-    private SystemClient client;
-    @PostMapping(value = "/person")
-    public String addPerson(@RequestBody String json){
-        System.out.println(json);
-        return client.addPerson(json);
-}
+    private SystemClient systemClient;
+
+    @PostMapping("/addElectricityBox")
+    public Map<String,Object> addElectricityBox(@RequestBody String json){
+        return systemClient.addElectricityBox(json);
+    }
+
+
 }

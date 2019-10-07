@@ -3,10 +3,7 @@ package com.hujiang.project.zhgd.sbUnloaderRegistration.api;
 import com.alibaba.fastjson.JSONObject;
 import com.hujiang.project.zhgd.client.SystemClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,9 +16,10 @@ import java.util.List;
 @RequestMapping(value = "/zhgd")
 public class UnloaderRegistration {
 
+
     //卸料注册信息
-    @Autowired
-            public SystemClient systemClient;
+    @Autowired private SystemClient systemClient;
+
 
     /**  注册信息 */
     @PostMapping("/LoginDataUnloadingPlatform")

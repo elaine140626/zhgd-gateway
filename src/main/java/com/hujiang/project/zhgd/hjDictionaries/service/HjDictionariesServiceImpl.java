@@ -31,6 +31,17 @@ public class HjDictionariesServiceImpl implements IHjDictionariesService
 	{
 	    return systrmUserClient.selectDictionaries(hjDictionaries);
 	}
+	/**
+     * 查询字典列表
+     *
+     * @param
+     * @return 字典集合
+     */
+	@Override
+	public Map<String, Object> selectDictionariesWorkType(Integer pid)
+	{
+	    return systrmUserClient.selectDictionariesWorkType(pid);
+	}
 
 	
 }
