@@ -101,7 +101,7 @@ eureka:
     instance-id: consumer8080
     prefer-ip-address: true # 访问路径可以显示 IP
 #    ip-address: 47.106.71.3
-    ip-address: 192.168.1.15
+    ip-address: localhost
   client:
     healthcheck:
       # 开启健康检查 （需要spring-boot-starter-actuator依赖）
