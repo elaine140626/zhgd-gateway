@@ -100,18 +100,16 @@ eureka:
     lease-expiration-duration-in-seconds: 2
     instance-id: consumer8080
     prefer-ip-address: true # 访问路径可以显示 IP
-#    ip-address: 47.106.71.3
     ip-address: localhost
   client:
     healthcheck:
       # 开启健康检查 （需要spring-boot-starter-actuator依赖）
-      enabled: true
+      enabled: false
     register-with-eureka: true # 不向注册中心注册自己
     fetch-registry: true        # 是否检索服务
     service-url:
-#      defaultZone: http://47.112.23.241:9001/eureka/,http://47.112.23.241:9002/eureka/  # 注册中心访问地址
-#      defaultZone: http://192.168.1.35:9002/eureka/  # 注册中心访问地址
-      defaultZone: http://127.0.0.1:9005/eureka/  # 注册中心访问地址
+      #                  defaultZone: http://47.112.23.241:9001/eureka/,http://47.112.23.241:9002/eureka/  # 注册中心访问地址
+        defaultZone: http://localhost:9005/eureka/  # 注册中心访问地址
 # MyBatis
 mybatis:
   # 搜索指定包别名

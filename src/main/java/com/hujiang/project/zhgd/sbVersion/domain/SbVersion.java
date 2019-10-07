@@ -25,6 +25,8 @@ public class SbVersion
 	private String url;
 	/** 是否强制升级 */
 	private Integer isMandatoryUpgrade;
+	/** 时间 */
+	private String createTime;
 
 	public void setId(Integer id) 
 	{
@@ -80,6 +82,15 @@ public class SbVersion
 	{
 		return isMandatoryUpgrade;
 	}
+
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+
 	@Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)

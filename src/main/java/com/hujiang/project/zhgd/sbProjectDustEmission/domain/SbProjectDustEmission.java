@@ -36,6 +36,46 @@ public class SbProjectDustEmission
 	private String videoAddress;
 	/** 项目监督编号*/
 	private String jdbh;
+	/** 项目id（城安院*/
+	private String xmid;
+	/** 工程id*/
+	private String subId;
+	/** 对接平台*/
+	private String scznl;
+	/** 设备厂商id*/
+	private String manufacturerId;
+
+	public String getScznl() {
+		return scznl;
+	}
+
+	public void setScznl(String scznl) {
+		this.scznl = scznl;
+	}
+
+	public String getManufacturerId() {
+		return manufacturerId;
+	}
+
+	public void setManufacturerId(String manufacturerId) {
+		this.manufacturerId = manufacturerId;
+	}
+
+	public String getXmid() {
+		return xmid;
+	}
+
+	public void setXmid(String xmid) {
+		this.xmid = xmid;
+	}
+
+	public String getSubId() {
+		return subId;
+	}
+
+	public void setSubId(String subId) {
+		this.subId = subId;
+	}
 
 	public String getJdbh() {
 		return jdbh;

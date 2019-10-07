@@ -83,10 +83,10 @@ public class ProjectDustEmissionApi {
      * 删除项目对应的扬尘设备SN
      */
     @PostMapping( "/remove")
-    public AjaxResult projectDustEmissionRemove(@RequestParam(value = "ids") String ids)
+    public AjaxResult projectDustEmissionRemove(@RequestParam(value = "id") Integer id,@RequestParam(value = "devCcrq",required = false)String devCcrq)
     {
-        logger.info("com.hujiang.project.zhgd.sbProjectDustEmission.ProjectDustEmissionApi.projectDustEmissionRemove :ids="+ids);
-        return client.projectDustEmissionRemove(ids);
+        logger.info("com.hujiang.project.zhgd.sbProjectDustEmission.ProjectDustEmissionApi.projectDustEmissionRemove :id="+id);
+        return client.projectDustEmissionRemove(id,devCcrq);
     }
 
 

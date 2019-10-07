@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -105,7 +106,7 @@ public class HjInformationApi extends BaseController {
                 OutputStream outputStream = response.getOutputStream();) {
 
             response.setContentType("application/x-download");
-            response.addHeader("Content-Disposition", "attachment;filename=" + fileName);
+            response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
 
             IOUtils.copy(inputStream, outputStream);
         } catch (Exception e) {

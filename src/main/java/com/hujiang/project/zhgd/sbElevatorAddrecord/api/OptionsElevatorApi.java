@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.hujiang.project.zhgd.client.SystemClient;
 import com.hujiang.project.zhgd.hjSystemUser.domain.HjSystemUser;
 import com.hujiang.project.zhgd.hjSystemUser.service.IHjSystemUserService;
+import com.hujiang.project.zhgd.sbElevatorAddrecord.api.domain.OptionsElevator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,24 +23,19 @@ public class OptionsElevatorApi {
         return systemClient.getElevatorList(projectId);
     }
     @PostMapping("/insertElevator")
-    public JSONObject insertElevator(@RequestParam("elevatorName")String elevatorName,
-                                  @RequestParam("hxzId")String hxzId,
-                                     @RequestParam("projectId")Integer projectId){
-
-        return systemClient.insertElevator(elevatorName,hxzId,projectId);
+    public JSONObject insertElevator(OptionsElevator optionsElevator){
+        return systemClient.insertElevator(optionsElevator);
     }
     @PostMapping("/updateElevator")
-    public JSONObject updateElevator(@RequestParam("id")Integer id,
-                                  @RequestParam("elevatorName")String elevatorName,
-                                  @RequestParam("hxzId")String hxzId){
+    public JSONObject updateElevator(OptionsElevator optionsElevator){
 
-        return systemClient.updateElevator(id,elevatorName,hxzId);
+        return systemClient.updateElevator(optionsElevator);
     }
 
     @PostMapping("/deleteElevator")
-    public JSONObject deleteElevator(@RequestParam("id")Integer id){
+    public JSONObject deleteElevator(@RequestParam("id")Integer id,@RequestParam(value = "devCcrq",required =false)String devCcrq){
 
-        return systemClient.deleteElevator(id);
+        return systemClient.deleteElevator(id,devCcrq);
     }
     @PostMapping("/getElevatorUserList")
     public JSONObject getElevatorUserList(@RequestParam("projectId")Integer projectId,

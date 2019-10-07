@@ -77,14 +77,14 @@ public class ProjectContnroller extends BaseController {
      * @throws Exception
      */
     @RequestMapping("/addProject")
-    public Map<String,Object> addSave(HjProject hjProject, Integer cid, MultipartFile file, HjConstructionCompany hjConstructionCompany,String remark1 ,String shortName1  ) throws Exception {
+    public Map<String,Object> addSave(HjProject hjProject, Integer cid, MultipartFile file,String remark1 ,String shortName1  ) throws Exception {
         System.out.println(cid);
         Map<String,Object> map  = new HashMap<>();
         map.put("hjProject",hjProject);
         map.put("cid",cid);
         map.put("remark1",remark1);
         map.put("shortName1",shortName1);
-        map.put("hjConstructionCompany",hjConstructionCompany);
+
         return(Map<String,Object>) restTemplateUtil.PostFile(map,Constants.SERVICE_NAME+"provider/project/addProject",file);
     }
 

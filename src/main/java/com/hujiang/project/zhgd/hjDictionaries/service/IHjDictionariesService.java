@@ -22,4 +22,12 @@ public interface IHjDictionariesService
      */
 	Map<String, Object> selectHjDictionariesList(HjDictionaries hjDictionaries);
 
+	/**
+     * 查询字典列表
+     *
+     * @param
+     * @return 字典集合
+     */
+	Map<String, Object> selectDictionariesWorkType(Integer pid);
+
 }

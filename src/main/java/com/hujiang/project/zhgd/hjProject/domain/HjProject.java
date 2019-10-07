@@ -91,12 +91,12 @@ public class HjProject
 	{
 		return projectName;
 	}
-	public void setShortName(String shortName) 
+	public void setShortName(String shortName)
 	{
 		this.shortName = shortName;
 	}
 
-	public String getShortName() 
+	public String getShortName()
 	{
 		return shortName;
 	}

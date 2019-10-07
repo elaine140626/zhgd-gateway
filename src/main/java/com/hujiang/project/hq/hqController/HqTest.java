@@ -18,9 +18,15 @@ public class HqTest {
     }
       @PostMapping(value = "/FeedBack.ashx")
     public void feedBack(@RequestBody String json){
-        System.out.println(json);
+        System.out.println("返回"+json);
 
         client.feedBack(json);
+    }
+    @PostMapping(value = "/UploadAttendance.ashx")
+    public void uploadAttendance(@RequestBody String json){
+//        System.out.println("考勤"+json);
+        client.hqRecord(json);
+//        client.feedBack(json);
     }
 
 }

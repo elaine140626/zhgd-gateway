@@ -40,6 +40,16 @@ public class DictionariesApi {
     {
        return  hjDictionariesService.selectHjDictionariesList(hjDictionaries);
     }
+    /**
+     * 工种信息
+     * @param
+     * @return
+     */
+    @RequestMapping("/selectDictionariesWorkType")
+    public Map<String, Object> selectDictionariesWorkType(Integer pid)
+    {
+       return  hjDictionariesService.selectDictionariesWorkType(pid);
+    }
 
     /**
      * 热门工种
@@ -51,7 +61,15 @@ public class DictionariesApi {
         return systemClient.selectWorkType(hjDictionaries);
     }
 
-
+    /**
+     * 查询对接平台列表
+     * @param
+     * @return
+     */
+    @RequestMapping(value ="/cxdjpt",method = RequestMethod.POST)
+    public JSONObject caydjpt(HjDictionaries hjDictionaries){
+        return systemClient.caydjpt(hjDictionaries);
+    }
 
 
 
