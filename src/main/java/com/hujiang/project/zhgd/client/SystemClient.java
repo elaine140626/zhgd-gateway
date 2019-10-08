@@ -472,8 +472,8 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/appDustApi/updateExcessive")
-    public JSONObject updateExcessive(@RequestParam(value = "id")Integer id,
-                                      @RequestParam(value = "status")Integer status);
+    public JSONObject updateExcessive(@RequestParam(value = "id",required = false)Integer id,
+                                      @RequestParam(value = "status",required = false)Integer status);
 
     /**
      * tsp/巡检通知未读总数
@@ -1502,7 +1502,7 @@ public interface SystemClient {
      * @return
      */
     @PostMapping("/provider/appProjectDustEmission/getAppProjectDustEmission")
-    JSONObject getAppProjectDustEmission(@RequestParam(value = "projectId")Long projectId);
+    JSONObject getAppProjectDustEmission(@RequestParam(value = "projectId",required = false)Long projectId);
 
     /**
      * 查询扬尘记录
