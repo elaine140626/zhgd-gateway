@@ -26,7 +26,7 @@ public class AppProjectDustEmissionApi {
      * @return
      */
     @PostMapping("getAppProjectDustEmission")
-    public JSONObject getAppProjectDustEmission(@RequestParam(value = "projectId")Long projectId){
+    public JSONObject getAppProjectDustEmission(@RequestParam(value = "projectId",required = false)Long projectId){
         logger.info("com.hujiang.project.zhgd.sbProjectDustEmission.AppProjectDustEmissionApi.getAppProjectDustEmission:projectId="+projectId);
         return client.getAppProjectDustEmission(projectId);
     }

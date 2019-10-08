@@ -24,8 +24,8 @@ public class AppDust extends BaseController {
     }
 
     @PostMapping(value = "/updateExcessive")
-    public JSONObject updateExcessive(@RequestParam(value = "id")Integer id,
-                                      @RequestParam(value = "status")Integer status){
+    public JSONObject updateExcessive(@RequestParam(value = "id",required = false)Integer id,
+                                      @RequestParam(value = "status",required = false)Integer status){
         return systemClient.updateExcessive(id, status);
     }
 

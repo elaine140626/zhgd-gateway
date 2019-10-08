@@ -39,7 +39,7 @@ public class AppUnloader {
      */
     @PostMapping(value = "/getSbUnloaderHistory")
     public JSONObject getSbUnloaderHistory(@RequestParam(value = "projectId")Integer projectId,
-                                           @RequestParam(value = "deviceId") String deviceId,
+                                           @RequestParam(value = "deviceId",required = false) String deviceId,
                                            @RequestParam(value = "time",required = false)String time,
                                            PageDomain pageDomain){
 
