@@ -2483,5 +2483,7 @@ public interface SystemClient {
     @PostMapping(value = "/provider/hjDeeppit/selectUserAlarmsByFactor" )
     public AjaxResult selectUserAlarmsByFactorDeeppit(@RequestParam(value = "factorName")String factorName, @RequestParam(value = "date") String date);
 
+    @PostMapping(value = "/provider/ys/setRecord")
+    public String setRecordYs(@RequestBody String json);
 }
 
