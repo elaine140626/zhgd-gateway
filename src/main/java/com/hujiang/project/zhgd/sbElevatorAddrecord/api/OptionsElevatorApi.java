@@ -28,7 +28,6 @@ public class OptionsElevatorApi {
     }
     @PostMapping("/updateElevator")
     public JSONObject updateElevator(OptionsElevator optionsElevator){
-
         return systemClient.updateElevator(optionsElevator);
     }
 

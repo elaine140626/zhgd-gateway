@@ -19,6 +19,7 @@ public class ShanDongDustEmission {
     @RequestMapping("/addDustEmission")
     @ResponseBody
     public Map<String,Object> addDustEmission(@RequestBody String json){
+
         return systemClient.addDustEmission(json);
     }
 }
