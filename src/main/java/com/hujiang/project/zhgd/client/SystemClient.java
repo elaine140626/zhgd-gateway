@@ -2496,4 +2496,3 @@ public interface SystemClient {
     public AjaxResult selectUserAlarmsByFactorDeeppit(@RequestParam(value = "factorName") String factorName, @RequestParam(value = "date") String date);
 
 }
-
