@@ -2495,4 +2495,11 @@ public interface SystemClient {
     @PostMapping(value = "/provider/hjDeeppit/selectUserAlarmsByFactor" )
     public AjaxResult selectUserAlarmsByFactorDeeppit(@RequestParam(value = "factorName") String factorName, @RequestParam(value = "date") String date);
 
+    /**
+     * 海康人脸机记录
+     * @param json
+     * @return
+     */
+    @PostMapping(value = "/provider/ys/setRecord")
+    public String setRecordYs(@RequestBody String json);
 }
