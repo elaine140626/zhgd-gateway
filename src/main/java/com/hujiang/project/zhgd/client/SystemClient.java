@@ -66,14 +66,25 @@ import java.util.Map;
 
 @FeignClient(value = "user-api")
 public interface SystemClient {
-
-
+    @PostMapping("/provider/pcEquipmentWarning/warningCount")
+    public JSONObject warningCount(@RequestParam(value = "projectId") Integer projectId);
+    @PostMapping("/provider/pcEquipmentWarning/getWarningList")
+    public JSONObject getWarningList(@RequestParam(value = "userName",required = false)String userName,
+                                     @RequestParam(value = "userId",required = false)Integer userId,
+                                     @RequestParam(value = "areaName",required = false)String areaName,
+                                     @RequestParam(value = "areaId",required =  false)Integer areaId,
+                                     @RequestParam(value = "projectId",required = false)Integer projectId,
+                                     @RequestParam(value = "warningType",required = false)Integer warningType,
+                                     @RequestParam(value = "startTime",required = false)String startTime,
+                                     @RequestParam(value = "endTime",required = false)String endTime,
+                                     @RequestParam(value = "pageSize",required = false)Integer pageSize,
+                                     @RequestParam(value = "pageNum",required = false)Integer pageNum);
     @PostMapping(value ="/provider/cay")
     public JSONObject cay(@RequestParam("projectId") Integer projectId);
 
     @PostMapping(value ="/provider/caySbDelete")
-    public JSONObject deletecay(@RequestParam("sn") String sn,@RequestParam("xmid") String xmid,@RequestParam("devType") String devType,
-                                @RequestParam("devCcrq") String devCcrq,@RequestParam("subId") String subId);
+    public JSONObject deletecay(@RequestParam("sn") String sn, @RequestParam("xmid") String xmid, @RequestParam("devType") String devType,
+                                @RequestParam("devCcrq") String devCcrq, @RequestParam("subId") String subId);
 
     /** 1.高支模监测因素*/
     @PostMapping(value ="/provider/formWorkExternalApi/addFormWorkDisplay")
@@ -82,7 +93,6 @@ public interface SystemClient {
 
     @PostMapping(value ="/provider/formWorkExternalApi/addFormWorkFactor")
     public Map<String,Object> addFormWorkFactor(@RequestBody String json);
-
 
     @PostMapping(value = "/provider/formWorkExternalApi/addFormWorkGroup")
     public Map<String,Object> addFormWorkGroup(@RequestBody String json);
@@ -118,247 +128,248 @@ public interface SystemClient {
     public Map<String,Object> addElectricityBox(@RequestBody String json);
 
     @PostMapping(value = "/provider/unloaderPcApi/getUnloaderList")
-    public JSONObject getUnloaderPcList(@RequestParam("projectId")Integer projectId);
+    public JSONObject getUnloaderPcList(@RequestParam("projectId") Integer projectId);
 
     @PostMapping(value = "/provider/unloaderPcApi/getSbUnloaderRealtimeList")
-    public JSONObject getSbUnloaderRealtimePcList(@RequestParam(value = "projectId")Integer projectId,
-                                                @RequestParam(value = "deviceId") String deviceId);
+    public JSONObject getSbUnloaderRealtimePcList(@RequestParam(value = "projectId") Integer projectId,
+                                                  @RequestParam(value = "deviceId") String deviceId);
 
     @PostMapping(value = "/provider/unloaderPcApi/getRealtimeHistory")
-    public JSONObject getRealtimeHistory(@RequestParam("projectId")Integer projectId,
+    public JSONObject getRealtimeHistory(@RequestParam("projectId") Integer projectId,
                                          @RequestParam(value = "deviceId") String deviceId,
-                                         @RequestParam(value = "time",required = false)String time,
-                                         @RequestParam(value = "alarmType")Integer alarmType,
-                                         @RequestParam("pageSize")Integer pageSize,
-                                         @RequestParam("pageNum")Integer pageNum);
+                                         @RequestParam(value = "time", required = false) String time,
+                                         @RequestParam(value = "alarmType") Integer alarmType,
+                                         @RequestParam("pageSize") Integer pageSize,
+                                         @RequestParam("pageNum") Integer pageNum);
 
     @PostMapping(value = "/provider/unloaderPcApi/getSbUnloaderHistory")
-    public JSONObject getSbUnloaderPcHistory(@RequestParam(value = "projectId")Integer projectId,
-                                           @RequestParam(value = "deviceId") String deviceId,
-                                           @RequestParam(value = "time",required = false)String time,
-                                             @RequestParam("pageSize")Integer pageSize,
-                                             @RequestParam("pageNum")Integer pageNum);
+    public JSONObject getSbUnloaderPcHistory(@RequestParam(value = "projectId") Integer projectId,
+                                             @RequestParam(value = "deviceId") String deviceId,
+                                             @RequestParam(value = "time", required = false) String time,
+                                             @RequestParam("pageSize") Integer pageSize,
+                                             @RequestParam("pageNum") Integer pageNum);
     //卸料pc报警数据历史记录导出
     @PostMapping("/provider/unloaderPcApi/exportUnloaderAlarmtime")
-    public List<ExportUnloaderAlarmtime> exportUnloaderAlarmtime(@RequestParam(value = "ids",required = false)String ids,
-                                                                 @RequestParam(value = "deviceId",required = false)String deviceId,
-                                                                 @RequestParam(value = "alarmType",required = false)Integer alarmType);
+    public List<ExportUnloaderAlarmtime> exportUnloaderAlarmtime(@RequestParam(value = "ids", required = false) String ids,
+                                                                 @RequestParam(value = "deviceId", required = false) String deviceId,
+                                                                 @RequestParam(value = "alarmType", required = false) Integer alarmType);
     //卸料pc实时数据历史记录导出
     @PostMapping("/provider/unloaderPcApi/exportUnloaderRealtime")
-    public List<ExportUnloaderRealtime> exportUnloaderRealtime(@RequestParam(value = "ids",required = false)String ids,
-                                                               @RequestParam(value = "deviceId",required = false)String deviceId);
+    public List<ExportUnloaderRealtime> exportUnloaderRealtime(@RequestParam(value = "ids", required = false) String ids,
+                                                               @RequestParam(value = "deviceId", required = false) String deviceId);
     /** 卸料app报警记录*/
     @PostMapping(value = "/provider/unloaderAppApi/getSbUnloaderAlarmtimeList")
-    public JSONObject getSbUnloaderAlarmtimeList(@RequestParam("projectId")Integer projectId,
+    public JSONObject getSbUnloaderAlarmtimeList(@RequestParam("projectId") Integer projectId,
                                                  @RequestParam(value = "deviceId") String deviceId,
-                                                 @RequestParam(value = "time",required = false)String time,
-                                                 @RequestParam("pageSize")Integer pageSize,
-                                                 @RequestParam("pageNum")Integer pageNum);
+                                                 @RequestParam(value = "time", required = false) String time,
+                                                 @RequestParam("pageSize") Integer pageSize,
+                                                 @RequestParam("pageNum") Integer pageNum);
     /**  卸料app历史记录*/
     @PostMapping(value = "/provider/unloaderAppApi/getSbUnloaderHistory")
-    public JSONObject getSbUnloaderHistory(@RequestParam(value = "projectId")Integer projectId,
+    public JSONObject getSbUnloaderHistory(@RequestParam(value = "projectId") Integer projectId,
                                            @RequestParam(value = "deviceId") String deviceId,
-                                           @RequestParam(value = "time",required = false)String time,
-                                           @RequestParam("pageSize")Integer pageSize,
-                                           @RequestParam("pageNum")Integer pageNum);
+                                           @RequestParam(value = "time", required = false) String time,
+                                           @RequestParam("pageSize") Integer pageSize,
+                                           @RequestParam("pageNum") Integer pageNum);
 
     /** 卸料app界面*/
     @PostMapping(value = "/provider/unloaderAppApi/getSbUnloaderRealtimeList")
-    public JSONObject getSbUnloaderRealtimeList(@RequestParam(value = "projectId")Integer projectId,
+    public JSONObject getSbUnloaderRealtimeList(@RequestParam(value = "projectId") Integer projectId,
                                                 @RequestParam(value = "deviceId") String deviceId);
     /** 卸料app切换设备*/
     @PostMapping(value = "/provider/unloaderAppApi/getUnloader")
-    public JSONObject getUnloader(@RequestParam("projectId")Integer projectId);
+    public JSONObject getUnloader(@RequestParam("projectId") Integer projectId);
+
     /**  卸料注册信息 */
-    @PostMapping(value = "/unloader/zhgd/LoginDataUnloadingPlatform")
+    @PostMapping(value = "/provider/zhgd/LoginDataUnloadingPlatform")
     public JSONObject LoginDataUnloadingPlatform(@RequestBody String json);
 
     /** 卸料基础参数 */
-    @PostMapping(value = "/unloader/zhgd/BaseDataUnloadingPlatform")
+    @PostMapping(value = "/provider/zhgd/BaseDataUnloadingPlatform")
     public JSONObject BaseDataUnloadingPlatform(@RequestBody String json);
 
     /** 卸料实时数据 */
-    @PostMapping(value = "/unloader/zhgd/RealtimeDataUnloadingPlatform")
+    @PostMapping(value = "/provider/zhgd/RealtimeDataUnloadingPlatform")
     public JSONObject RealtimeDataUnloadingPlatform(@RequestBody String json);
 
     /** 卸料报警时段数据 */
-    @PostMapping(value = "/unloader/zhgd/AlarmDataUnloadingPlatform")
+    @PostMapping(value = "/provider/zhgd/AlarmDataUnloadingPlatform")
     public JSONObject AlarmDataUnloadingPlatform(@RequestBody String json);
     /** 卸料报警时刻数据*/
-    @PostMapping(value = "/unloader/zhgd/AlarmStartUnloadingPlatform")
+    @PostMapping(value = "/provider/zhgd/AlarmStartUnloadingPlatform")
     public JSONObject AlarmStartUnloadingPlatform(@RequestBody String json);
 
     //平台设置：人员定位设置
-    @PostMapping(value = "/provider/LocationApi/getAreaList")
-    public JSONObject getLocationAreaList(@RequestParam("projectId")Integer projectId);
+    @PostMapping(value = "/provider/OptionsLocationApi/getAreaList")
+    public JSONObject getLocationAreaList(@RequestParam("projectId") Integer projectId);
     //修改人员定位工业区
-    @PostMapping(value = "/provider/LocationApi/updateArea")
-    public JSONObject updateLocationArea(@RequestParam("areaId")Integer areaId,
-                                 @RequestParam("areaName")String areaName,
-                                 @RequestParam("areaAddress")String areaAddress,
-                                 @RequestParam("constructionId")Integer constructionId);
+    @PostMapping(value = "/provider/OptionsLocationApi/updateArea")
+    public JSONObject updateLocationArea(@RequestParam("areaId") Integer areaId,
+                                         @RequestParam("areaName") String areaName,
+                                         @RequestParam("areaAddress") String areaAddress,
+                                         @RequestParam("constructionId") Integer constructionId);
     //新增人员定位工业区
-    @PostMapping(value = "/provider/LocationApi/addArea")
-    public JSONObject addLocationArea(@RequestParam("areaName")String areaName,
-                              @RequestParam("areaAddress")String areaAddress,
-                              @RequestParam("constructionId")Integer constructionId,
-                              @RequestParam("areaXloc")Double areaXloc,
-                              @RequestParam("areaYloc")Double areaYloc,
-                              @RequestParam("radius")Double radius,
-                              @RequestParam("projectId")Integer projectId);
+    @PostMapping(value = "/provider/OptionsLocationApi/addArea")
+    public JSONObject addLocationArea(@RequestParam("areaName") String areaName,
+                                      @RequestParam("areaAddress") String areaAddress,
+                                      @RequestParam("constructionId") Integer constructionId,
+                                      @RequestParam("areaXloc") Double areaXloc,
+                                      @RequestParam("areaYloc") Double areaYloc,
+                                      @RequestParam("radius") Double radius,
+                                      @RequestParam("projectId") Integer projectId);
 
-    @PostMapping(value = "/provider/LocationApi/deleteArea")
-    public JSONObject deleteLocationArea(@RequestParam("areaId")Integer areaId);
+    @PostMapping(value = "/provider/OptionsLocationApi/deleteArea")
+    public JSONObject deleteLocationArea(@RequestParam("areaId") Integer areaId);
 
-    @PostMapping(value = "/provider/LocationApi/getAreaUserList")
-    public JSONObject getLocationUserList(@RequestParam(value = "areaId",required = false) Integer areaId,
-                                            @RequestParam(value = "filed",required = false)String filed,
-                                            @RequestParam(value = "projectId")Integer projectId,
-                                            @RequestParam("pageSize")Integer pageSize,
-                                            @RequestParam("pageNum")Integer pageNum);
+    @PostMapping(value = "/provider/OptionsLocationApi/getAreaUserList")
+    public JSONObject getLocationUserList(@RequestParam(value = "areaId", required = false) Integer areaId,
+                                          @RequestParam(value = "filed", required = false) String filed,
+                                          @RequestParam(value = "projectId") Integer projectId,
+                                          @RequestParam("pageSize") Integer pageSize,
+                                          @RequestParam("pageNum") Integer pageNum);
 
-    @PostMapping("/provider/LocationApi/getAreaById")
-    public JSONObject getAreaById(@RequestParam("areaId")Integer areaId);
+    @PostMapping("/provider/OptionsLocationApi/getAreaById")
+    public JSONObject getAreaById(@RequestParam("areaId") Integer areaId);
 
-    @PostMapping(value = "/provider/LocationApi/updateAreaUser")
+    @PostMapping(value = "/provider/OptionsLocationApi/updateAreaUser")
     public JSONObject updateAreaUser(@RequestParam(value = "areaId") Integer areaId,
-                                     @RequestParam(value = "userName")String userName,
-                                     @RequestParam(value = "userPhone",required = false)String userPhone,
-                                     @RequestParam(value = "imei")String imei,
-                                     @RequestParam(value = "userId")Integer userId);
+                                     @RequestParam(value = "userName") String userName,
+                                     @RequestParam(value = "userPhone", required = false) String userPhone,
+                                     @RequestParam(value = "imei") String imei,
+                                     @RequestParam(value = "userId") Integer userId);
 
-    @PostMapping(value = "/provider/LocationApi/deleteAreaUser")
+    @PostMapping(value = "/provider/OptionsLocationApi/deleteAreaUser")
     public JSONObject deleteLocationAreaUser(@RequestParam(value = "userId") Integer userId,
-                                             @RequestParam(value = "areaId")Integer areaId);
+                                             @RequestParam(value = "areaId") Integer areaId);
 
-    @PostMapping(value = "/provider/LocationApi/addAreaUser")
-    public JSONObject addLocationAreaUser(@RequestParam(value = "areaId")Integer areaId,
-                                  @RequestParam(value = "userName")String userName,
-                                  @RequestParam(value = "userPhone",required = false)String userPhone,
-                                  @RequestParam(value = "imei")String imei);
+    @PostMapping(value = "/provider/OptionsLocationApi/addAreaUser")
+    public JSONObject addLocationAreaUser(@RequestParam(value = "areaId") Integer areaId,
+                                          @RequestParam(value = "userName") String userName,
+                                          @RequestParam(value = "userPhone", required = false) String userPhone,
+                                          @RequestParam(value = "imei") String imei);
 
     @PostMapping(value = "/provider/OptionsConstructionApi/getConstructionList")
     public JSONObject getConstructionList(@RequestParam("projectId") Integer projectId,
-                                                         @RequestParam("pageSize")Integer pageSize,
-                                                         @RequestParam("pageNum")Integer pageNum);
+                                          @RequestParam("pageSize") Integer pageSize,
+                                          @RequestParam("pageNum") Integer pageNum);
 
     @PostMapping("/provider/systemuser/app/updateUserById")
-    public JSONObject updateUserById(@RequestParam(value = "userName",required = false)String userName,
-                                     @RequestParam(value = "userPhone",required = false)String userPhone,
-                                     @RequestParam(value = "userId",required = false)Integer userId);
+    public JSONObject updateUserById(@RequestParam(value = "userName", required = false) String userName,
+                                     @RequestParam(value = "userPhone", required = false) String userPhone,
+                                     @RequestParam(value = "userId", required = false) Integer userId);
     //塔吊：设备列表
     @PostMapping("/provider/OptionsCraneApi/getCraneList")
-    public JSONObject getCraneList(@RequestParam("projectId")Integer projectId);
+    public JSONObject getCraneList(@RequestParam("projectId") Integer projectId);
     //塔吊：修改删除
     @PostMapping("/provider/OptionsCraneApi/updateCrane")
-    public JSONObject updateCrane(@RequestParam("id")String id,
-                                  @RequestParam("craneName")String craneName,
-                                  @RequestParam("hxzId")String hxzId,
-                                  @RequestParam("serialNum")String serialNum,//广东省统一安装告 知编号（产权备案 编号）
-                                  @RequestParam("tcMaxScope")String tcMaxScope,//最大幅度（M）
-                                  @RequestParam("tcMaxHeight")String tcMaxHeight,//最大高度（M)
-                                  @RequestParam("tcLoadCapacity")String tcLoadCapacity,//最大载重（kg）
-                                  @RequestParam("tcLoadMoment")String tcLoadMoment,//额定起重力矩（N·m）
-                                  @RequestParam(value = "jdbh" ,required = false)String jdbh,
-                                  @RequestParam(value = "xmid" ,required = false)String xmid,
-                                  @RequestParam(value = "subId" ,required = false)String subId,
-                                  @RequestParam("scznl")String scznl,
-                                  @RequestParam("manufacturerId")String manufacturerId,
-                                  @RequestParam("installCompany")String installCompany //设备安装单位
+    public JSONObject updateCrane(@RequestParam("id") String id,
+                                  @RequestParam("craneName") String craneName,
+                                  @RequestParam("hxzId") String hxzId,
+                                  @RequestParam("serialNum") String serialNum,//广东省统一安装告 知编号（产权备案 编号）
+                                  @RequestParam("tcMaxScope") String tcMaxScope,//最大幅度（M）
+                                  @RequestParam("tcMaxHeight") String tcMaxHeight,//最大高度（M)
+                                  @RequestParam("tcLoadCapacity") String tcLoadCapacity,//最大载重（kg）
+                                  @RequestParam("tcLoadMoment") String tcLoadMoment,//额定起重力矩（N·m）
+                                  @RequestParam(value = "jdbh", required = false) String jdbh,
+                                  @RequestParam(value = "xmid", required = false) String xmid,
+                                  @RequestParam(value = "subId", required = false) String subId,
+                                  @RequestParam("scznl") String scznl,
+                                  @RequestParam("manufacturerId") String manufacturerId,
+                                  @RequestParam("installCompany") String installCompany //设备安装单位
 
     );
     //塔吊：删除设备
     @PostMapping("/provider/OptionsCraneApi/deleteCrane")
-    public JSONObject deleteCrane(@RequestParam("id")Integer id,@RequestParam(value = "devCcrq",required =false)String devCcrq);
+    public JSONObject deleteCrane(@RequestParam("id") Integer id, @RequestParam(value = "devCcrq", required = false) String devCcrq);
     //塔吊：添加设备
     @PostMapping("/provider/OptionsCraneApi/insertCrane")
-    public JSONObject insertCrane(@RequestParam("craneName")String craneName,
-                                  @RequestParam("hxzId")String hxzId,
-                                  @RequestParam("projectId")Integer projectId,
-                                  @RequestParam("serialNum")String serialNum,//广东省统一安装告 知编号（产权备案 编号）
-                                  @RequestParam("tcMaxScope")String tcMaxScope,//最大幅度（M）
-                                  @RequestParam("tcMaxHeight")String tcMaxHeight,//最大高度（M)
-                                  @RequestParam("tcLoadCapacity")String tcLoadCapacity,//最大载重（kg）
-                                  @RequestParam("tcLoadMoment")String tcLoadMoment,//额定起重力矩（N·m）
-                                  @RequestParam(value = "jdbh",required = false)String jdbh,
-                                  @RequestParam(value = "xmid" ,required = false)String xmid,
-                                  @RequestParam(value = "subId" ,required = false)String subId,
-                                  @RequestParam("scznl")String scznl,
-                                  @RequestParam("manufacturerId")String manufacturerId,
-                                  @RequestParam("installCompany")String installCompany);
+    public JSONObject insertCrane(@RequestParam("craneName") String craneName,
+                                  @RequestParam("hxzId") String hxzId,
+                                  @RequestParam("projectId") Integer projectId,
+                                  @RequestParam("serialNum") String serialNum,//广东省统一安装告 知编号（产权备案 编号）
+                                  @RequestParam("tcMaxScope") String tcMaxScope,//最大幅度（M）
+                                  @RequestParam("tcMaxHeight") String tcMaxHeight,//最大高度（M)
+                                  @RequestParam("tcLoadCapacity") String tcLoadCapacity,//最大载重（kg）
+                                  @RequestParam("tcLoadMoment") String tcLoadMoment,//额定起重力矩（N·m）
+                                  @RequestParam(value = "jdbh", required = false) String jdbh,
+                                  @RequestParam(value = "xmid", required = false) String xmid,
+                                  @RequestParam(value = "subId", required = false) String subId,
+                                  @RequestParam("scznl") String scznl,
+                                  @RequestParam("manufacturerId") String manufacturerId,
+                                  @RequestParam("installCompany") String installCompany);
     //塔吊：报警设置列表
     @PostMapping("/provider/OptionsCraneApi/getCraneUserList")
-    public JSONObject getCraneUserList(@RequestParam("projectId")Integer projectId,
-                                       @RequestParam(value = "filed",required = false)String filed);
+    public JSONObject getCraneUserList(@RequestParam("projectId") Integer projectId,
+                                       @RequestParam(value = "filed", required = false) String filed);
 
     //升降机：设备列表
     @PostMapping("/provider/OptionsElevatorApi/getElevatorList")
-    public JSONObject getElevatorList(@RequestParam("projectId")Integer projectId);
+    public JSONObject getElevatorList(@RequestParam("projectId") Integer projectId);
     //升降机：修改设备
     @PostMapping("/provider/OptionsElevatorApi/updateElevator")
     public JSONObject updateElevator(@RequestBody OptionsElevator optionsElevator);
     //升降机：删除设备
     @PostMapping("/provider/OptionsElevatorApi/deleteElevator")
-    public JSONObject deleteElevator(@RequestParam("id")Integer id,@RequestParam(value = "devCcrq",required =false)String devCcrq);
+    public JSONObject deleteElevator(@RequestParam("id") Integer id, @RequestParam(value = "devCcrq", required = false) String devCcrq);
     //升降机：添加设备
     @PostMapping("/provider/OptionsElevatorApi/insertElevator")
     public JSONObject insertElevator(@RequestBody OptionsElevator optionsElevator);
     //升降机：报警设置列表
     @PostMapping("/provider/OptionsElevatorApi/getElevatorUserList")
-    public JSONObject getElevatorUserList(@RequestParam("projectId")Integer projectId,
-                                          @RequestParam(value = "filed",required = false)String filed);
+    public JSONObject getElevatorUserList(@RequestParam("projectId") Integer projectId,
+                                          @RequestParam(value = "filed", required = false) String filed);
 
     //推送开关
     @PostMapping("/provider/OptionsPushApi/optionsPush")
-    public JSONObject optionsPush(@RequestParam(value = "onOff")Integer onOff,
-                                  @RequestParam(value = "userId")Integer userId,
-                                  @RequestParam(value = "privilegesId")Integer privilegesId);
+    public JSONObject optionsPush(@RequestParam(value = "onOff") Integer onOff,
+                                  @RequestParam(value = "userId") Integer userId,
+                                  @RequestParam(value = "privilegesId") Integer privilegesId);
     /**
      * 平台设置：安全/质量巡检工区设置
      * @param projectId
      * @return
      */
     @PostMapping(value = "/provider/optionsSafetyApi/getOptionsList")
-    public JSONObject getOptionsList(@RequestParam(value = "projectId")Integer projectId);
+    public JSONObject getOptionsList(@RequestParam(value = "projectId") Integer projectId);
     @PostMapping(value = "/provider/optionsSafetyApi/getUserList")
-    public JSONObject getUserList(@RequestParam(value = "projectId")Integer projectId);
+    public JSONObject getUserList(@RequestParam(value = "projectId") Integer projectId);
     //增加工业区
     @PostMapping("/provider/optionsSafetyApi/addArea")
-    public JSONObject addSafetyArea(@RequestParam("areaName")String areaName,
-                              @RequestParam("address")String address,
-                              @RequestParam("constructionId")Integer constructionId);
+    public JSONObject addSafetyArea(@RequestParam("areaName") String areaName,
+                                    @RequestParam("address") String address,
+                                    @RequestParam("constructionId") Integer constructionId);
     //修改工业区
     @PostMapping("/provider/optionsSafetyApi/updateArea")
-    public JSONObject updateSafetyArea(@RequestParam("areaId")Integer areaId,
-                                 @RequestParam("areaName")String areaName,
-                                 @RequestParam("address")String address,
-                                 @RequestParam("constructionId")Integer constructionId);
+    public JSONObject updateSafetyArea(@RequestParam("areaId") Integer areaId,
+                                       @RequestParam("areaName") String areaName,
+                                       @RequestParam("address") String address,
+                                       @RequestParam("constructionId") Integer constructionId);
 
     //增加负责人
     @PostMapping("/provider/optionsSafetyApi/addAreaUser")
-    public JSONObject addSafetyAreaUser(@RequestParam("userId")Integer userId,
-                                  @RequestParam("areaId")Integer areaId);
+    public JSONObject addSafetyAreaUser(@RequestParam("userId") Integer userId,
+                                        @RequestParam("areaId") Integer areaId);
 
     // 删除负责人
     @PostMapping("/provider/optionsSafetyApi/deleteAreaUser")
-    public JSONObject deleteSafetyAreaUser(@RequestParam("userId")Integer userId,
-                                     @RequestParam("areaId")Integer areaId);
+    public JSONObject deleteSafetyAreaUser(@RequestParam("userId") Integer userId,
+                                           @RequestParam("areaId") Integer areaId);
 
     @PostMapping("/provider/optionsSafetyApi/deleteArea")
-    public JSONObject deleteSafetyArea(@RequestParam("areaId")Integer areaId);
+    public JSONObject deleteSafetyArea(@RequestParam("areaId") Integer areaId);
 
 
     /**
      * 添加驾驶员车牌
      * */
     @PostMapping(value = "/provider/driver/insertDriver")
-    public JSONObject addDriver(@RequestParam("driver") String driver,@RequestParam("vehicle") String vehicle,@RequestParam("projectId") Integer projectId);
+    public JSONObject addDriver(@RequestParam("driver") String driver, @RequestParam("vehicle") String vehicle, @RequestParam("projectId") Integer projectId);
 
     /**
      * 查询司机列表
      * */
     @PostMapping(value = "/provider/driver/selectAll")
-    public JSONObject all(@RequestBody HjZhgdDriver hjZhgdDriver,@RequestParam("pageSize") Integer pageSize,@RequestParam("pageNum")Integer pageNum);
+    public JSONObject all(@RequestBody HjZhgdDriver hjZhgdDriver, @RequestParam("pageSize") Integer pageSize, @RequestParam("pageNum") Integer pageNum);
 
     /**
      * 查询设备厂商列表
@@ -398,7 +409,7 @@ public interface SystemClient {
      * 设置车位数
      * */
     @PostMapping(value = "/provider/parkings/carUpd")
-    public JSONObject carUpd(@RequestParam("deptId") String deptId,@RequestParam("pkcount") Integer pkcount);
+    public JSONObject carUpd(@RequestParam("deptId") String deptId, @RequestParam("pkcount") Integer pkcount);
 
     /**
      * 版本号
@@ -412,8 +423,8 @@ public interface SystemClient {
      *推送设置别名
      */
     @PostMapping(value = "/provider/safetyAppApi/updateAlias")
-    public JSONObject updateAlias(@RequestParam(value = "userId")int userId,
-                                  @RequestParam(value = "userAlias")String alias);
+    public JSONObject updateAlias(@RequestParam(value = "userId") int userId,
+                                  @RequestParam(value = "userAlias") String alias);
     /**
      * 获取信息接口
      */
@@ -429,10 +440,10 @@ public interface SystemClient {
      */
     @PostMapping("/provider/safetyAppApi/getAfterRectification")
     public JSONObject getAfterRectification(@RequestParam(value = "projectId") Integer projectId,
-                                     @RequestParam(value = "status") Integer status,
-                                     @RequestParam(value = "differentiate")Integer differentiate,
-                                     @RequestParam(value = "userId")Integer userId,
-                                     @RequestParam("pageSize") Integer pageSize,@RequestParam("pageNum")Integer pageNum);
+                                            @RequestParam(value = "status") Integer status,
+                                            @RequestParam(value = "differentiate") Integer differentiate,
+                                            @RequestParam(value = "userId") Integer userId,
+                                            @RequestParam("pageSize") Integer pageSize, @RequestParam("pageNum") Integer pageNum);
     /**
      * 进行整改
      */
@@ -448,7 +459,7 @@ public interface SystemClient {
      *  详情
      */
     @PostMapping("/provider/safetyAppApi/getAfterRectificationDetails")
-    public JSONObject getAfterRectificationDetails(@RequestParam(value = "safetyId")Integer safetyId);
+    public JSONObject getAfterRectificationDetails(@RequestParam(value = "safetyId") Integer safetyId);
 
 
     /**
@@ -461,19 +472,19 @@ public interface SystemClient {
      * tsp通知页面
      * */
     @PostMapping(value = "/provider/appDustApi/getExcessive")
-    public JSONObject getExcessive(@RequestParam(value = "projectId")Integer projectId,
-                                   @RequestParam(value = "userId")Integer userId,
-                                   @RequestParam(value = "status")Integer status,
+    public JSONObject getExcessive(@RequestParam(value = "projectId") Integer projectId,
+                                   @RequestParam(value = "userId") Integer userId,
+                                   @RequestParam(value = "status") Integer status,
                                    @RequestParam("pageSize") Integer pageSize,
-                                   @RequestParam("pageNum")Integer pageNum);
+                                   @RequestParam("pageNum") Integer pageNum);
 
     /**
      * tsp页面修改状态
      * @return
      */
     @PostMapping(value = "/provider/appDustApi/updateExcessive")
-    public JSONObject updateExcessive(@RequestParam(value = "id",required = false)Integer id,
-                                      @RequestParam(value = "status",required = false)Integer status);
+    public JSONObject updateExcessive(@RequestParam(value = "id", required = false) Integer id,
+                                      @RequestParam(value = "status", required = false) Integer status);
 
     /**
      * tsp/巡检通知未读总数
@@ -482,8 +493,8 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/appDustApi/getCount")
-    public JSONObject getCount(@RequestParam(value = "projectId")Integer projectId,
-                               @RequestParam(value = "userId")Integer userId);
+    public JSONObject getCount(@RequestParam(value = "projectId") Integer projectId,
+                               @RequestParam(value = "userId") Integer userId);
 
     /**
      * 巡检通知页面
@@ -494,11 +505,11 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/appCommissionApi/getCommission")
-    public JSONObject getCommission(@RequestParam(value = "projectId")Integer projectId,
-                                    @RequestParam(value = "userId")Integer userId,
-                                    @RequestParam(value = "status")Integer status,
-                                    @RequestParam("pageSize")Integer pageSize,
-                                    @RequestParam("pageNum")Integer pageNum);
+    public JSONObject getCommission(@RequestParam(value = "projectId") Integer projectId,
+                                    @RequestParam(value = "userId") Integer userId,
+                                    @RequestParam(value = "status") Integer status,
+                                    @RequestParam("pageSize") Integer pageSize,
+                                    @RequestParam("pageNum") Integer pageNum);
 
     /**
      * 巡检通知页面修改状态
@@ -507,14 +518,14 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/appCommissionApi/updateCommission")
-    public JSONObject updateCommission(@RequestParam(value = "id")Integer id,
-                                       @RequestParam(value = "status")Integer status);
+    public JSONObject updateCommission(@RequestParam(value = "id") Integer id,
+                                       @RequestParam(value = "status") Integer status);
     //pc
     @PostMapping(value = "/provider/safetyPcApi/statisticsCount")
     public JSONObject statisticsCount(@RequestParam(value = "differentiate") Integer differentiate,
                                       @RequestParam(value = "projectId") Integer projectId,
-                                      @RequestParam(value = "startTime",required = false)String startTime,
-                                      @RequestParam(value = "endTime",required = false)String endTime);
+                                      @RequestParam(value = "startTime", required = false) String startTime,
+                                      @RequestParam(value = "endTime", required = false) String endTime);
 
     /**
      * 检查记录查询信息
@@ -539,17 +550,17 @@ public interface SystemClient {
      */
     @PostMapping(value = "/provider/safetyPcApi/getInspectionRecordList")
     public JSONObject getInspectionRecordList(@RequestParam(value = "projectId") Integer projectId,
-                                              @RequestParam(value = "hiddenId")Integer hiddenId,
-                                              @RequestParam(value = "status")Integer status,
-                                              @RequestParam(value = "initiatorTime")String initiatorTime,
-                                              @RequestParam(value = "initiatorName")String initiatorName,
-                                              @RequestParam(value = "rectifyName")String rectifyName,
-                                              @RequestParam(value = "reviewName")String reviewName,
-                                              @RequestParam(value = "constructionId")Integer constructionId,
-                                              @RequestParam(value = "areaId")Integer areaId,
-                                              @RequestParam(value = "problemGradeId")Integer problemGradeId,
-                                              @RequestParam(value = "differentiate")Integer differentiate,
-                                              @RequestParam("pageNum")Integer pageNum, @RequestParam("pageSize") Integer pageSize);
+                                              @RequestParam(value = "hiddenId") Integer hiddenId,
+                                              @RequestParam(value = "status") Integer status,
+                                              @RequestParam(value = "initiatorTime") String initiatorTime,
+                                              @RequestParam(value = "initiatorName") String initiatorName,
+                                              @RequestParam(value = "rectifyName") String rectifyName,
+                                              @RequestParam(value = "reviewName") String reviewName,
+                                              @RequestParam(value = "constructionId") Integer constructionId,
+                                              @RequestParam(value = "areaId") Integer areaId,
+                                              @RequestParam(value = "problemGradeId") Integer problemGradeId,
+                                              @RequestParam(value = "differentiate") Integer differentiate,
+                                              @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize);
 
     /**
      * 检查记录详情
@@ -557,7 +568,7 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/safetyPcApi/getInspectionRecordDetails")
-    public JSONObject getInspectionRecordDetails(@RequestParam(value = "safetyId")Integer safetyId);
+    public JSONObject getInspectionRecordDetails(@RequestParam(value = "safetyId") Integer safetyId);
 
     /**
      * 查询分包单位
@@ -581,41 +592,41 @@ public interface SystemClient {
      */
     @PostMapping(value = "/provider/safetyPcApi/getManagementList")
     public JSONObject getManagementList(@RequestParam(value = "projectId") Integer projectId,
-                                        @RequestParam(value = "status",required = false)Integer status,
-                                        @RequestParam(value = "initiatorTime",required = false)String initiatorTime,
-                                        @RequestParam(value = "initiatorName",required = false)String initiatorName,
-                                        @RequestParam(value = "rectifyName",required = false)String rectifyName,
-                                        @RequestParam(value = "reviewName",required = false)String reviewName,
-                                        @RequestParam(value = "constructionId",required = false)Integer constructionId,
-                                        @RequestParam(value = "differentiate")Integer differentiate,
-                                        @RequestParam("pageNum")Integer pageNum, @RequestParam("pageSize") Integer pageSize);
+                                        @RequestParam(value = "status", required = false) Integer status,
+                                        @RequestParam(value = "initiatorTime", required = false) String initiatorTime,
+                                        @RequestParam(value = "initiatorName", required = false) String initiatorName,
+                                        @RequestParam(value = "rectifyName", required = false) String rectifyName,
+                                        @RequestParam(value = "reviewName", required = false) String reviewName,
+                                        @RequestParam(value = "constructionId", required = false) Integer constructionId,
+                                        @RequestParam(value = "differentiate") Integer differentiate,
+                                        @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize);
     /**
      * 整改单详情
      * @param safetyId
      * @return
      */
     @PostMapping(value = "/provider/safetyPcApi/getManagementDetails")
-    public JSONObject getManagementDetails(@RequestParam(value = "safetyId")Integer safetyId);
+    public JSONObject getManagementDetails(@RequestParam(value = "safetyId") Integer safetyId);
 
     @PostMapping(value = "/provider/safetyPcApi/getHiddenList")
     public JSONObject getHiddenList();
 
     @PostMapping(value = "/provider/safetyPcApi/updateSafety")
     public JSONObject updateSafety(@RequestParam(value = "safetyId") Integer safetyId,
-                                   @RequestParam(value = "initiatorId",required = false)Integer initiatorId,
-                                   @RequestParam(value = "rectifyId",required = false)Integer rectifyId,
-                                   @RequestParam(value = "reviewId",required = false)Integer reviewId,
-                                   @RequestParam(value = "make",required = false)String[] makes,
-                                   @RequestParam(value = "areaId",required = false)Integer areaId,
-                                   @RequestParam(value = "safetyDeadline",required = false)String safetyDeadline,
-                                   @RequestParam(value = "hiddenId",required = false)Integer hiddenId,
-                                   @RequestParam(value = "safetyRequire",required = false)String safetyRequire,
-                                   @RequestParam(value = "initiatorTime",required = false)String initiatorTime,
-                                   @RequestParam(value = "rectifyTime",required = false)String rectifyTime,
-                                   @RequestParam(value = "reviewTime",required = false)String reviewTime);
+                                   @RequestParam(value = "initiatorId", required = false) Integer initiatorId,
+                                   @RequestParam(value = "rectifyId", required = false) Integer rectifyId,
+                                   @RequestParam(value = "reviewId", required = false) Integer reviewId,
+                                   @RequestParam(value = "make", required = false) String[] makes,
+                                   @RequestParam(value = "areaId", required = false) Integer areaId,
+                                   @RequestParam(value = "safetyDeadline", required = false) String safetyDeadline,
+                                   @RequestParam(value = "hiddenId", required = false) Integer hiddenId,
+                                   @RequestParam(value = "safetyRequire", required = false) String safetyRequire,
+                                   @RequestParam(value = "initiatorTime", required = false) String initiatorTime,
+                                   @RequestParam(value = "rectifyTime", required = false) String rectifyTime,
+                                   @RequestParam(value = "reviewTime", required = false) String reviewTime);
 
     @PostMapping(value = "/provider/safetyPcApi/deleteSafety")
-    public JSONObject deleteSafety(@RequestParam("safetyId")Integer safetyId);
+    public JSONObject deleteSafety(@RequestParam("safetyId") Integer safetyId);
     //对外接口start
 
     /**
@@ -708,14 +719,14 @@ public interface SystemClient {
      * @return
      */
     @RequestMapping("/provider/dustEmission/get/getDustEmissionList")
-    public JSONObject getDustEmissionList(@RequestParam(value = "pid")String pid);
+    public JSONObject getDustEmissionList(@RequestParam(value = "pid") String pid);
     /**
      * 根据编号获取设备记录
      * @param sid
      * @return
      */
     @RequestMapping("/provider/dustEmission/get/DustEmissionDatas")
-    public JSONObject getDustEmissionData(@RequestParam(value = "sid")String sid);
+    public JSONObject getDustEmissionData(@RequestParam(value = "sid") String sid);
     /**
      *绿色施工界面中心数据
      * @param pid
@@ -723,7 +734,7 @@ public interface SystemClient {
      * @throws Exception
      */
     @RequestMapping("/provider/dustEmission/get/HomeDustEmissionCentre")
-    public JSONObject getHomeDustEmission(@RequestParam(value = "pid")String pid);
+    public JSONObject getHomeDustEmission(@RequestParam(value = "pid") String pid);
     /**
      * 根据项目id获取项目电箱列表
      *
@@ -731,7 +742,7 @@ public interface SystemClient {
      * @return
      */
     @RequestMapping("/provider/electricityBox/get/list")
-    public Object getProjectElectricityBox(@RequestParam(value = "pid")String pid);
+    public Object getProjectElectricityBox(@RequestParam(value = "pid") String pid);
     /**
      * 根据设备id获取电箱数据
      *
@@ -740,8 +751,8 @@ public interface SystemClient {
      * @return
      */
     @RequestMapping("/provider/electricityBox/get/message")
-    public Object getElectricityBoxRecord(@RequestParam(value = "electricityBoxId")String electricityBoxId,
-                                          @RequestParam(value = "time",required = false) String time);
+    public Object getElectricityBoxRecord(@RequestParam(value = "electricityBoxId") String electricityBoxId,
+                                          @RequestParam(value = "time", required = false) String time);
     /**
      * 根据项目id获取电箱状态数据
      *
@@ -749,12 +760,12 @@ public interface SystemClient {
      * @return
      */
     @RequestMapping("/provider/electricityBox/get/getElectricBoxState")
-    public JSONObject getElectricBoxState(@RequestParam(value = "pid")String pid);
+    public JSONObject getElectricBoxState(@RequestParam(value = "pid") String pid);
 
 
 
     @PostMapping(value = "/provider/baogao/select")
-    public JSONObject select(@RequestBody HjReport hjReport, @RequestParam("pageNum")Integer pageNum, @RequestParam("pageSize") Integer pageSize);
+    public JSONObject select(@RequestBody HjReport hjReport, @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize);
 
     @PostMapping(value = "/provider/baogao/add")
     public JSONObject add(@RequestBody HjReport hjReport);
@@ -772,7 +783,7 @@ public interface SystemClient {
      * 查询所有
      * */
     @PostMapping(value = "/provider/workersInformationAp/selectall")
-    public JSONObject selectall(@RequestBody HjWorkersInformation hjWorkersInformation,@RequestParam("pageSize") Integer pageSize,@RequestParam("pageNum")Integer pageNum);
+    public JSONObject selectall(@RequestBody HjWorkersInformation hjWorkersInformation, @RequestParam("pageSize") Integer pageSize, @RequestParam("pageNum") Integer pageNum);
     /**
      * 继续上传（修改）
      * */
@@ -780,20 +791,20 @@ public interface SystemClient {
     public JSONObject uodate(@RequestBody HjWorkersInformation hjWorkersInformation);
 
     @PostMapping("/provider/workersInformationAp/delete")
-    public JSONObject delete(@RequestParam(value ="id" )Integer id);
+    public JSONObject delete(@RequestParam(value = "id") Integer id);
     /** 统计*/
     @PostMapping("/provider/workersInformationAp/lzfwtj")
-    public JSONObject selectzhiliaoqiquan(@RequestParam(value ="projectId" )Integer projectId);
+    public JSONObject selectzhiliaoqiquan(@RequestParam(value = "projectId") Integer projectId);
     /**
      * 查看详情
      * */
     @PostMapping("/provider/lzfw/particulars")
-    public JSONObject particulars(@RequestBody HjInformation hjInformation,@RequestParam("pageNum") Integer pageNum,@RequestParam("pageSize")Integer pageSize);
+    public JSONObject particulars(@RequestBody HjInformation hjInformation, @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize);
     /**
      * 删除
      * */
     @PostMapping("/provider/lzfw/deleteHjInformationById")
-    public JSONObject deleteHjInformationById(@RequestParam(value ="id" )Integer id);
+    public JSONObject deleteHjInformationById(@RequestParam(value = "id") Integer id);
     /**
      * 上传
      * */
@@ -818,7 +829,7 @@ public interface SystemClient {
      * 实名制进出看板
      */
     @PostMapping("/provider/inOutKanBan/selectIndex")
-    public AjaxResult inOutKanBanSelectIndex(@RequestParam(value = "pid")Integer pid);
+    public AjaxResult inOutKanBanSelectIndex(@RequestParam(value = "pid") Integer pid);
     /**
      * 搜索查询
      *
@@ -827,14 +838,14 @@ public interface SystemClient {
      */
     @PostMapping("/provider/hireApi/getHireSearch")
     public JSONObject getPeopleAreaSearch(@RequestParam(value = "filed", required = false) String filed,
-                                          @RequestParam(value = "projectId")int projectId);
+                                          @RequestParam(value = "projectId") int projectId);
     /**
      * 历史轨迹 按照时间排序
      * @return
      */
     @PostMapping("/provider/hireApi/getHireHistory")
     public JSONObject getHireHistory(@RequestParam(value = "filed", required = false) String filed,
-                                     @RequestParam(value = "projectId")int projectId,
+                                     @RequestParam(value = "projectId") int projectId,
                                      @RequestParam(value = "startTime", required = false) String startTime);
     /**
      * 实时监控
@@ -842,7 +853,7 @@ public interface SystemClient {
      * @throws ParseException
      */
     @PostMapping("/provider/hireApi/getHirePeople")
-    public JSONObject getHirePeople(@RequestParam(value = "projectId")int projectId);
+    public JSONObject getHirePeople(@RequestParam(value = "projectId") int projectId);
 
 
 
@@ -852,35 +863,35 @@ public interface SystemClient {
      * @throws ParseException
      */
     @PostMapping("/provider/hireAppApi/getHirePeople")
-    public JSONObject getAppHirePeople(@RequestParam(value = "projectId")int projectId);
+    public JSONObject getAppHirePeople(@RequestParam(value = "projectId") int projectId);
     /**
      * 搜索查询
      * @return
      */
     @PostMapping("/provider/hireAppApi/getHireByNameSearch")
-    public JSONObject getAppHireByNameSearch(@RequestParam(value = "userName",required = false) String userName,
-                                             @RequestParam(value = "projectId")int projectId);
+    public JSONObject getAppHireByNameSearch(@RequestParam(value = "userName", required = false) String userName,
+                                             @RequestParam(value = "projectId") int projectId);
     /**
      * 历史记录
      * @return
      */
     @PostMapping("/provider/hireAppApi/getHireByNameHistory")
-    public JSONObject getAppHireByNameHistory(@RequestParam(value = "userName",required = false) String userName,
-                                              @RequestParam(value = "projectId")int projectId);
+    public JSONObject getAppHireByNameHistory(@RequestParam(value = "userName", required = false) String userName,
+                                              @RequestParam(value = "projectId") int projectId);
     /**
      *  根据人员姓名查询多个判断是否状态：在线/离线
      */
     @PostMapping("/provider/hireAppApi/getHirePeopleList")
-    public JSONObject getAppHirePeopleList(@RequestParam(value = "userName",required = false)String userName,
-                                           @RequestParam(value = "projectId")int projectId);
+    public JSONObject getAppHirePeopleList(@RequestParam(value = "userName", required = false) String userName,
+                                           @RequestParam(value = "projectId") int projectId);
     /**
      * app查询所有数据
      * @return
      * */
     @PostMapping( value = "/provider/vehicle/app/selectAll")
     public JSONObject selectVehicleAll(@RequestBody Vehicle vehicle,
-                                       @RequestParam(value = "pageNum")String pageNum,
-                                       @RequestParam(value = "pageSize")String pageSize);
+                                       @RequestParam(value = "pageNum") String pageNum,
+                                       @RequestParam(value = "pageSize") String pageSize);
     /**
      * app查询某车场总数
      * */
@@ -904,13 +915,13 @@ public interface SystemClient {
      * @return
      * */
     @PostMapping( value = "/provider/parkings/selectAll")
-    public JSONObject selectAll(@RequestBody Vehicle vehicle,@RequestParam("pageSize") Integer pageSize,@RequestParam("pageNum")Integer pageNum);
+    public JSONObject selectAll(@RequestBody Vehicle vehicle, @RequestParam("pageSize") Integer pageSize, @RequestParam("pageNum") Integer pageNum);
     /**
      *查询在场车辆
      * @return
      * */
     @PostMapping(value = "/provider/parkings/parking/selectscene")
-    public JSONObject selectscene(@RequestBody Vehicle vehicle, @RequestParam("pageSize") Integer pageSize, @RequestParam("pageNum")Integer pageNum);
+    public JSONObject selectscene(@RequestBody Vehicle vehicle, @RequestParam("pageSize") Integer pageSize, @RequestParam("pageNum") Integer pageNum);
     /**
      * 查询剩余车位数
      *
@@ -922,7 +933,7 @@ public interface SystemClient {
      *
      * @return*/
     @PostMapping(value = "/provider/parkings/todaycount")
-    public JSONObject parkingTodaycount( @RequestParam("projectId") Integer projectId);
+    public JSONObject parkingTodaycount(@RequestParam("projectId") Integer projectId);
     /**
      * 扬尘阈值查询
      * @param thresholdValue
@@ -961,7 +972,7 @@ public interface SystemClient {
      * @return
      */
     @RequestMapping(value = "provider/systemPrivileges/pc/getSystemPrivileges",method = RequestMethod.POST)
-    AjaxResult getSystemPrivileges_pc(@RequestParam("uid")Integer uid, @RequestParam("appOrPc")Integer appOrPc,@RequestParam("parentId")Integer parentId);
+    AjaxResult getSystemPrivileges_pc(@RequestParam("uid") Integer uid, @RequestParam("appOrPc") Integer appOrPc, @RequestParam("parentId") Integer parentId);
     /**
      * app账户菜单权限
      * @param uid
@@ -969,7 +980,7 @@ public interface SystemClient {
      * @return
      */
     @RequestMapping(value = "provider/systemPrivileges/app/getSystemPrivileges",method = RequestMethod.POST)
-    AjaxResult getSystemPrivileges_app(@RequestParam("uid")Integer uid, @RequestParam("appOrPc")Integer appOrPc,@RequestParam("parentId")Integer parentId);
+    AjaxResult getSystemPrivileges_app(@RequestParam("uid") Integer uid, @RequestParam("appOrPc") Integer appOrPc, @RequestParam("parentId") Integer parentId);
 
     /**
      * 劳务工人考勤情况
@@ -1000,14 +1011,14 @@ public interface SystemClient {
      * @return
      */
     @RequestMapping(value = "/provider/attendanceRecordApi/getNearlyEightDays",method = RequestMethod.POST)
-    JSONObject attendanceRecordApiGetNearlyEightDays( @RequestParam("projectId") Integer projectId);
+    JSONObject attendanceRecordApiGetNearlyEightDays(@RequestParam("projectId") Integer projectId);
     /**
      * 1.0人员动态+班组动态
      * @param
      * @return
      */
     @RequestMapping(value = "/provider/attendanceRecordApi/getTeamCount",method = RequestMethod.POST)
-    JSONObject attendanceRecordApiGetTeamCount( @RequestParam("projectId") Integer projectId);
+    JSONObject attendanceRecordApiGetTeamCount(@RequestParam("projectId") Integer projectId);
 
     /**
      * 现场工种
@@ -1015,21 +1026,21 @@ public interface SystemClient {
      * @return
      */
     @RequestMapping(value = "/provider/attendanceRecordApi/getWorkType",method = RequestMethod.POST)
-     JSONObject attendanceRecordApiGetWorkType( @RequestParam("projectId") Integer projectId);
+     JSONObject attendanceRecordApiGetWorkType(@RequestParam("projectId") Integer projectId);
     /**
      * 分包单位考勤情况
      * @param projectId
      * @return
      */
     @RequestMapping(value = "/provider/attendanceRecordApi/getBuildcompanyData",method = RequestMethod.POST)
-    JSONObject attendanceRecordApiGetBuildcompanyData( @RequestParam("projectId") Integer projectId);
+    JSONObject attendanceRecordApiGetBuildcompanyData(@RequestParam("projectId") Integer projectId);
     /**
      * 今日劳动曲线1.0
      * @param projectId
      * @return
      */
     @RequestMapping(value = "/provider/attendanceRecordApi/getXS",method = RequestMethod.POST)
-    JSONObject attendanceRecordApiGetXS( @RequestParam("projectId") Integer projectId);
+    JSONObject attendanceRecordApiGetXS(@RequestParam("projectId") Integer projectId);
     /**
      * 人员信息列 表
      * @param empNameParam
@@ -1089,7 +1100,7 @@ public interface SystemClient {
      * @return java.lang.Object
      */
     @RequestMapping(value = "/provider/area/getArea",method = RequestMethod.POST)
-    AjaxResult getArea(@RequestParam("id")Long id);
+    AjaxResult getArea(@RequestParam("id") Long id);
 
     /**
      * 保存公司库信息
@@ -1097,7 +1108,7 @@ public interface SystemClient {
      * @return
      */
     @RequestMapping(value = "/provider/pcCompanyLibrary/insertHjCompanyLibrary",method = RequestMethod.POST)
-    int insertHjCompanyLibrary(HjCompanyLibrary hjCompanyLibrary, @RequestParam("parentaId")Integer parentaId);
+    int insertHjCompanyLibrary(HjCompanyLibrary hjCompanyLibrary, @RequestParam("parentaId") Integer parentaId);
 
     /**
      * 根据id查询公司库信息
@@ -1105,7 +1116,7 @@ public interface SystemClient {
      * @return
      */
     @RequestMapping(value = "/provider/pcCompanyLibrary/selectHjCompanyLibrary",method = RequestMethod.POST)
-    HjCompanyLibrary selectHjCompanyLibraryIds(@RequestParam("id")Integer id);
+    HjCompanyLibrary selectHjCompanyLibraryIds(@RequestParam("id") Integer id);
     /**
      * 修改保存公司库信息
      * @param
@@ -1132,7 +1143,7 @@ public interface SystemClient {
      * @return
      */
     @RequestMapping(value = "/provider/project/addProject",method = RequestMethod.POST,consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    AjaxResult addSave(@RequestBody HjProject hjProject, @RequestParam("cid")Integer cid,@RequestParam(value = "file")   MultipartFile file);
+    AjaxResult addSave(@RequestBody HjProject hjProject, @RequestParam("cid") Integer cid, @RequestParam(value = "file") MultipartFile file);
 
 
     /**
@@ -1165,14 +1176,14 @@ public interface SystemClient {
      * @return id 用户id
      */
     @RequestMapping(value = "/provider/systemuser/app/updateUserPassword",method = RequestMethod.POST)
-     Map<String, Object> updateUserPassword( PasswordParam passwordParam);
+     Map<String, Object> updateUserPassword(PasswordParam passwordParam);
     /**
      * 切换项目
      * @param userId 人员id
      * @return
      */
     @RequestMapping(value = "/provider/systemuser/app/queryProject",method = RequestMethod.POST)
-    Map<String, Object> queryProject(@RequestParam("userId")Integer userId);
+    Map<String, Object> queryProject(@RequestParam("userId") Integer userId);
 
     /**
      * 班组分页
@@ -1182,7 +1193,7 @@ public interface SystemClient {
      * @return
      */
     @RequestMapping(value = "/provider/pcCompanyLibrary/selectHjTeamList",method = RequestMethod.POST)
-    AjaxResult selectHjTeamList(@RequestBody HjTeam hjTeam,@RequestParam("pageSize") Integer pageSize,@RequestParam("pageNum")Integer pageNum);
+    AjaxResult selectHjTeamList(@RequestBody HjTeam hjTeam, @RequestParam("pageSize") Integer pageSize, @RequestParam("pageNum") Integer pageNum);
 
     /**
      * 查参建单位下的班组
@@ -1207,7 +1218,7 @@ public interface SystemClient {
      * @return
      */
     @PostMapping("/provider/constructionCompanyApi/export")
-    List<HjConstructionCompany> export(@RequestParam("param") String param , @RequestParam("suid")String suid, @RequestParam("projectId")Integer projectId);
+    List<HjConstructionCompany> export(@RequestParam("param") String param, @RequestParam("suid") String suid, @RequestParam("projectId") Integer projectId);
     /**
      * 热门工种
      * @param
@@ -1234,13 +1245,13 @@ public interface SystemClient {
      * 修改保存项目两制同步
      */
     @PostMapping("/provider/synchronizationInformationApi/edit")
-    AjaxResult editSave( @RequestBody HjSynchronizationInformation hjSynchronizationInformation);
+    AjaxResult editSave(@RequestBody HjSynchronizationInformation hjSynchronizationInformation);
 
     /**
      * 删除项目两制同步
      */
     @PostMapping( "/provider/synchronizationInformationApi/remove")
-    AjaxResult remove(@RequestParam("ids")String ids);
+    AjaxResult remove(@RequestParam("ids") String ids);
 
     /**
      * 创建角色
@@ -1248,7 +1259,7 @@ public interface SystemClient {
      * @return
      */
     @RequestMapping(value = "/provider/systemRoleApi/addSystemRole",method = RequestMethod.POST)
-   Map<String, Object> insertSystemRole(@RequestBody HjSystemRole hjSystemRole,@RequestParam(value = "ids") String ids);
+   Map<String, Object> insertSystemRole(@RequestBody HjSystemRole hjSystemRole, @RequestParam(value = "ids") String ids);
 
     /**
      * 修改前显示
@@ -1263,7 +1274,7 @@ public interface SystemClient {
      * @return
      */
     @RequestMapping(value = "/provider/systemRoleApi/updateRole",method = RequestMethod.POST)
-    Map<String, Object> updateSystemRole(@RequestBody HjSystemRole hjSystemRole,@RequestParam(value = "ids") String ids);
+    Map<String, Object> updateSystemRole(@RequestBody HjSystemRole hjSystemRole, @RequestParam(value = "ids") String ids);
 
     /**
      * 删除角色
@@ -1320,7 +1331,7 @@ public interface SystemClient {
      * @return
      */
     @RequestMapping(value = "/provider/systemuser/pc/updateUser",method = RequestMethod.POST)
-    Map<String, Object> updateSystemUser(@RequestBody HjSystemUser hjSystemUser,@RequestParam("ids") String ids);
+    Map<String, Object> updateSystemUser(@RequestBody HjSystemUser hjSystemUser, @RequestParam("ids") String ids);
 
     /**
      * 删除账号
@@ -1344,7 +1355,7 @@ public interface SystemClient {
      * @return
      */
     @RequestMapping(value = "/provider/attendanceRecordPcApi/selectAttendanceRecordList",method = RequestMethod.POST)
-    Map<String,Object> selectAttendanceRecordListTwo(@RequestBody Param param ,@RequestParam("pageNum") Integer pageNum,@RequestParam("pageSize")Integer pageSize);
+    Map<String,Object> selectAttendanceRecordListTwo(@RequestBody Param param, @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize);
     /**
      * 同步人员 进出或退场
      * @param tag
@@ -1352,7 +1363,7 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/pc/projectWorkersApi/outOrIn")
-   Map<String,Object> outOrIn(@RequestParam("tag")Integer tag,@RequestParam("ids")String ids);
+   Map<String,Object> outOrIn(@RequestParam("tag") Integer tag, @RequestParam("ids") String ids);
 
     /**
      * 查询权限列表
@@ -1367,7 +1378,7 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/systemPrivileges/pc/getPrivilegesList")
-    public JSONObject getPrivilegesList(@RequestParam("userId")Integer userId);
+    public JSONObject getPrivilegesList(@RequestParam("userId") Integer userId);
     /**
      * 查询全部
      * @param hjSystemPrivileges
@@ -1395,14 +1406,14 @@ public interface SystemClient {
      * @return
      */
     @PostMapping("/provider/pc/projectWorkersApi/getDataCount")
-     JSONObject projectWorkersApiGetDataCount(@RequestParam(value = "projectId")Integer projectId);
+     JSONObject projectWorkersApiGetDataCount(@RequestParam(value = "projectId") Integer projectId);
     /**
      * 获取合同统计
      * @param projectId
      * @return
      */
     @PostMapping("/provider/pc/projectWorkersApi/getKQCount")
-     JSONObject projectWorkersApiGetKQCount(@RequestParam(value = "projectId")Integer projectId);
+     JSONObject projectWorkersApiGetKQCount(@RequestParam(value = "projectId") Integer projectId);
     /**
      * 导出班组数据源
      * @param hjTeam
@@ -1417,7 +1428,7 @@ public interface SystemClient {
      * @return
      */
     @PostMapping("/provider/attendanceRecordPcApi/export")
-    List<Param> export(@RequestBody Param param );
+    List<Param> export(@RequestBody Param param);
 
     /**
      * 导出车辆进出数据
@@ -1451,7 +1462,7 @@ public interface SystemClient {
      * @return
      */
     @PostMapping("/provider/pc/projectWorkersApi/selectPdfWorkers")
-   List<PdfWorkers> selectPdfWorkers(@RequestParam("ids")String ids);
+   List<PdfWorkers> selectPdfWorkers(@RequestParam("ids") String ids);
 
     /**
      * 功能描述 :接收上传的考勤记录
@@ -1468,14 +1479,14 @@ public interface SystemClient {
      * @return
      */
     @PostMapping("/provider/ProjectDustEmission/getProjectDustEmission")
-    JSONObject getProjectDustEmission(@RequestParam(value = "projectId")Long projectId);
+    JSONObject getProjectDustEmission(@RequestParam(value = "projectId") Long projectId);
     /**
      * 查询项目对应的扬尘设备SN列表
      */
     @PostMapping("/provider/ProjectDustEmission/projectDustEmissionList")
     public AjaxResult projectDustEmissionList(@RequestBody SbProjectDustEmission sbProjectDustEmission,
-                                              @RequestParam(value = "pageSize")Integer pageSize,
-                                              @RequestParam(value = "pageNum")Integer pageNum);
+                                              @RequestParam(value = "pageSize") Integer pageSize,
+                                              @RequestParam(value = "pageNum") Integer pageNum);
     /**
      * 新增保存项目对应的扬尘设备SN
      */
@@ -1495,14 +1506,14 @@ public interface SystemClient {
      * 删除项目对应的扬尘设备SN
      */
     @PostMapping( "/provider/ProjectDustEmission/remove")
-    public AjaxResult projectDustEmissionRemove(@RequestParam(value = "id") Integer id,@RequestParam(value = "devCcrq",required = false)String devCcrq);
+    public AjaxResult projectDustEmissionRemove(@RequestParam(value = "id") Integer id, @RequestParam(value = "devCcrq", required = false) String devCcrq);
     /**
      * APP根据项目id查询项目扬尘设备列表
      * @param projectId
      * @return
      */
     @PostMapping("/provider/appProjectDustEmission/getAppProjectDustEmission")
-    JSONObject getAppProjectDustEmission(@RequestParam(value = "projectId",required = false)Long projectId);
+    JSONObject getAppProjectDustEmission(@RequestParam(value = "projectId", required = false) Long projectId);
 
     /**
      * 查询扬尘记录
@@ -1515,19 +1526,19 @@ public interface SystemClient {
      * @return
      */
     @PostMapping("/provider/DustEmission/getDustEmission")
-    JSONObject getDustEmission(@RequestParam(value = "sn")String sn,
-                                      @RequestParam(value = "tag",required = false)Integer tag,
-                                      @RequestParam(value = "startTime",required = false)String startTime,
-                                      @RequestParam(value = "endTime",required = false)String endTime,
-                                      @RequestParam(value = "pageNum")Integer pageNum,
-                                      @RequestParam(value = "pageSize")Integer pageSize);
+    JSONObject getDustEmission(@RequestParam(value = "sn") String sn,
+                               @RequestParam(value = "tag", required = false) Integer tag,
+                               @RequestParam(value = "startTime", required = false) String startTime,
+                               @RequestParam(value = "endTime", required = false) String endTime,
+                               @RequestParam(value = "pageNum") Integer pageNum,
+                               @RequestParam(value = "pageSize") Integer pageSize);
     /**
      * 获取绿色施工TSP数据
      * @param sn
      * @return
      */
     @PostMapping("/provider/DustEmission/getPM25AndPN10")
-    JSONObject getPM25AndPN10(@RequestParam(value = "sn") String sn,@RequestParam(value = "projectId") Integer projectId);
+    JSONObject getPM25AndPN10(@RequestParam(value = "sn") String sn, @RequestParam(value = "projectId") Integer projectId);
     /**
      * Excel数据源
      * @param sn
@@ -1536,9 +1547,9 @@ public interface SystemClient {
      * @return
      */
     @PostMapping("/provider/DustEmission/getExcel")
-    List<SbDustEmission> getExcel(@RequestParam(value = "sn")String sn,
-                                         @RequestParam(value = "startTime",required = false)String startTime,
-                                         @RequestParam(value = "endTime",required = false)String endTime);
+    List<SbDustEmission> getExcel(@RequestParam(value = "sn") String sn,
+                                  @RequestParam(value = "startTime", required = false) String startTime,
+                                  @RequestParam(value = "endTime", required = false) String endTime);
 
     /**
      *  看板1.0TSP数据
@@ -1549,22 +1560,22 @@ public interface SystemClient {
     public JSONObject tsp(@RequestParam(value = "projectId") long projectId);
 
     @PostMapping("/provider/DustEmission/getTSP")
-    public JSONObject getDustUserList(@RequestParam("projectId")Integer projectId,
-                                      @RequestParam(value = "filed",required = false)String filed);
+    public JSONObject getDustUserList(@RequestParam("projectId") Integer projectId,
+                                      @RequestParam(value = "filed", required = false) String filed);
     /**
      * 根据项目id获取项目视频区
      * @param projectId
      * @return
      */
     @PostMapping("/provider/ProjectVideoAreaApi/getProjectVideoArea")
-    JSONObject getProjectVideoArea(@RequestParam(value = "projectId")Integer projectId);
+    JSONObject getProjectVideoArea(@RequestParam(value = "projectId") Integer projectId);
     /**
      * 查询项目视频区列表
      */
     @PostMapping("/provider/ProjectVideoAreaApi/list")
     public AjaxResult projectVideoAreaList(@RequestBody SbProjectVideoArea sbProjectVideoArea,
-                                           @RequestParam(value = "pageNum")Integer pageNum,
-                                           @RequestParam(value = "pageSize")Integer pageSize);
+                                           @RequestParam(value = "pageNum") Integer pageNum,
+                                           @RequestParam(value = "pageSize") Integer pageSize);
     /**
      * 新增保存项目视频区
      */
@@ -1574,7 +1585,7 @@ public interface SystemClient {
      * 修改前查询
      */
     @PostMapping("/provider/ProjectVideoAreaApi/edit")
-    public AjaxResult projectVideoAreaEdit(@RequestParam(value = "id")Integer id);
+    public AjaxResult projectVideoAreaEdit(@RequestParam(value = "id") Integer id);
     /**
      * 修改保存项目视频区
      */
@@ -1584,14 +1595,14 @@ public interface SystemClient {
      * 删除项目视频区
      */
     @PostMapping( "/provider/ProjectVideoAreaApi/remove")
-    public AjaxResult projectVideoAreaRemove(@RequestParam(value = "ids")String ids);
+    public AjaxResult projectVideoAreaRemove(@RequestParam(value = "ids") String ids);
     /**
      * APP根据项目id获取项目视频区
      * @param projectId
      * @return
      */
     @PostMapping("/provider/appProjectVideoAreaApi/getAppProjectVideoArea")
-    JSONObject getAppProjectVideoArea(@RequestParam(value = "projectId")Integer projectId);
+    JSONObject getAppProjectVideoArea(@RequestParam(value = "projectId") Integer projectId);
 
     /**
      * 根据项目视频区id获取视频信息
@@ -1610,15 +1621,15 @@ public interface SystemClient {
      */
     @PostMapping("/provider/ProjectVideo/projectVideoList")
     public AjaxResult projectVideoList(@RequestBody SbProjectVideo sbProjectVideo,
-                                       @RequestParam(value = "pageNum")Integer pageNum,
-                                       @RequestParam(value = "pageSize")Integer pageSize);
+                                       @RequestParam(value = "pageNum") Integer pageNum,
+                                       @RequestParam(value = "pageSize") Integer pageSize);
     /**
      * 查询项目所有视频列表
      */
     @PostMapping("/provider/ProjectVideo/selectSbProjectVideoByProjectId")
     public AjaxResult selectSbProjectVideoByProjectId(@RequestParam(value = "projectId") Integer projectId,
-                                                      @RequestParam(value = "pageNum")Integer pageNum,
-                                                      @RequestParam(value = "pageSize")Integer pageSize);
+                                                      @RequestParam(value = "pageNum") Integer pageNum,
+                                                      @RequestParam(value = "pageSize") Integer pageSize);
     /**
      * 新增保存项目视频
      */
@@ -1642,11 +1653,11 @@ public interface SystemClient {
      * @return
      */
     @PostMapping("/provider/currentTemperatureApi/list")
-    public JSONObject currentTemperatureList(@RequestParam(value = "electricityBoxId")String electricityBoxId,
-                           @RequestParam(value = "startTime",required = false)String startTime,
-                           @RequestParam(value = "endTime",required = false)String endTime,
-                           @RequestParam(value = "pageNum")Integer pageNum,
-                           @RequestParam(value = "pageSize")Integer pageSize);
+    public JSONObject currentTemperatureList(@RequestParam(value = "electricityBoxId") String electricityBoxId,
+                                             @RequestParam(value = "startTime", required = false) String startTime,
+                                             @RequestParam(value = "endTime", required = false) String endTime,
+                                             @RequestParam(value = "pageNum") Integer pageNum,
+                                             @RequestParam(value = "pageSize") Integer pageSize);
     /**
      * 根据项目id获取电箱设备编号
      * @param projectId
@@ -1659,8 +1670,8 @@ public interface SystemClient {
      */
     @PostMapping("/provider/ProjectElectricityBox/list")
     public AjaxResult list(@RequestBody SbProjectElectricityBox sbProjectElectricityBox,
-                           @RequestParam(value = "pageNum")Integer pageNum,
-                           @RequestParam(value = "pageSize")Integer pageSize);
+                           @RequestParam(value = "pageNum") Integer pageNum,
+                           @RequestParam(value = "pageSize") Integer pageSize);
     /**
      * 添加电箱
      * @param sbProjectElectricityBox
@@ -1673,9 +1684,9 @@ public interface SystemClient {
      * @return
      */
     @PostMapping("/provider/ProjectElectricityBox/addElectricityBox")
-    public AjaxResult addElectricityBox(@RequestParam(value = "projectId")Integer projectId,
-                                        @RequestParam(value = "electricityBoxId")String electricityBoxId,
-                                        @RequestParam(value = "electricityBoxName")String electricityBoxName);
+    public AjaxResult addElectricityBox(@RequestParam(value = "projectId") Integer projectId,
+                                        @RequestParam(value = "electricityBoxId") String electricityBoxId,
+                                        @RequestParam(value = "electricityBoxName") String electricityBoxName);
 
     /**
      * 修改前查询
@@ -1691,7 +1702,7 @@ public interface SystemClient {
      * 删除项目电箱
      */
     @PostMapping( "/provider/ProjectElectricityBox/remove")
-    public AjaxResult projectElectricityBoxRemove(@RequestParam("id")Integer id,@RequestParam(value = "devCcrq",required =false)String devCcrq);
+    public AjaxResult projectElectricityBoxRemove(@RequestParam("id") Integer id, @RequestParam(value = "devCcrq", required = false) String devCcrq);
     /**
      * APP根据项目id获取电箱设备编号
      * @param projectId
@@ -1709,9 +1720,9 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/currentTemperatureApi/getExcel")
-    public List<SbCurrentTemperature> getSbCurrentTemperatureExcel(@RequestParam(value = "electricityBoxId")String electricityBoxId,
-                                               @RequestParam(value = "startTime",required = false)String startTime,
-                                               @RequestParam(value = "endTime",required = false)String endTime);
+    public List<SbCurrentTemperature> getSbCurrentTemperatureExcel(@RequestParam(value = "electricityBoxId") String electricityBoxId,
+                                                                   @RequestParam(value = "startTime", required = false) String startTime,
+                                                                   @RequestParam(value = "endTime", required = false) String endTime);
 
     /**
      * 智能电箱界面数据
@@ -1720,21 +1731,21 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/currentTemperatureApi/getEquipmentInformation")
-    public JSONObject getEquipmentInformation(@RequestParam(value = "electricityBoxId")String electricityBoxId,
-                                              @RequestParam(value = "projectId")Integer projectId);
+    public JSONObject getEquipmentInformation(@RequestParam(value = "electricityBoxId") String electricityBoxId,
+                                              @RequestParam(value = "projectId") Integer projectId);
     /**
      * 智能电箱界面数据
      * @param projectId
      * @return
      */
     @PostMapping(value = "/provider/currentTemperatureApi/kanban")
-    public JSONObject currentTemperatureApiKanban(   @RequestParam(value = "projectId")Integer projectId);
+    public JSONObject currentTemperatureApiKanban(@RequestParam(value = "projectId") Integer projectId);
 
     /**
      * 查询黑名单列表
      */
     @PostMapping("/provider/hjBlacklist/getBlacklist")
-    public JSONObject getBlacklist(@RequestBody HjBlacklist hjBlacklist,@RequestParam(value = "pageNum")Integer pageNum,@RequestParam(value = "pageSize")Integer pageSize);
+    public JSONObject getBlacklist(@RequestBody HjBlacklist hjBlacklist, @RequestParam(value = "pageNum") Integer pageNum, @RequestParam(value = "pageSize") Integer pageSize);
     /**
      * 新增保存黑名单
      */
@@ -1748,18 +1759,18 @@ public interface SystemClient {
      */
     @PostMapping("/provider/HjLogging/getLog")
     public JSONObject getLog(@RequestParam(value = "projectId") Integer projectId,
-                             @RequestParam(value = "pageNum")Integer pageNum,
-                             @RequestParam(value = "pageSize")Integer pageSize,
-                             @RequestParam(value = "startTime",required = false) String startTime,
-                             @RequestParam(value = "endTime",required = false) String endTime,
-                             @RequestParam(value = "userName",required = false) String userName);
+                             @RequestParam(value = "pageNum") Integer pageNum,
+                             @RequestParam(value = "pageSize") Integer pageSize,
+                             @RequestParam(value = "startTime", required = false) String startTime,
+                             @RequestParam(value = "endTime", required = false) String endTime,
+                             @RequestParam(value = "userName", required = false) String userName);
     /**
      * 根据编号删除记录
      * @param ids
      * @return
      */
     @PostMapping( "/provider/HjLogging/remove")
-    public JSONObject removeLog(@RequestParam(value = "ids")String ids);
+    public JSONObject removeLog(@RequestParam(value = "ids") String ids);
 
     /**
      * 查询扬尘记录
@@ -1768,17 +1779,17 @@ public interface SystemClient {
      * @return
      */
     @PostMapping("/provider/appDustEmission/getDustEmission")
-    public JSONObject getDustEmission(@RequestParam(value = "sn")String sn,
-                                      @RequestParam(value = "pageNum")Integer pageNum,
-                                      @RequestParam(value = "pageSize")Integer pageSize,
-                                      @RequestParam(value = "dateTime",required = false)String dateTime);
+    public JSONObject getDustEmission(@RequestParam(value = "sn") String sn,
+                                      @RequestParam(value = "pageNum") Integer pageNum,
+                                      @RequestParam(value = "pageSize") Integer pageSize,
+                                      @RequestParam(value = "dateTime", required = false) String dateTime);
     /**
      * 获取TSP界面数据
      * @param sn
      * @return
      */
     @PostMapping("/provider/appDustEmission/getPM25AndPN10")
-    public JSONObject getAppPM25AndPN10(@RequestParam(value = "sn") String sn,@RequestParam(value = "projectId")Integer projectId);
+    public JSONObject getAppPM25AndPN10(@RequestParam(value = "sn") String sn, @RequestParam(value = "projectId") Integer projectId);
 
     /**
      * 智能电箱界面数据
@@ -1786,14 +1797,14 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/appCurrentTemperature/getEquipmentInformation")
-    public JSONObject getEquipmentInformation(@RequestParam(value = "electricityBoxId")String electricityBoxId);
+    public JSONObject getEquipmentInformation(@RequestParam(value = "electricityBoxId") String electricityBoxId);
     /**
      * 电箱数据分页
      * @return
      */
     @PostMapping("/provider/appCurrentTemperature/list")
-    public JSONObject list(@RequestParam(value = "sn")String sn,
-                           @RequestParam(value = "dateTime",required = false)String dateTime,
+    public JSONObject list(@RequestParam(value = "sn") String sn,
+                           @RequestParam(value = "dateTime", required = false) String dateTime,
                            @RequestParam(value = "pageNum") Integer pageNum,
                            @RequestParam(value = "pageSize") Integer pageSize);
     /**
@@ -1806,9 +1817,9 @@ public interface SystemClient {
      */
     @PostMapping("/provider/HjLogging/getLoggingExcel")
     public List<HjLogging> getLoggingExcel(@RequestParam(value = "projectId") Integer projectId,
-                                           @RequestParam(value = "startTime",required = false) String startTime,
-                                           @RequestParam(value = "endTime",required = false) String endTime,
-                                           @RequestParam(value = "userName",required = false) String userName);
+                                           @RequestParam(value = "startTime", required = false) String startTime,
+                                           @RequestParam(value = "endTime", required = false) String endTime,
+                                           @RequestParam(value = "userName", required = false) String userName);
 
     /**
      *创建文件夹
@@ -1840,8 +1851,8 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/FileApi/getFileList")
-    public Map<String,Object> getFileList(@RequestParam(value = "folderId") Integer folderId,@RequestParam(value = "pageNum") Integer pageNum,
-                                          @RequestParam(value = "pageSize") Integer pageSize,@RequestParam(value = "fileName",required = false) String fileName);
+    public Map<String,Object> getFileList(@RequestParam(value = "folderId") Integer folderId, @RequestParam(value = "pageNum") Integer pageNum,
+                                          @RequestParam(value = "pageSize") Integer pageSize, @RequestParam(value = "fileName", required = false) String fileName);
 
     /**
      * 删除文件
@@ -1959,7 +1970,7 @@ public interface SystemClient {
     public JSONObject  loginDataElevator(@RequestBody String json);
 
     @RequestMapping(value = "/provider/craneApi/selectIndex",method = RequestMethod.POST)
-    public Map<String, Object> selectIndex(@RequestParam(value = "pid") Integer pid ,@RequestParam(value = "time")String time,@RequestParam(value = "hxzid")String hxzid);
+    public Map<String, Object> selectIndex(@RequestParam(value = "pid") Integer pid, @RequestParam(value = "time") String time, @RequestParam(value = "hxzid") String hxzid);
     /**
      * 切换设备
      * @param scb
@@ -1975,11 +1986,11 @@ public interface SystemClient {
      * @return
      */
     @PostMapping("/provider/craneApi/historyRecord")
-    public AjaxResult historyRecord(@RequestParam(value = "time",required = false)String time,
-                                    @RequestParam(value = "hxzid")String hxzid,
-                                    @RequestParam(value = "pageNum")String pageNum,
-                                    @RequestParam(value = "pageSize")String pageSize,
-                                    @RequestParam(value = "status",required = false)String status);
+    public AjaxResult historyRecord(@RequestParam(value = "time", required = false) String time,
+                                    @RequestParam(value = "hxzid") String hxzid,
+                                    @RequestParam(value = "pageNum") String pageNum,
+                                    @RequestParam(value = "pageSize") String pageSize,
+                                    @RequestParam(value = "status", required = false) String status);
 
     /**
      * 塔吊导出历史记录
@@ -1988,8 +1999,8 @@ public interface SystemClient {
      * @return
      */
     @PostMapping("/provider/craneApi/historyRecordExcel")
-    public  List<SbCraneAddrecord> historyRecordExcel(@RequestParam(value = "time")String time,
-                                                      @RequestParam(value = "hxzid")String hxzid);
+    public  List<SbCraneAddrecord> historyRecordExcel(@RequestParam(value = "time") String time,
+                                                      @RequestParam(value = "hxzid") String hxzid);
 
     /**
      * 升降机界面接口
@@ -1998,7 +2009,7 @@ public interface SystemClient {
      * @return
      */
     @PostMapping("/provider/elevatorApi/selectIndex")
-    public AjaxResult selectIndex(@RequestParam(value = "pid")Integer pid ,@RequestParam(value = "hxzid") String hxzid);
+    public AjaxResult selectIndex(@RequestParam(value = "pid") Integer pid, @RequestParam(value = "hxzid") String hxzid);
 
 
     /**
@@ -2009,11 +2020,11 @@ public interface SystemClient {
      * @return
      */
     @PostMapping("/provider/elevatorApi/historyRecord")
-    public AjaxResult elevatorHistoryRecord(@RequestParam(value = "time")String time,
-                                    @RequestParam(value = "hxzid")String hxzid,
-                                    @RequestParam(value = "status")String status,
-                                    @RequestParam(value = "pageNum")String pageNum,
-                                    @RequestParam(value = "pageSize")String pageSize);
+    public AjaxResult elevatorHistoryRecord(@RequestParam(value = "time") String time,
+                                            @RequestParam(value = "hxzid") String hxzid,
+                                            @RequestParam(value = "status") String status,
+                                            @RequestParam(value = "pageNum") String pageNum,
+                                            @RequestParam(value = "pageSize") String pageSize);
 
     /**
      * 升降机数据导出
@@ -2022,15 +2033,15 @@ public interface SystemClient {
      * @return
      */
     @PostMapping("/provider/elevatorApi/historyRecordExcel")
-    public  List<SbElevatorAddrecord> elevatorHistoryRecordExcel(@RequestParam(value = "time")String time,
-                                                         @RequestParam(value = "hxzid")String hxzid);
+    public  List<SbElevatorAddrecord> elevatorHistoryRecordExcel(@RequestParam(value = "time") String time,
+                                                                 @RequestParam(value = "hxzid") String hxzid);
     /**
      * 切换设备
      * @param pid
      * @return
      */
     @PostMapping("/provider/elevatorApi/switchDevice")
-    public AjaxResult elevatorSwitchDevice( @RequestParam(value = "pid")Integer pid);
+    public AjaxResult elevatorSwitchDevice(@RequestParam(value = "pid") Integer pid);
 
     /**
      * 考勤报表数据
@@ -2038,10 +2049,10 @@ public interface SystemClient {
      * @return
      */
     @PostMapping("/provider/kqbb/getKqbbList")
-    public List<Kqbb> getKqbbList(@RequestParam(value = "projectId")Integer projectId,@RequestParam(value = "time")String time);
+    public List<Kqbb> getKqbbList(@RequestParam(value = "projectId") Integer projectId, @RequestParam(value = "time") String time);
 
     @PostMapping("/provider/kqbb/getKqbbListBb")
-    public List<BG> getKqbbListBb(@RequestParam(value = "projectId")Integer projectId);
+    public List<BG> getKqbbListBb(@RequestParam(value = "projectId") Integer projectId);
 
     /**
      * app升降机
@@ -2049,56 +2060,56 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/appElevatorAddRecord/getElevatorAddRecord")
-    public JSONObject getElevatorAddRecord(@RequestParam(value = "deviceId")String deviceId,@RequestParam(value = "projectId")Integer projectId);
+    public JSONObject getElevatorAddRecord(@RequestParam(value = "deviceId") String deviceId, @RequestParam(value = "projectId") Integer projectId);
 
     /**
      * 升降机切换设备
      * @return
      */
     @PostMapping(value = "/provider/appElevatorAddRecord/getElevatorHxzId")
-    public JSONObject getElevatorHxzId(@RequestParam(value = "projectId")int projectId);
+    public JSONObject getElevatorHxzId(@RequestParam(value = "projectId") int projectId);
     /**
      * 升降机看板接口
      * @return
      */
     @PostMapping(value = "/provider/appElevatorAddRecord/crane")
-    public JSONObject appElevatorAddRecordCrane(@RequestParam(value = "pid")Integer projectId);
+    public JSONObject appElevatorAddRecordCrane(@RequestParam(value = "pid") Integer projectId);
     /**
      * app塔吊界面
      * @return
      */
     @PostMapping(value = "/provider/appCraneAddRecord/getCraneAddRecord")
-    public JSONObject getCraneAddRecord(@RequestParam(value = "deviceId")String deviceId,
-                                        @RequestParam(value = "projectId")Integer projectId);
+    public JSONObject getCraneAddRecord(@RequestParam(value = "deviceId") String deviceId,
+                                        @RequestParam(value = "projectId") Integer projectId);
 
     /**
      * app塔吊历史记录
      * @return
      */
     @PostMapping(value = "/provider/appCraneAddRecord/getCraneAddRecordHistory")
-    public JSONObject getCraneAddRecordHistory(@RequestParam(value = "deviceId")String deviceId,
-                                               @RequestParam(value = "pageNum")Integer pageNum,
-                                               @RequestParam(value = "pageSize")Integer pageSize,
-                                               @RequestParam(value = "dateTime",required = false)String dateTime);
+    public JSONObject getCraneAddRecordHistory(@RequestParam(value = "deviceId") String deviceId,
+                                               @RequestParam(value = "pageNum") Integer pageNum,
+                                               @RequestParam(value = "pageSize") Integer pageSize,
+                                               @RequestParam(value = "dateTime", required = false) String dateTime);
 
     /**
      * 塔吊切换设备
      * @return
      */
     @PostMapping(value = "/provider/appCraneAddRecord/getCraneHxzId")
-    public JSONObject getCraneHxzId(@RequestParam(value = "projectId")int projectId);
+    public JSONObject getCraneHxzId(@RequestParam(value = "projectId") int projectId);
     /**
      * 智慧工地1.0看板 塔吊
      * */
     @PostMapping(value = "/provider/appCraneAddRecord/kanban")
-    public JSONObject appCraneAddRecordKanban(@RequestParam(value = "pid")Integer projectId);
+    public JSONObject appCraneAddRecordKanban(@RequestParam(value = "pid") Integer projectId);
     /**
      * 集团看板
 
      * @return
      */
     @PostMapping(value = "/provider/project/selectListProjectArea")
-       Map<String, Object> selectListProjectArea(@RequestParam(value = "companyId") Integer companyId,@RequestParam(value = "region") String region);
+       Map<String, Object> selectListProjectArea(@RequestParam(value = "companyId") Integer companyId, @RequestParam(value = "region") String region);
     /**
      * 查询子公司列表
      * @param
@@ -2133,18 +2144,18 @@ public interface SystemClient {
     @PostMapping(value = "/provider/hireApi/edit")
     public JSONObject updateRadius(@RequestBody SbArea sbArea);
     @PostMapping(value = "/provider/Subscribe/Verify")
-    public void hqRecord(@RequestBody  String json);
+    public void hqRecord(@RequestBody String json);
     /**
      * 集团看板统计信息
      */
     @PostMapping(value = "/provider/project/selectProjectArea")
-    public Map<String,Object> selectProjectArea(@RequestParam(value = "companyId")Integer companyId,@RequestParam(value = "region") String region);
+    public Map<String,Object> selectProjectArea(@RequestParam(value = "companyId") Integer companyId, @RequestParam(value = "region") String region);
 
     /**
      * 集团看板公司列表
      */
     @PostMapping(value = "/provider/project/selectAreaProjectList")
-    public AjaxResult selectAreaProjectList(@RequestParam(value = "companyId") Integer companyId,@RequestParam(value = "region") String region);
+    public AjaxResult selectAreaProjectList(@RequestParam(value = "companyId") Integer companyId, @RequestParam(value = "region") String region);
 
 
     /**
@@ -2154,7 +2165,7 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/instructions/getPWD")
-    public List<HjProjectWorkers> getPWD(@RequestParam(value = "deviceNo")String deviceNo,@RequestParam(value = "pid") String pid);
+    public List<HjProjectWorkers> getPWD(@RequestParam(value = "deviceNo") String deviceNo, @RequestParam(value = "pid") String pid);
     /**
      * 保存录进设备的人脸
      */
@@ -2164,12 +2175,13 @@ public interface SystemClient {
      * 清除录进设备的人脸
      */
     @PostMapping(value = "/provider/instructions/clean")
-    public List<HjDeviceProjectworkers> clean(@RequestParam(value = "deviceNo")String deviceNo);
+    public List<HjDeviceProjectworkers> clean(@RequestParam(value = "deviceNo") String deviceNo);
  /**
      * 删除记录
      */
     @PostMapping(value = "/provider/instructions/deleteId")
-    public void deleteId(@RequestParam(value = "id")Integer id);
+    public void deleteId(@RequestParam(value = "id") Integer id);
+
     @PostMapping(value = "/provider/instructionsXm/xm")
     public JSONObject xm(@RequestParam(value = "deviceNo") String deviceNo);
 
@@ -2206,17 +2218,17 @@ public interface SystemClient {
      * 新增保存节点计划
      */
     @PostMapping(value = "/provider/Node/addNode")
-    public AjaxResult addNode(@RequestBody ZhNode zhNode );
+    public AjaxResult addNode(@RequestBody ZhNode zhNode);
     /**
      * 新增保存进度计划
      */
     @PostMapping(value = "/provider/Node/addProgressPlan")
-    public AjaxResult addProgressPlan(@RequestBody ZhProgressPlan zhProgressPlan );
+    public AjaxResult addProgressPlan(@RequestBody ZhProgressPlan zhProgressPlan);
     /**
      * 根据id删除进度计划
      */
     @PostMapping(value = "/provider/Node/remoProgressPlan")
-    public AjaxResult removeProgressPlan(@RequestParam(value = "id")int id);
+    public AjaxResult removeProgressPlan(@RequestParam(value = "id") int id);
     /**
      * 修改保存节点详情
      */
@@ -2226,7 +2238,7 @@ public interface SystemClient {
      * 删除节点
      */
     @PostMapping(value = "/provider/Node/removeNode")
-    public AjaxResult removeNode(@RequestParam(value = "id")int id);
+    public AjaxResult removeNode(@RequestParam(value = "id") int id);
     /**
      * 修改保存进度计划
      */
@@ -2292,21 +2304,21 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/HjGhformworktApi/selectStructure")
-    public  AjaxResult selectStructure(@RequestParam("projectId")Integer projectId);
+    public  AjaxResult selectStructure(@RequestParam("projectId") Integer projectId);
 
     /**
      * 查询所有的因素列表（高支模）
      * @return
      */
     @PostMapping(value = "/provider/HjGhformworktApi/selectDisplay" )
-    public AjaxResult selectDisplay(@RequestParam(value = "structureId")Integer structureId);
+    public AjaxResult selectDisplay(@RequestParam(value = "structureId") Integer structureId);
 
     /**
      * 查询所有的监测点（高支模）
      * @return
      */
     @PostMapping(value = "/provider/HjGhformworktApi/getFactorList" )
-    public AjaxResult getFactorList(@RequestParam(value = "structureId")Integer structureId,@RequestParam(value = "displayId") Integer displayId);
+    public AjaxResult getFactorList(@RequestParam(value = "structureId") Integer structureId, @RequestParam(value = "displayId") Integer displayId);
 
     /**
      * 查询测点历史数据（高支模）
@@ -2314,9 +2326,9 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/HjGhformworktApi/getFactorData" )
-    public AjaxResult getFactorData(@RequestParam(value = "factorId") Integer factorId,@RequestParam(value = "date") String date,
-                                    @RequestParam(value = "pageSize")Integer pageSize,
-                                    @RequestParam(value = "pageNum")Integer pageNum);
+    public AjaxResult getFactorData(@RequestParam(value = "factorId") Integer factorId, @RequestParam(value = "date") String date,
+                                    @RequestParam(value = "pageSize") Integer pageSize,
+                                    @RequestParam(value = "pageNum") Integer pageNum);
 
     /**
      * 查询报警数据（高支模）
@@ -2324,9 +2336,9 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/HjGhformworktApi/selectUserAlarms" )
-    public AjaxResult selectUserAlarms(@RequestParam(value = "structureId")Integer structureId,@RequestParam(value = "date") String date,
-                                       @RequestParam(value = "pageSize")Integer pageSize,
-                                       @RequestParam(value = "pageNum")Integer pageNum);
+    public AjaxResult selectUserAlarms(@RequestParam(value = "structureId") Integer structureId, @RequestParam(value = "date") String date,
+                                       @RequestParam(value = "pageSize") Integer pageSize,
+                                       @RequestParam(value = "pageNum") Integer pageNum);
 
     /**
      * 按时间段查询历史数据（高支模）
@@ -2336,9 +2348,9 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/HjGhformworktApi/getFactorDataT" )
-    public AjaxResult getFactorDataT(@RequestParam(value = "factorId") Integer factorId,@RequestParam(value = "startTime") String startTime, @RequestParam(value = "endTime")String endTime,
-                                     @RequestParam(value = "pageSize")Integer pageSize,
-                                     @RequestParam(value = "pageNum")Integer pageNum);
+    public AjaxResult getFactorDataT(@RequestParam(value = "factorId") Integer factorId, @RequestParam(value = "startTime") String startTime, @RequestParam(value = "endTime") String endTime,
+                                     @RequestParam(value = "pageSize") Integer pageSize,
+                                     @RequestParam(value = "pageNum") Integer pageNum);
 
     /**
      * 查询历史数据最大、最小、平均值（高支模）
@@ -2346,7 +2358,7 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/HjGhformworktApi/getParmeterAvg" )
-    public AjaxResult getParmeterAvg(@RequestParam(value = "displayId") Integer displayId,@RequestParam(value = "factorId") Integer factorId);
+    public AjaxResult getParmeterAvg(@RequestParam(value = "displayId") Integer displayId, @RequestParam(value = "factorId") Integer factorId);
 
     /**
      * 当日数据表特殊点（高支模）
@@ -2354,7 +2366,7 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/HjGhformworktApi/selectSpecial" )
-    public List selectSpecial(@RequestParam(value = "factorId")Integer factorId,@RequestParam(value = "param")String param,@RequestParam(value = "date") String date);
+    public List selectSpecial(@RequestParam(value = "factorId") Integer factorId, @RequestParam(value = "param") String param, @RequestParam(value = "date") String date);
 
     /**
      * 历史数据图表（高支模）
@@ -2364,7 +2376,7 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/HjGhformworktApi/selectSpecialS" )
-    public JSONArray selectSpecialS(@RequestParam(value = "displayId") Integer displayId,@RequestParam(value = "factorId") Integer factorId, @RequestParam(value = "startTime") String startTime, @RequestParam(value = "endTime")String endTime);
+    public JSONArray selectSpecialS(@RequestParam(value = "displayId") Integer displayId, @RequestParam(value = "factorId") Integer factorId, @RequestParam(value = "startTime") String startTime, @RequestParam(value = "endTime") String endTime);
 
     /**
      * 报警数据统计等级比例（高支模）
@@ -2372,7 +2384,7 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/HjGhformworktApi/statisticsAlertor" )
-    public AjaxResult statisticsAlertor(@RequestParam(value = "structureId")Integer structureId);
+    public AjaxResult statisticsAlertor(@RequestParam(value = "structureId") Integer structureId);
 
     /**
      * 查询报警数据（高支模）
@@ -2380,7 +2392,7 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/HjGhformworktApi/selectUserAlarmsByFactor" )
-    public AjaxResult selectUserAlarmsByFactor(@RequestParam(value = "factorName")String factorName,@RequestParam(value = "date") String date);
+    public AjaxResult selectUserAlarmsByFactor(@RequestParam(value = "factorName") String factorName, @RequestParam(value = "date") String date);
 
     /**
      * 关联项目(工讯)
@@ -2396,21 +2408,21 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/hjDeeppit/selectStructure")
-    public AjaxResult selectStructureDeeppit(@RequestParam("projectId")Integer projectId);
+    public AjaxResult selectStructureDeeppit(@RequestParam("projectId") Integer projectId);
 
     /**
      * 查询所有的因素列表（基坑）
      * @return
      */
     @PostMapping(value = "/provider/hjDeeppit/selectDisplay" )
-    public AjaxResult selectDisplayDeeppit(@RequestParam(value = "structureId")Integer structureId);
+    public AjaxResult selectDisplayDeeppit(@RequestParam(value = "structureId") Integer structureId);
 
     /**
      * 查询所有的监测点（基坑）
      * @return
      */
     @PostMapping(value = "/provider/hjDeeppit/getFactorList" )
-    public AjaxResult getFactorListDeeppit(@RequestParam(value = "structureId")Integer structureId, @RequestParam(value = "displayId") Integer displayId);
+    public AjaxResult getFactorListDeeppit(@RequestParam(value = "structureId") Integer structureId, @RequestParam(value = "displayId") Integer displayId);
 
     /**
      * 查询测点历史数据（基坑）
@@ -2418,8 +2430,8 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/hjDeeppit/getFactorData" )
-    public JSONObject getFactorDataDeeppit(@RequestParam(value = "factorId") Integer factorId, @RequestParam(value = "date") String date,  @RequestParam(value = "pageSize")Integer pageSize,
-                                           @RequestParam(value = "pageNum")Integer pageNum);
+    public JSONObject getFactorDataDeeppit(@RequestParam(value = "factorId") Integer factorId, @RequestParam(value = "date") String date, @RequestParam(value = "pageSize") Integer pageSize,
+                                           @RequestParam(value = "pageNum") Integer pageNum);
 
     /**
      * 查询历史数据最大、最小、平均值
@@ -2435,8 +2447,8 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/hjDeeppit/selectUserAlarms" )
-    public AjaxResult selectUserAlarmsDeeppit(@RequestParam(value = "structureId")Integer structureId, @RequestParam(value = "date")String date,  @RequestParam(value = "pageSize")Integer pageSize,
-                                              @RequestParam(value = "pageNum")Integer pageNum);
+    public AjaxResult selectUserAlarmsDeeppit(@RequestParam(value = "structureId") Integer structureId, @RequestParam(value = "date") String date, @RequestParam(value = "pageSize") Integer pageSize,
+                                              @RequestParam(value = "pageNum") Integer pageNum);
 
     /**
      * 报警数据统计等级比例（基坑）
@@ -2444,7 +2456,7 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/hjDeeppit/statisticsAlertor" )
-    public AjaxResult statisticsAlertorDeeppit(@RequestParam(value = "structureId")Integer structureId);
+    public AjaxResult statisticsAlertorDeeppit(@RequestParam(value = "structureId") Integer structureId);
 
     /**
      * 按时间段查询历史数据（基坑）
@@ -2454,8 +2466,8 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/hjDeeppit/getFactorDataT" )
-    public AjaxResult getFactorDataTDeeppit(@RequestParam(value = "factorId") Integer factorId, @RequestParam(value = "startTime") String startTime, @RequestParam(value = "endTime")String endTime,  @RequestParam(value = "pageSize")Integer pageSize,
-                                            @RequestParam(value = "pageNum")Integer pageNum);
+    public AjaxResult getFactorDataTDeeppit(@RequestParam(value = "factorId") Integer factorId, @RequestParam(value = "startTime") String startTime, @RequestParam(value = "endTime") String endTime, @RequestParam(value = "pageSize") Integer pageSize,
+                                            @RequestParam(value = "pageNum") Integer pageNum);
 
     /**
      * 当日数据表特殊点（基坑）
@@ -2463,7 +2475,7 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/hjDeeppit/selectSpecial" )
-    public List selectSpecialDeeppit(@RequestParam(value = "factorId")Integer factorId, @RequestParam(value = "param")String param, @RequestParam(value = "date") String date);
+    public List selectSpecialDeeppit(@RequestParam(value = "factorId") Integer factorId, @RequestParam(value = "param") String param, @RequestParam(value = "date") String date);
 
     /**
      * 历史数据图表（基坑）
@@ -2473,7 +2485,7 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/hjDeeppit/selectSpecialS" )
-    public JSONArray getFactorDataTDeeppit(@RequestParam(value = "displayId") Integer displayId, @RequestParam(value = "factorId") Integer factorId, @RequestParam(value = "startTime") String startTime, @RequestParam(value = "endTime")String endTime);
+    public JSONArray getFactorDataTDeeppit(@RequestParam(value = "displayId") Integer displayId, @RequestParam(value = "factorId") Integer factorId, @RequestParam(value = "startTime") String startTime, @RequestParam(value = "endTime") String endTime);
 
     /**
      * 查询报警数据（基坑）
@@ -2481,9 +2493,6 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/hjDeeppit/selectUserAlarmsByFactor" )
-    public AjaxResult selectUserAlarmsByFactorDeeppit(@RequestParam(value = "factorName")String factorName, @RequestParam(value = "date") String date);
+    public AjaxResult selectUserAlarmsByFactorDeeppit(@RequestParam(value = "factorName") String factorName, @RequestParam(value = "date") String date);
 
-    @PostMapping(value = "/provider/ys/setRecord")
-    public String setRecordYs(@RequestBody String json);
 }
-
