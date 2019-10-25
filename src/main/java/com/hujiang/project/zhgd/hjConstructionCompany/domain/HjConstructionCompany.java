@@ -67,6 +67,16 @@ public class HjConstructionCompany
 	private HjDictionaries dictionaries;
 	//项目ID
 	private Integer projectId;
+	/** 是否上传*/
+	private String isUpload;
+
+	public String getIsUpload() {
+		return isUpload;
+	}
+
+	public void setIsUpload(String isUpload) {
+		this.isUpload = isUpload;
+	}
 
 	public Integer getProjectId() {
 		return projectId;
