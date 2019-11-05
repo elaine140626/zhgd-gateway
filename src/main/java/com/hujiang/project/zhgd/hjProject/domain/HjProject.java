@@ -75,6 +75,16 @@ public class HjProject
 	/** 集团ID */
 	private String cid;
 
+	private String constructionName;
+
+	public String getConstructionName() {
+		return constructionName;
+	}
+
+	public void setConstructionName(String constructionName) {
+		this.constructionName = constructionName;
+	}
+
 	public String getCid() {
 		return cid;
 	}

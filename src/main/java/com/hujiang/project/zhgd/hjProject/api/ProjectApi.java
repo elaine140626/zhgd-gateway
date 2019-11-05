@@ -39,6 +39,14 @@ public class ProjectApi {
         return client.selectProjects(hjProject);
     }
 
+    /**
+     * 集团地图搜索项目
+     */
+    @RequestMapping("/selectProjectRegion")
+    public JSONObject selectProjectRegion(HjProject hjProject){
+        return client.selectProjectRegion(hjProject);
+    }
+
      /**
      * 集团看板统计信息
      */
@@ -55,6 +63,12 @@ public class ProjectApi {
     public AjaxResult selectAreaProjectList(@RequestParam(value = "companyId") Integer companyId,@RequestParam(value = "region") String region){
         return client.selectAreaProjectList(companyId,region);
     }
-
+    /**
+     *
+     * */
+    @RequestMapping(value = "/selectHjProject")
+    public JSONObject selectHjProject(HjProject hjProject){
+        return client.selectHjProject(hjProject);
+    }
 
 }

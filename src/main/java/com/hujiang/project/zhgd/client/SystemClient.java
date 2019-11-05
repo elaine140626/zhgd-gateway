@@ -2156,6 +2156,11 @@ public interface SystemClient {
      * */
     @PostMapping(value = "/provider/project/selectProjects")
     public JSONObject selectProjects(@RequestBody HjProject hjProject);
+
+    @PostMapping(value = "/provider/project/selectProjectRegion")
+    public JSONObject selectProjectRegion(@RequestBody HjProject hjProject);
+    @PostMapping(value = "/provider/project/selectHjProject")
+    public JSONObject selectHjProject(@RequestBody HjProject hjProject);
     /**
      * 集团看板公司列表
      */
