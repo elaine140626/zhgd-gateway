@@ -2152,6 +2152,11 @@ public interface SystemClient {
     public Map<String,Object> selectProjectArea(@RequestParam(value = "companyId") Integer companyId, @RequestParam(value = "region") String region);
 
     /**
+     * 集团端地图搜索项目
+     * */
+    @PostMapping(value = "/provider/project/selectProjects")
+    public JSONObject selectProjects(@RequestBody HjProject hjProject);
+    /**
      * 集团看板公司列表
      */
     @PostMapping(value = "/provider/project/selectAreaProjectList")

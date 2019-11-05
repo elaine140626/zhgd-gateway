@@ -72,8 +72,18 @@ public class HjProject
 	private String updateDate;
 	/** 人脸库编号 */
 	private String faceGroup;
+	/** 集团ID */
+	private String cid;
 
-	public void setId(Integer id) 
+	public String getCid() {
+		return cid;
+	}
+
+	public void setCid(String cid) {
+		this.cid = cid;
+	}
+
+	public void setId(Integer id)
 	{
 		this.id = id;
 	}
