@@ -14,7 +14,7 @@ public class HsFaceRecordApi {
     private SystemClient client;
     @PostMapping(value = "/setRecord")
     public void  setRecord(@RequestBody String json){
-        System.out.println(json);
+//        System.out.println(json);
         client.setRecord(json);
     }
 }

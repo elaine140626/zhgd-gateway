@@ -21,5 +21,4 @@ public class ElectricityBoxExternalApi {
         return systemClient.addElectricityBox(json);
     }
 
-
 }
