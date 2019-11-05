@@ -2187,6 +2187,30 @@ public interface SystemClient {
      */
     @PostMapping(value = "/provider/Node/selectZhNodeList")
     public AjaxResult selectZhNodeList(@RequestBody ZhNode node);
+
+    /**
+     * 查询即将开始节点列表
+     */
+    @PostMapping(value = "/provider/Node/selectWarningZhNode")
+    public AjaxResult selectWarningZhNode(@RequestBody ZhNode node);
+
+    /**
+     * 查询即将开始节点列表
+     */
+    @PostMapping(value = "/provider/Node/selectBeginZhNode")
+    public AjaxResult selectBeginZhNode(@RequestBody ZhNode node);
+
+    /**
+     * 查询即将结束节点列表
+     */
+    @PostMapping(value = "/provider/Node/selectEndZhNode")
+    public AjaxResult selectEndZhNode(@RequestBody ZhNode node);
+
+    /**
+     * 查询关键节点列表
+     */
+    @PostMapping(value = "/provider/Node/selectCruxZhNode")
+    public AjaxResult selectCruxZhNode(@RequestBody ZhNode node);
     /**
      * 查询计划节点关联列表
      */
@@ -2197,6 +2221,13 @@ public interface SystemClient {
      */
     @PostMapping(value = "/provider/Node/selectZhProgressPlanList")
     public AjaxResult selectZhProgressPlanList(@RequestBody ZhProgressPlan zhProgressPlan);
+
+    /**
+     * 首页查询进度计划列表
+     */
+    @PostMapping(value = "/provider/Node/selectZhProgressPlan")
+    public AjaxResult selectZhProgressPlan(@RequestBody ZhProgressPlan zhProgressPlan);
+
     /**
      * 查询前置节点列表
      */
@@ -2253,6 +2284,18 @@ public interface SystemClient {
     @PostMapping(value = "/provider/Node/removeProgressNode")
     public AjaxResult removeaddProgressNode(@RequestParam(value = "id") int id);
 
+    /**
+     * 删除进度中的关联节点
+     */
+    @PostMapping(value = "/provider/Node/editNodeWithProgress")
+    public AjaxResult editNodeWithProgress(@RequestBody ZhProgressNode zhProgressNode);
+
+
+    /**
+     * 查询计划中关联节点列表
+     */
+    @PostMapping(value = "/provider/Node/selectZhNodeProgressList")
+    public AjaxResult selectZhNodeProgressList(@RequestBody ZhProgressNode zhProgressNode);
     /**
      * 对艾达信人脸机下发指令
      * @param json
