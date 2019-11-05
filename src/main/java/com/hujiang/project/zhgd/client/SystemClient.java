@@ -2161,6 +2161,54 @@ public interface SystemClient {
     public JSONObject selectProjectRegion(@RequestBody HjProject hjProject);
     @PostMapping(value = "/provider/project/selectHjProject")
     public JSONObject selectHjProject(@RequestBody HjProject hjProject);
+
+    /**
+     * 查询关键节点列表
+     */
+    @PostMapping(value = "/provider/Node/selectCruxZhNode")
+    public AjaxResult selectCruxZhNode(@RequestBody ZhNode node);
+
+    /**
+     * 查询即将开始节点列表
+     */
+    @PostMapping(value = "/provider/Node/selectWarningZhNode")
+    public AjaxResult selectWarningZhNode(@RequestBody ZhNode node);
+
+    /**
+     * 查询即将开始节点列表
+     */
+    @PostMapping(value = "/provider/Node/selectBeginZhNode")
+    public AjaxResult selectBeginZhNode(@RequestBody ZhNode node);
+
+
+    /**
+     * 查询即将结束节点列表
+     */
+    @PostMapping(value = "/provider/Node/selectEndZhNode")
+    public AjaxResult selectEndZhNode(@RequestBody ZhNode node);
+
+
+
+    /**
+     * 首页查询进度计划列表
+     */
+    @PostMapping(value = "/provider/Node/selectZhProgressPlan")
+    public AjaxResult selectZhProgressPlan(@RequestBody ZhProgressPlan zhProgressPlan);
+
+    /**
+     * 删除进度中的关联节点
+     */
+    @PostMapping(value = "/provider/Node/editNodeWithProgress")
+    public AjaxResult editNodeWithProgress(@RequestBody ZhProgressNode zhProgressNode);
+
+
+
+    /**
+     * 查询计划中关联节点列表
+     */
+    @PostMapping(value = "/provider/Node/selectZhNodeProgressList")
+    public AjaxResult selectZhNodeProgressList(@RequestBody ZhProgressNode zhProgressNode);
+
     /**
      * 集团看板公司列表
      */

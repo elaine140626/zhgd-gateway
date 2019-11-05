@@ -32,6 +32,16 @@ public class ZhProgressPlan
 	private String end;
 	/** 创建人id */
 	private Integer creatorId;
+	/*** 项目id */
+	private Integer projectId;
+
+	public Integer getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(Integer projectId) {
+		this.projectId = projectId;
+	}
 
 	public static long getSerialVersionUID() {
 		return serialVersionUID;
@@ -112,6 +122,7 @@ public class ZhProgressPlan
 				", start='" + start + '\'' +
 				", end='" + end + '\'' +
 				", creatorId=" + creatorId +
+				", projectId=" + projectId +
 				'}';
 	}
 }
