@@ -45,6 +45,15 @@ public class ProjectApi {
     }
 
     /**
+     * 集团看板统计信息
+     */
+    @RequestMapping(value = "/selectProjectAreS")
+    public Map<String, Object> selectProjectAreaS(@RequestParam(value = "companyId") Integer companyId)
+    {
+        return  client.selectProjectAreaS(companyId);
+    }
+
+    /**
      * 集团看板公司列表
      */
     @RequestMapping(value = "/selectAreaProjectList")
