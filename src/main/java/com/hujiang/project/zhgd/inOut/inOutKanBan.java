@@ -31,4 +31,13 @@ public class inOutKanBan {
         logger.info("实名制进出看板接口开始----/provider/inOutKanBan/selectIndex");
         return client.inOutKanBanSelectIndex(pid);
     }
+    /**
+     * 实名制电视看板
+     */
+    @PostMapping("/selectTV")
+    public AjaxResult selectTV(Integer pid){
+        logger.info("实名制电视看板接口开始----/provider/inOutKanBan/selectTV");
+        return client.selectTV(pid);
+    }
+
 }

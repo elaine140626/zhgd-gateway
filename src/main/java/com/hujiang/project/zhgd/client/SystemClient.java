@@ -2931,5 +2931,12 @@ public interface SystemClient {
      */
     @PostMapping(value = "/provider/ys/setRecord")
     public String setRecordYs(@RequestBody String json);
+
+    /**
+     * 实名制进出看板
+     */
+    @PostMapping("/provider/inOutKanBan/selectTV")
+    public AjaxResult selectTV(@RequestParam(value = "pid") Integer pid);
+
 }
 

@@ -73,7 +73,18 @@ public class HjProject
 	/** 人脸库编号 */
 	private String faceGroup;
 
-	public void setId(Integer id) 
+	/** 建设单位 */
+	private String buildUnit;
+
+	public String getBuildUnit() {
+		return buildUnit;
+	}
+
+	public void setBuildUnit(String buildUnit) {
+		this.buildUnit = buildUnit;
+	}
+
+	public void setId(Integer id)
 	{
 		this.id = id;
 	}
