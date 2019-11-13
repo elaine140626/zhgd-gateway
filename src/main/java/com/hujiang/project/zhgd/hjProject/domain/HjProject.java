@@ -72,6 +72,10 @@ public class HjProject
 	private String updateDate;
 	/** 人脸库编号 */
 	private String faceGroup;
+	/** 集团ID */
+	private String cid;
+
+	private String constructionName;
 
 	/** 建设单位 */
 	private String buildUnit;
@@ -82,6 +86,22 @@ public class HjProject
 
 	public void setBuildUnit(String buildUnit) {
 		this.buildUnit = buildUnit;
+	}
+
+	public String getConstructionName() {
+		return constructionName;
+	}
+
+	public void setConstructionName(String constructionName) {
+		this.constructionName = constructionName;
+	}
+
+	public String getCid() {
+		return cid;
+	}
+
+	public void setCid(String cid) {
+		this.cid = cid;
 	}
 
 	public void setId(Integer id)
