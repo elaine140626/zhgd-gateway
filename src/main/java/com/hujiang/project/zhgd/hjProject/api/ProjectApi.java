@@ -67,5 +67,11 @@ public class ProjectApi {
     public JSONObject selectHjProject(HjProject hjProject){
         return client.selectHjProject(hjProject);
     }
-
+    /**
+     * 电视看板
+     */
+    @RequestMapping("/selectProjectMsg")
+    public AjaxResult selectProjectMsg(@RequestParam(value = "projectId") Integer projectId){
+        return client.selectProjectMsg(projectId);
+    }
 }

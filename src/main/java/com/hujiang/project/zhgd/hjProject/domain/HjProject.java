@@ -77,6 +77,17 @@ public class HjProject
 
 	private String constructionName;
 
+	/** 建设单位 */
+	private String buildUnit;
+
+	public String getBuildUnit() {
+		return buildUnit;
+	}
+
+	public void setBuildUnit(String buildUnit) {
+		this.buildUnit = buildUnit;
+	}
+
 	public String getConstructionName() {
 		return constructionName;
 	}
