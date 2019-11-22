@@ -2,11 +2,12 @@ package com.hujiang.project.zhgd.client;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.hujiang.common.support.Convert;
+
 import com.hujiang.framework.web.domain.AjaxResult;
-import com.hujiang.framework.web.page.PageDomain;
+
 import com.hujiang.project.zhgd.hjAttendanceDevice.domain.HjAttendanceDevice;
 import com.hujiang.project.zhgd.hjDeeppit.domain.SbProjectDeeppitStructures;
+import com.hujiang.project.zhgd.hjProjectImage.domain.HjProjectImage;
 import com.hujiang.project.zhgd.hjZhgdDriver.domain.HjZhgdDriver;
 import com.hujiang.project.zhgd.lzfw.domain.*;
 import com.hujiang.project.zhgd.hjDeveceProjectworkers.domain.HjDeviceProjectworkers;
@@ -2577,5 +2578,27 @@ public interface SystemClient {
      */
     @PostMapping("/provider/project/selectProjectMsg")
     public AjaxResult selectProjectMsg(@RequestParam(value = "projectId") Integer projectId);
+    /**
+     * 查找轮播图
+     */
+    @PostMapping("/provider/projectImage/selectProjectImageList")
+    public AjaxResult selectProjectImageList(@RequestBody HjProjectImage hjProjectImage);
 
+    /**
+     * 添加轮播图
+     */
+    @PostMapping(value = "/provider/projectImage/insertProjectImage")
+    public AjaxResult insertProjectImage(@RequestBody HjProjectImage hjProjectImage);
+
+    /**
+     * 更新轮播图
+     */
+    @PostMapping("/provider/projectImage/updateProjectImage")
+    public AjaxResult updateProjectImage(@RequestPart(value = "file") MultipartFile file);
+
+    /**
+     * 删除轮播图
+     */
+    @PostMapping("/provider/projectImage/removeProjectImage")
+    public AjaxResult removeProjectImage(@RequestParam(value = "id") Integer id);
 }
