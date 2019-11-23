@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.hujiang.framework.web.domain.AjaxResult;
 import com.hujiang.project.zhgd.SbProjectVideo.domain.SbProjectVideo;
 import com.hujiang.project.zhgd.client.SystemClient;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -88,8 +89,10 @@ public class ProjectVideo {
     {
         return client.projectVideoEditSave(sbProjectVideo);
     }
-
-
+    @PostMapping("/ysCloudControldirection")
+public void ysCloudControldirection(Integer pid,String deviceSerial ,Integer direction){
+         client.ysCloudControldirection(pid,deviceSerial,direction);
+}
 
 
 }

@@ -27,9 +27,12 @@ public class inOutKanBan {
      * 实名制进出看板
      */
     @PostMapping("/selectIndex")
-    public AjaxResult selectIndex(Integer pid){
-        logger.info("实名制进出看板接口开始----/provider/inOutKanBan/selectIndex");
-        return client.inOutKanBanSelectIndex(pid);
+    public AjaxResult selectIndex(String  pid){
+        if("".equals(pid)||pid==null||"null".equals(pid)){
+            return null;
+        }
+        logger.info("实名制进出看板接口开始----/provider/inOutKanBan/selectIndex===="+pid);
+        return client.inOutKanBanSelectIndex(Integer.valueOf(pid));
     }
     /**
      * 实名制电视看板
