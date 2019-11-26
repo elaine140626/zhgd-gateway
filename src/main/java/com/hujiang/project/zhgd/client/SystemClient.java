@@ -1646,6 +1646,9 @@ public interface SystemClient {
      */
     @PostMapping("/provider/ProjectVideo/projectVideoEditSave")
     public AjaxResult projectVideoEditSave(@RequestBody SbProjectVideo sbProjectVideo);
+
+    @PostMapping("/provider/ProjectVideo/ysCloudControldirection")
+    public void ysCloudControldirection(@RequestParam(value = "pid") Integer pid,@RequestParam(value = "deviceSerial") String deviceSerial,@RequestParam(value = "direction") Integer direction);
     /**
      * 电箱数据分页
      * @param electricityBoxId
@@ -2361,6 +2364,13 @@ public interface SystemClient {
      */
     @PostMapping(value = "/provider/attendanceDeviceApi/updateAttendanceDevice")
     public AjaxResult updateAttendanceDevice(@RequestBody HjAttendanceDevice hjAttendanceDevice);
+    /**
+     * 人脸机列表
+     * @param
+     * @return
+     */
+    @PostMapping(value = "/provider/attendanceDeviceApi/selectAttendanceDevice")
+    public AjaxResult selectAttendanceDevice(@RequestBody HjAttendanceDevice hjAttendanceDevice,@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize);
 
 
     /**
