@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import com.hujiang.framework.web.domain.AjaxResult;
 
+import com.hujiang.project.zhgd.SbProjectVideoArea.domain.SbJTArea;
 import com.hujiang.project.zhgd.hjAttendanceDevice.domain.HjAttendanceDevice;
 import com.hujiang.project.zhgd.hjDeeppit.domain.SbProjectDeeppitStructures;
 import com.hujiang.project.zhgd.hjProjectImage.domain.HjProjectImage;
@@ -1597,6 +1598,14 @@ public interface SystemClient {
      */
     @PostMapping( "/provider/ProjectVideoAreaApi/remove")
     public AjaxResult projectVideoAreaRemove(@RequestParam(value = "ids") String ids);
+
+    /**
+     * 集团的监控列表
+     * @param cid
+     * @return
+     */
+    @PostMapping("/provider/ProjectVideoAreaApi/getVideoListJT")
+    public List<SbJTArea> getVideoListJT(@RequestParam(value = "cid") Integer cid);
     /**
      * APP根据项目id获取项目视频区
      * @param projectId

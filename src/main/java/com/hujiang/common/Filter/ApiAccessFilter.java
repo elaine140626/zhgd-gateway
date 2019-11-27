@@ -1,4 +1,4 @@
-package com.hujiang.common.FIlter;
+package com.hujiang.common.Filter;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
