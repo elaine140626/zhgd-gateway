@@ -261,4 +261,12 @@ public class NodeApi {
         return client.selectZhNodeProgressList(zhProgressNode);
     }
 
+    /**
+     * 查询计划关联节点列表
+     */
+    @PostMapping("selectAddZhNodeList")
+    public AjaxResult selectAddZhNodeList(@RequestParam(value = "projectId") Integer projectId) {
+        return client.selectAddZhNodeList(projectId);
+    }
+
 }

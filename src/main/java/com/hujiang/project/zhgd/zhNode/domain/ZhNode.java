@@ -99,6 +99,18 @@ public class ZhNode {
      */
     private Integer status;
 
+    /**
+     * 能否在计划中导入
+     */
+    private boolean addAble;
+
+    public boolean isAddAble() {
+        return addAble;
+    }
+
+    public void setAddAble(boolean addAble) {
+        this.addAble = addAble;
+    }
     public void setStatus(Integer status) {
         this.status = status;
     }

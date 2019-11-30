@@ -2229,6 +2229,11 @@ public interface SystemClient {
     public AjaxResult selectZhNodeProgressList(@RequestBody ZhProgressNode zhProgressNode);
 
     /**
+     * 查询可以导入计划的节点列表
+     */
+    @PostMapping(value = "/provider/Node/selectAddZhNodeList")
+    public AjaxResult selectAddZhNodeList(@RequestParam(value = "projectId") Integer projectId);
+    /**
      * 集团看板公司列表
      */
     @PostMapping(value = "/provider/project/selectAreaProjectList")
