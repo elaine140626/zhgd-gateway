@@ -2,6 +2,7 @@ package com.hujiang.project.zhgd.SbProjectVideoArea.api;
 
 import com.alibaba.fastjson.JSONObject;
 import com.hujiang.framework.web.domain.AjaxResult;
+import com.hujiang.project.zhgd.SbProjectVideoArea.domain.SbJTArea;
 import com.hujiang.project.zhgd.SbProjectVideoArea.domain.SbProjectVideoArea;
 import com.hujiang.project.zhgd.client.SystemClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,4 +80,13 @@ public class ProjectVideoAreaApi {
         return client.projectVideoAreaRemove(ids);
     }
 
+    /**
+     * 集团监控列表
+     * @param cid
+     * @return
+     */
+    @PostMapping("/getVideoListJT")
+    public List<SbJTArea> getVideoListJT(Integer cid){
+        return client.getVideoListJT(cid);
+    }
 }
