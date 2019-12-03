@@ -104,6 +104,40 @@ public class ZhNode {
      */
     private boolean addAble;
 
+    private boolean hasNode;
+    /**
+     * 是否前置节点
+     */
+    private boolean prepose;
+    /**
+     * 是否可以作为父级节点
+     */
+    private boolean befather;
+
+    public boolean isBefather() {
+        return befather;
+    }
+
+    public void setBefather(boolean befather) {
+        this.befather = befather;
+    }
+
+    public boolean isHasNode() {
+        return hasNode;
+    }
+
+    public void setHasNode(boolean hasNode) {
+        this.hasNode = hasNode;
+    }
+
+    public boolean isPrepose() {
+        return prepose;
+    }
+
+    public void setPrepose(boolean prepose) {
+        this.prepose = prepose;
+    }
+
     public boolean isAddAble() {
         return addAble;
     }

@@ -1,11 +1,9 @@
 package com.hujiang.project.zhgd.zhNode.api;
 
 import com.hujiang.common.utils.poi.ExcelUtil;
-import com.hujiang.framework.web.controller.BaseController;
 import com.hujiang.framework.web.domain.AjaxResult;
 import com.hujiang.project.zhgd.Util;
 import com.hujiang.project.zhgd.client.SystemClient;
-import com.hujiang.project.zhgd.lzfw.domain.HjReportPc;
 import com.hujiang.project.zhgd.zhNode.domain.*;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -262,7 +260,7 @@ public class NodeApi {
     }
 
     /**
-     * 查询计划关联节点列表
+     * 查询计划可以导入的节点列表
      */
     @PostMapping("selectAddZhNodeList")
     public AjaxResult selectAddZhNodeList(@RequestParam(value = "projectId") Integer projectId) {
