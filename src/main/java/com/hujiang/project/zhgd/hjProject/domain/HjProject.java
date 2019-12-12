@@ -79,6 +79,16 @@ public class HjProject
 
 	/** 建设单位 */
 	private String buildUnit;
+	/** 所属部门 */
+	private String projectDept;
+
+	public String getProjectDept() {
+		return projectDept;
+	}
+
+	public void setProjectDept(String projectDept) {
+		this.projectDept = projectDept;
+	}
 
 	public String getBuildUnit() {
 		return buildUnit;

@@ -49,10 +49,12 @@ import com.hujiang.project.zhgd.sbDustEmission.domain.SbDustEmission;
 import com.hujiang.project.zhgd.sbElevatorAddrecord.api.domain.OptionsElevator;
 import com.hujiang.project.zhgd.sbExcessiveDust.domain.SbExcessiveDust;
 import com.hujiang.project.zhgd.sbExcessiveDust.domain.SbExcessiveDust;
+import com.hujiang.project.zhgd.sbGroupTalkback.domain.SbGroupTalkback;
 import com.hujiang.project.zhgd.sbHire.api.domain.SbArea;
 import com.hujiang.project.zhgd.sbManufacturer.domain.SbManufacturer;
 import com.hujiang.project.zhgd.sbProjectDustEmission.domain.SbProjectDustEmission;
 import com.hujiang.project.zhgd.sbProjectElectricityBox.domain.SbProjectElectricityBox;
+import com.hujiang.project.zhgd.sbProjectVideoPreset.domain.SbProjectVideoPreset;
 import com.hujiang.project.zhgd.sbUnloaderRegistration.domain.ExportUnloaderAlarmtime;
 import com.hujiang.project.zhgd.sbUnloaderRegistration.domain.ExportUnloaderRealtime;
 import com.hujiang.project.zhgd.zhNode.domain.*;
@@ -2625,4 +2627,41 @@ public interface SystemClient {
      */
     @PostMapping("/provider/projectImage/removeProjectImage")
     public AjaxResult removeProjectImage(@RequestParam(value = "id") Integer id);
+
+    /**
+     * 集团对讲列表
+     * @param cid
+     * @return
+     */
+    @PostMapping("/provider/sbGroupTalkback/getAccountList")
+    public List<SbGroupTalkback> getAccountList(@RequestBody SbGroupTalkback sbGroupTalkback);
+    /**
+     * 新增预置点
+     * @param
+     * @return
+     */
+    @PostMapping("/provider/ProjectVideoPresetApi/insertPreset")
+    public AjaxResult insertPreset(@RequestParam(value = "pid") Integer pid,@RequestParam(value = "deviceSerial") String deviceSerial);
+   /**
+     * 清除预置点
+     * @param
+     * @return
+     */
+    @PostMapping("/provider/ProjectVideoPresetApi/clearPreset")
+    public AjaxResult clearPreset(@RequestParam(value = "pid") Integer pid,@RequestParam(value = "deviceSerial") String deviceSerial ,@RequestParam(value = "index") Integer  index);
+ /**
+     * 查询预置点
+     * @param
+     * @return
+     */
+    @PostMapping("/provider/ProjectVideoPresetApi/selectPreset")
+    public AjaxResult selectPreset(@RequestBody SbProjectVideoPreset sp);
+    /**
+     *调用预置点
+     * @param
+     * @return
+     */
+    @PostMapping("/provider/ProjectVideoPresetApi/callPreset")
+    public void callPreset(@RequestParam(value = "pid") Integer pid,@RequestParam(value = "deviceSerial") String deviceSerial ,@RequestParam(value = "index") Integer  index);
+
 }

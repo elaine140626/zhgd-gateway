@@ -4,6 +4,15 @@ public class Video {
     private String videoSn;
     private String isControl;
     private String url;
+    private String videoName;
+
+    public String getVideoName() {
+        return videoName;
+    }
+
+    public void setVideoName(String videoName) {
+        this.videoName = videoName;
+    }
 
     public String getVideoSn() {
         return videoSn;

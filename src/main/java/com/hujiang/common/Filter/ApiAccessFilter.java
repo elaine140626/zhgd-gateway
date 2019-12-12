@@ -26,8 +26,11 @@ public class ApiAccessFilter implements Filter {
 
 
         filterChain.doFilter(servletRequest, servletResponse);
-        logger.info("接口："+request.getRequestURI()+"=============时间："+(System.currentTimeMillis() - start));
-
+        long time=System.currentTimeMillis() - start;
+        //接口响应时间超过5秒的接口打印出来
+        if(time>5000) {
+            logger.info("接口：" + request.getRequestURI() + "=============时间：" + time+"毫秒");
+        }
     }
 
     @Override
