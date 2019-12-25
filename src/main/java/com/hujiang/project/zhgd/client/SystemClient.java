@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.hujiang.framework.web.domain.AjaxResult;
 
 import com.hujiang.project.zhgd.SbProjectVideoArea.domain.SbJTArea;
+import com.hujiang.project.zhgd.SbProjectVideoArea.domain.Video;
 import com.hujiang.project.zhgd.hjAttendanceDevice.domain.HjAttendanceDevice;
 import com.hujiang.project.zhgd.hjDeeppit.domain.SbProjectDeeppitStructures;
 import com.hujiang.project.zhgd.hjProjectImage.domain.HjProjectImage;
@@ -1608,6 +1609,8 @@ public interface SystemClient {
      */
     @PostMapping("/provider/ProjectVideoAreaApi/getVideoListJT")
     public List<SbJTArea> getVideoListJT(@RequestParam(value = "cid") Integer cid);
+ @PostMapping("/provider/ProjectVideoAreaApi/getVideoListImgUrl")
+    public List<Video> getVideoListImgUrl(@RequestParam(value = "cid") Integer cid);
     /**
      * APP根据项目id获取项目视频区
      * @param projectId
@@ -2627,6 +2630,11 @@ public interface SystemClient {
      */
     @PostMapping("/provider/projectImage/removeProjectImage")
     public AjaxResult removeProjectImage(@RequestParam(value = "id") Integer id);
+    /**
+     * 下载录音
+     */
+    @GetMapping("/provider/sbGroupTalkback/ftpDownload")
+    public String ftpDownload(@RequestParam(value = "ftpPath") String ftpPath,@RequestParam(value = "user") String user,@RequestParam(value = "date") String date,@RequestParam(value = "name") String name);
 
     /**
      * 集团对讲列表
