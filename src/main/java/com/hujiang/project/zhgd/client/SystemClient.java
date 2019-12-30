@@ -44,6 +44,7 @@ import com.hujiang.project.zhgd.hjTeam.domain.HjTeam;
 import com.hujiang.project.zhgd.hjZhgdVehicle.domain.*;
 import com.hujiang.project.zhgd.kqbb.domain.BG;
 import com.hujiang.project.zhgd.kqbb.domain.Kqbb;
+import com.hujiang.project.zhgd.sbAccountTalkback.domain.SbAccountTalkback;
 import com.hujiang.project.zhgd.sbApiFaceAttendance.domain.SbApiFaceAttendance;
 import com.hujiang.project.zhgd.sbCurrentTemperature.domain.SbCurrentTemperature;
 import com.hujiang.project.zhgd.sbDustEmission.domain.SbDustEmission;
@@ -59,6 +60,7 @@ import com.hujiang.project.zhgd.sbProjectVideoPreset.domain.SbProjectVideoPreset
 import com.hujiang.project.zhgd.sbUnloaderRegistration.domain.ExportUnloaderAlarmtime;
 import com.hujiang.project.zhgd.sbUnloaderRegistration.domain.ExportUnloaderRealtime;
 import com.hujiang.project.zhgd.zhNode.domain.*;
+import org.aspectj.weaver.loadtime.Aj;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -1661,8 +1663,25 @@ public interface SystemClient {
     @PostMapping("/provider/ProjectVideo/projectVideoEditSave")
     public AjaxResult projectVideoEditSave(@RequestBody SbProjectVideo sbProjectVideo);
 
+    /**
+     * 云台控制
+     * @param pid
+     * @param deviceSerial
+     * @param direction
+     */
     @PostMapping("/provider/ProjectVideo/ysCloudControldirection")
     public void ysCloudControldirection(@RequestParam(value = "pid") Integer pid,@RequestParam(value = "deviceSerial") String deviceSerial,@RequestParam(value = "direction") Integer direction);
+
+    /**
+     * 更新摄像头坐标
+     * @param videoSn
+     * @param longitude
+     * @param latitude
+     * @return
+     */
+     @PostMapping("/provider/ProjectVideo/updateVideoCoordinate")
+    public AjaxResult updateVideoCoordinate(@RequestBody SbProjectVideo sbProjectVideo);
+
     /**
      * 电箱数据分页
      * @param electricityBoxId
@@ -2634,7 +2653,7 @@ public interface SystemClient {
      * 下载录音
      */
     @GetMapping("/provider/sbGroupTalkback/ftpDownload")
-    public String ftpDownload(@RequestParam(value = "ftpPath") String ftpPath,@RequestParam(value = "user") String user,@RequestParam(value = "date") String date,@RequestParam(value = "name") String name);
+    public String ftpDownload(@RequestParam(value = "ftpPath") String ftpPath,@RequestParam(value = "user") String user,@RequestParam(value = "startTime") String startTime,@RequestParam(value = "name") String name,@RequestParam(value = "endTime") String endTime);
 
     /**
      * 集团对讲列表
@@ -2643,6 +2662,13 @@ public interface SystemClient {
      */
     @PostMapping("/provider/sbGroupTalkback/getAccountList")
     public List<SbGroupTalkback> getAccountList(@RequestBody SbGroupTalkback sbGroupTalkback);
+    /**
+     * 对讲列表
+     * @param cid
+     * @return
+     */
+    @PostMapping("/provider/sbAccountTalkback/getAccountListPage")
+    public AjaxResult getAccountListPage(@RequestParam(value = "cpid") Integer cpid, @RequestParam(value = "isIdType") String isIdType, @RequestBody SbAccountTalkback sbAccountTalkback, @RequestParam(value = "pageSize") Integer pageSize, @RequestParam(value = "pageNum") Integer pageNum);
     /**
      * 新增预置点
      * @param

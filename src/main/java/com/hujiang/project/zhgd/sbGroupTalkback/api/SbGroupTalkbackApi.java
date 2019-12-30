@@ -34,9 +34,9 @@ public class SbGroupTalkbackApi extends BaseController {
             return client.getAccountList(sbGroupTalkback);
         }
         @GetMapping("/ftpDownload")
-        public void ftpDownload(String ftpPath,String user,String date,String name, HttpServletResponse response) throws  Exception{
+        public void ftpDownload(String ftpPath,String user,String startTime,String name,String endTime, HttpServletResponse response) throws  Exception{
 
-                String s = client.ftpDownload(ftpPath,user,date,name);
+                String s = client.ftpDownload(ftpPath,user,startTime,name,endTime);
                 if(!"-1".equals(s)){
                         URL url = new URL(s);
                         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
@@ -51,11 +51,11 @@ public class SbGroupTalkbackApi extends BaseController {
                              OutputStream outputStream = response.getOutputStream();) {
                                 response.setContentType("application/zip");
 
-                                response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(name+date+".zip", "UTF-8"));
+                                response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(name+startTime+"_"+endTime+".zip", "UTF-8"));
                                 IOUtils.copy(inputStream, outputStream);
 
                                 //删除文件
-                                AliyunOSSClientUtil.deleteFile(AliyunOSSClientUtil.getOSSClient(),"hujiang", name+date+".zip");
+                                AliyunOSSClientUtil.deleteFile(AliyunOSSClientUtil.getOSSClient(),"hujiang", name+startTime+"_"+endTime+".zip");
                         } catch (Exception e) {
                                 e.printStackTrace();
                         }
