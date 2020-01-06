@@ -89,10 +89,28 @@ public class ProjectVideo {
     {
         return client.projectVideoEditSave(sbProjectVideo);
     }
+
+    /**
+     * 云台控制方向
+     * @param pid
+     * @param deviceSerial
+     * @param direction
+     */
     @PostMapping("/ysCloudControldirection")
 public void ysCloudControldirection(Integer pid,String deviceSerial ,Integer direction){
          client.ysCloudControldirection(pid,deviceSerial,direction);
 }
 
+    /**
+     * 更新摄像头坐标
+     * @param videoSn
+     * @param longitude
+     * @param latitude
+     * @return
+     */
+    @PostMapping("/updateVideoCoordinate")
+    public AjaxResult updateVideoCoordinate(SbProjectVideo sbProjectVideo){
+        return client.updateVideoCoordinate(sbProjectVideo);
+    }
 
 }

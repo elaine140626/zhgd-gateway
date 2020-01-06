@@ -49,7 +49,24 @@ public class SbProjectVideo
 	private String flowCard;
 	/** 出库日期	 */
 	private String shipmentDate;
+	private String longitude;//经度
+	private String latitude;//纬度
 
+	public String getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+
+	public String getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
 	public String getHjCode() {
 		return hjCode;
 	}
