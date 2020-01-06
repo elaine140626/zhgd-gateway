@@ -52,6 +52,7 @@ import com.hujiang.project.zhgd.sbElevatorAddrecord.api.domain.OptionsElevator;
 import com.hujiang.project.zhgd.sbExcessiveDust.domain.SbExcessiveDust;
 import com.hujiang.project.zhgd.sbExcessiveDust.domain.SbExcessiveDust;
 import com.hujiang.project.zhgd.sbGroupTalkback.domain.SbGroupTalkback;
+import com.hujiang.project.zhgd.sbGroupTitle.domain.SbGroupTitle;
 import com.hujiang.project.zhgd.sbHire.api.domain.SbArea;
 import com.hujiang.project.zhgd.sbManufacturer.domain.SbManufacturer;
 import com.hujiang.project.zhgd.sbProjectDustEmission.domain.SbProjectDustEmission;
@@ -2698,4 +2699,9 @@ public interface SystemClient {
     @PostMapping("/provider/ProjectVideoPresetApi/callPreset")
     public void callPreset(@RequestParam(value = "pid") Integer pid,@RequestParam(value = "deviceSerial") String deviceSerial ,@RequestParam(value = "index") Integer  index);
 
+    /**
+     * 查询集团项目名称
+     */
+    @PostMapping("/provider/groupTitleApi/getTitle")
+    public AjaxResult getTitle(@RequestBody SbGroupTitle sbGroupTitle);
 }
