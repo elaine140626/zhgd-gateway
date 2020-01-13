@@ -1671,7 +1671,7 @@ public interface SystemClient {
      * @param direction
      */
     @PostMapping("/provider/ProjectVideo/ysCloudControldirection")
-    public void ysCloudControldirection(@RequestParam(value = "pid") Integer pid,@RequestParam(value = "deviceSerial") String deviceSerial,@RequestParam(value = "direction") Integer direction);
+    public void ysCloudControldirection(@RequestParam(value = "pid") Integer pid,@RequestParam(value = "deviceSerial") String deviceSerial,@RequestParam(value = "direction") Integer direction,@RequestBody Video video);
 
     /**
      * 更新摄像头坐标
