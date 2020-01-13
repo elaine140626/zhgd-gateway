@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.hujiang.framework.web.domain.AjaxResult;
 import com.hujiang.project.zhgd.SbProjectVideoArea.domain.SbJTArea;
 import com.hujiang.project.zhgd.SbProjectVideoArea.domain.SbProjectVideoArea;
+import com.hujiang.project.zhgd.SbProjectVideoArea.domain.Video;
 import com.hujiang.project.zhgd.client.SystemClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -88,5 +89,10 @@ public class ProjectVideoAreaApi {
     @PostMapping("/getVideoListJT")
     public List<SbJTArea> getVideoListJT(Integer cid){
         return client.getVideoListJT(cid);
+    }
+
+    @PostMapping("/getVideoListImgUrl")
+    public List<Video> getVideoListImgUrl(Integer cid){
+        return client.getVideoListImgUrl(cid);
     }
 }
