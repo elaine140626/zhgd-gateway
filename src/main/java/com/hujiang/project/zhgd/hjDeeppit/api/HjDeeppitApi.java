@@ -72,11 +72,13 @@ public class HjDeeppitApi extends BaseController {
      * @return
      */
     @PostMapping(value = "getFactorData" )
-    public JSONObject getFactorData(@RequestParam(value = "factorId") Integer factorId, @RequestParam(value = "date") String date,
+    public JSONObject getFactorData(@RequestParam(value = "factorId") Integer factorId,
+                                    @RequestParam(value = "date") String date,
+                                    @RequestParam(value = "endTime") String endTime,
                                     @RequestParam(value = "pageSize")Integer pageSize,
                                     @RequestParam(value = "pageNum")Integer pageNum){
 
-        return client.getFactorDataDeeppit(factorId,date,pageSize, pageNum);
+        return client.getFactorDataDeeppit(factorId,date,endTime,pageSize, pageNum);
     }
 
     /**
@@ -96,10 +98,13 @@ public class HjDeeppitApi extends BaseController {
      * @return
      */
     @PostMapping(value = "selectUserAlarms" )
-    public AjaxResult selectUserAlarms(@RequestParam(value = "structureId")Integer structureId, @RequestParam(value = "date")String date,  @RequestParam(value = "pageSize")Integer pageSize,
+    public AjaxResult selectUserAlarms(@RequestParam(value = "structureId")Integer structureId,
+                                       @RequestParam(value = "date")String date,
+                                       @RequestParam(value = "endTime",required = false) String endTime,
+                                       @RequestParam(value = "pageSize")Integer pageSize,
                                        @RequestParam(value = "pageNum")Integer pageNum){
 
-        return client.selectUserAlarmsDeeppit(structureId,date,pageSize,pageNum);
+        return client.selectUserAlarmsDeeppit(structureId,date,endTime,pageSize,pageNum);
     }
 
     /**

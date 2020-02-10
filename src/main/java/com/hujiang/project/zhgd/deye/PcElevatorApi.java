@@ -49,13 +49,15 @@ public class PcElevatorApi extends BaseController {
      * @param status 0表示不合格
      * @return
      */
-    @RequestMapping("/provider/elevatorApi/historyRecord")
+    @RequestMapping("/historyRecord")
+    @ResponseBody
     public AjaxResult elevatorHistoryRecord(@RequestParam(value = "time")String time,
+                                            @RequestParam(value = "endTime",required = false)String endTime,
                                             @RequestParam(value = "hxzid")String hxzid,
                                             @RequestParam(value = "status")String status,
                                             @RequestParam(value = "pageNum")String pageNum,
                                             @RequestParam(value = "pageSize")String pageSize){
-       return client.elevatorHistoryRecord(time, hxzid, status, pageNum, pageSize);
+        return client.elevatorHistoryRecord(time,endTime, hxzid, status, pageNum, pageSize);
     }
 
     /**
@@ -67,9 +69,10 @@ public class PcElevatorApi extends BaseController {
      */
     @GetMapping("/historyRecordExcel")
     public  void elevatorHistoryRecordExcel(@RequestParam(value = "time")String time,
-                                                                 @RequestParam(value = "hxzid")String hxzid,
+                                            @RequestParam(value = "endTime")String endTime,
+                                            @RequestParam(value = "hxzid")String hxzid,
                                             HttpServletResponse response)throws Exception{
-        List<SbElevatorAddrecord> list = client.elevatorHistoryRecordExcel(time, hxzid);
+        List<SbElevatorAddrecord> list = client.elevatorHistoryRecordExcel(time,endTime,hxzid);
         ExcelUtil<SbElevatorAddrecord> util = new ExcelUtil<SbElevatorAddrecord>(SbElevatorAddrecord.class);
         //生成Excel
         AjaxResult a = util.exportExcel(list, "升降机历史记录");
