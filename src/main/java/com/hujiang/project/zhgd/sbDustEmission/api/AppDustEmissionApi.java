@@ -44,8 +44,10 @@ public class AppDustEmissionApi extends BaseController {
     public JSONObject getDustEmission(@RequestParam(value = "sn")String sn,
                                       @RequestParam(value = "pageNum")Integer pageNum,
                                       @RequestParam(value = "pageSize")Integer pageSize,
-                                      @RequestParam(value = "dateTime",required = false)String dateTime){
-        return client.getDustEmission(sn, pageNum, pageSize, dateTime);
+                                      @RequestParam(value = "dateTime",required = false)String dateTime,
+                                      @RequestParam(value = "enTime",required = false)String enTime
+    ){
+        return client.getDustEmission(sn, pageNum, pageSize, dateTime,enTime);
     }
     /**
      * 获取TSP界面数据

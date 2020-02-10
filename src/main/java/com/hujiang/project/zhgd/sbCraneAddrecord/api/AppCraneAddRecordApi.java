@@ -41,8 +41,10 @@ public class AppCraneAddRecordApi extends BaseController {
     public JSONObject getCraneAddRecordHistory(@RequestParam(value = "deviceId")String deviceId,
                                                @RequestParam(value = "pageNum")Integer pageNum,
                                                @RequestParam(value = "pageSize")Integer pageSize,
-                                               @RequestParam(value = "dateTime",required = false)String dateTime){
-        return client.getCraneAddRecordHistory(deviceId, pageNum, pageSize, dateTime);
+                                               @RequestParam(value = "dateTime",required = false)String dateTime,
+                                               @RequestParam(value = "endTime",required = false)String endTime
+    ){
+        return client.getCraneAddRecordHistory(deviceId, pageNum, pageSize, dateTime,endTime);
     }
 
     /**

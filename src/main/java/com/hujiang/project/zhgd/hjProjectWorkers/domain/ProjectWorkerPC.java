@@ -45,7 +45,15 @@ public class ProjectWorkerPC
 	/** 居住地址 */
 	@Excel(name = "居住地址")
 	private String idAddress ;
+	private String quarantine;
 
+	public String getQuarantine() {
+		return quarantine;
+	}
+
+	public void setQuarantine(String quarantine) {
+		this.quarantine = quarantine;
+	}
 	public String getIdCode() {
 		return idCode;
 	}

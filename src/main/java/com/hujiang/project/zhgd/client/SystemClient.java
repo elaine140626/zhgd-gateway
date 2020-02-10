@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import com.hujiang.framework.web.domain.AjaxResult;
 
+import com.hujiang.project.zhgd.SbProjectVideoArea.domain.ProjectVideoJT;
 import com.hujiang.project.zhgd.SbProjectVideoArea.domain.SbJTArea;
 import com.hujiang.project.zhgd.SbProjectVideoArea.domain.Video;
 import com.hujiang.project.zhgd.hjAttendanceDevice.domain.HjAttendanceDevice;
@@ -142,41 +143,55 @@ public interface SystemClient {
     public JSONObject getSbUnloaderRealtimePcList(@RequestParam(value = "projectId") Integer projectId,
                                                   @RequestParam(value = "deviceId") String deviceId);
 
+    //****************************************************
     @PostMapping(value = "/provider/unloaderPcApi/getRealtimeHistory")
     public JSONObject getRealtimeHistory(@RequestParam("projectId") Integer projectId,
                                          @RequestParam(value = "deviceId") String deviceId,
                                          @RequestParam(value = "time", required = false) String time,
+                                         @RequestParam(value = "endTime", required = false) String endTime,
                                          @RequestParam(value = "alarmType") Integer alarmType,
                                          @RequestParam("pageSize") Integer pageSize,
                                          @RequestParam("pageNum") Integer pageNum);
 
+
+    //****************************************************
     @PostMapping(value = "/provider/unloaderPcApi/getSbUnloaderHistory")
     public JSONObject getSbUnloaderPcHistory(@RequestParam(value = "projectId") Integer projectId,
                                              @RequestParam(value = "deviceId") String deviceId,
                                              @RequestParam(value = "time", required = false) String time,
+                                             @RequestParam(value = "endTime", required = false) String endTime,
                                              @RequestParam("pageSize") Integer pageSize,
                                              @RequestParam("pageNum") Integer pageNum);
     //卸料pc报警数据历史记录导出
+    //****************************************************
     @PostMapping("/provider/unloaderPcApi/exportUnloaderAlarmtime")
     public List<ExportUnloaderAlarmtime> exportUnloaderAlarmtime(@RequestParam(value = "ids", required = false) String ids,
+                                                                 @RequestParam(value = "startTime", required = false) String startTime,
+                                                                 @RequestParam(value = "endTime", required = false) String endTime,
                                                                  @RequestParam(value = "deviceId", required = false) String deviceId,
-                                                                 @RequestParam(value = "alarmType", required = false) Integer alarmType);
-    //卸料pc实时数据历史记录导出
+                                                                 @RequestParam(value = "alarmType", required = false) Integer alarmType);  //卸料pc实时数据历史记录导出
+    //****************************************************
     @PostMapping("/provider/unloaderPcApi/exportUnloaderRealtime")
     public List<ExportUnloaderRealtime> exportUnloaderRealtime(@RequestParam(value = "ids", required = false) String ids,
+                                                               @RequestParam(value = "startTime", required = false) String startTime,
+                                                               @RequestParam(value = "endTime", required = false) String endTime,
                                                                @RequestParam(value = "deviceId", required = false) String deviceId);
     /** 卸料app报警记录*/
+    //****************************************************
     @PostMapping(value = "/provider/unloaderAppApi/getSbUnloaderAlarmtimeList")
     public JSONObject getSbUnloaderAlarmtimeList(@RequestParam("projectId") Integer projectId,
                                                  @RequestParam(value = "deviceId") String deviceId,
                                                  @RequestParam(value = "time", required = false) String time,
+                                                 @RequestParam(value = "endTime", required = false) String endTime,
                                                  @RequestParam("pageSize") Integer pageSize,
                                                  @RequestParam("pageNum") Integer pageNum);
     /**  卸料app历史记录*/
+    //****************************************************
     @PostMapping(value = "/provider/unloaderAppApi/getSbUnloaderHistory")
     public JSONObject getSbUnloaderHistory(@RequestParam(value = "projectId") Integer projectId,
                                            @RequestParam(value = "deviceId") String deviceId,
                                            @RequestParam(value = "time", required = false) String time,
+                                           @RequestParam(value = "endTime", required = false) String endTime,
                                            @RequestParam("pageSize") Integer pageSize,
                                            @RequestParam("pageNum") Integer pageNum);
 
@@ -1372,6 +1387,8 @@ public interface SystemClient {
      */
     @PostMapping(value = "/provider/pc/projectWorkersApi/outOrIn")
    Map<String,Object> outOrIn(@RequestParam("tag") Integer tag, @RequestParam("ids") String ids);
+    @PostMapping(value = "/provider/pc/projectWorkersApi/updateQuarantine")
+    AjaxResult updateQuarantine(@RequestParam("tag") Integer tag, @RequestParam("ids") String ids);
 
     /**
      * 查询权限列表
@@ -1615,6 +1632,15 @@ public interface SystemClient {
  @PostMapping("/provider/ProjectVideoAreaApi/getVideoListImgUrl")
     public List<Video> getVideoListImgUrl(@RequestParam(value = "cid") Integer cid);
     /**
+     * 项目的监控列表
+     * @param pid
+     * @return
+     */
+    @PostMapping("/provider/ProjectVideoAreaApi/getVideoProject")
+    public ProjectVideoJT getVideoProject(@RequestParam(value = "pid") Integer pid);
+    @PostMapping("/provider/ProjectVideoAreaApi/getProjectVideoImgUrl")
+    public List<Video> getProjectVideoImgUrl(@RequestParam(value = "pid") Integer pid);
+    /**
      * APP根据项目id获取项目视频区
      * @param projectId
      * @return
@@ -1816,11 +1842,14 @@ public interface SystemClient {
      * @param dateTime 时间
      * @return
      */
+    //****************************************************
     @PostMapping("/provider/appDustEmission/getDustEmission")
     public JSONObject getDustEmission(@RequestParam(value = "sn") String sn,
                                       @RequestParam(value = "pageNum") Integer pageNum,
                                       @RequestParam(value = "pageSize") Integer pageSize,
-                                      @RequestParam(value = "dateTime", required = false) String dateTime);
+                                      @RequestParam(value = "dateTime", required = false) String dateTime,
+                                      @RequestParam(value = "endTime", required = false) String endTime
+    );
     /**
      * 获取TSP界面数据
      * @param sn
@@ -1840,9 +1869,11 @@ public interface SystemClient {
      * 电箱数据分页
      * @return
      */
+    //****************************************************
     @PostMapping("/provider/appCurrentTemperature/list")
     public JSONObject list(@RequestParam(value = "sn") String sn,
                            @RequestParam(value = "dateTime", required = false) String dateTime,
+                           @RequestParam(value = "endTime", required = false) String endTime,
                            @RequestParam(value = "pageNum") Integer pageNum,
                            @RequestParam(value = "pageSize") Integer pageSize);
     /**
@@ -2023,8 +2054,10 @@ public interface SystemClient {
      * @param status 0表示不合格
      * @return
      */
+    //****************************************************
     @PostMapping("/provider/craneApi/historyRecord")
     public AjaxResult historyRecord(@RequestParam(value = "time", required = false) String time,
+                                    @RequestParam(value = "endTime", required = false) String endTime,
                                     @RequestParam(value = "hxzid") String hxzid,
                                     @RequestParam(value = "pageNum") String pageNum,
                                     @RequestParam(value = "pageSize") String pageSize,
@@ -2036,8 +2069,10 @@ public interface SystemClient {
      * @param hxzid
      * @return
      */
+    //****************************************************
     @PostMapping("/provider/craneApi/historyRecordExcel")
     public  List<SbCraneAddrecord> historyRecordExcel(@RequestParam(value = "time") String time,
+                                                      @RequestParam(value = "endTime",required = false) String endTime,
                                                       @RequestParam(value = "hxzid") String hxzid);
 
     /**
@@ -2057,8 +2092,10 @@ public interface SystemClient {
      * @param status 0表示不合格
      * @return
      */
+    //****************************************************
     @PostMapping("/provider/elevatorApi/historyRecord")
     public AjaxResult elevatorHistoryRecord(@RequestParam(value = "time") String time,
+                                            @RequestParam(value = "endTime",required = false) String endTime,
                                             @RequestParam(value = "hxzid") String hxzid,
                                             @RequestParam(value = "status") String status,
                                             @RequestParam(value = "pageNum") String pageNum,
@@ -2070,8 +2107,10 @@ public interface SystemClient {
      * @param hxzid
      * @return
      */
+    //****************************************************
     @PostMapping("/provider/elevatorApi/historyRecordExcel")
     public  List<SbElevatorAddrecord> elevatorHistoryRecordExcel(@RequestParam(value = "time") String time,
+                                                                 @RequestParam(value = "endTime") String endTime,
                                                                  @RequestParam(value = "hxzid") String hxzid);
     /**
      * 切换设备
@@ -2124,11 +2163,14 @@ public interface SystemClient {
      * app塔吊历史记录
      * @return
      */
+    //****************************************************
     @PostMapping(value = "/provider/appCraneAddRecord/getCraneAddRecordHistory")
     public JSONObject getCraneAddRecordHistory(@RequestParam(value = "deviceId") String deviceId,
                                                @RequestParam(value = "pageNum") Integer pageNum,
                                                @RequestParam(value = "pageSize") Integer pageSize,
-                                               @RequestParam(value = "dateTime", required = false) String dateTime);
+                                               @RequestParam(value = "dateTime", required = false) String dateTime,
+                                               @RequestParam(value = "endTime", required = false) String endTime
+    );
 
     /**
      * 塔吊切换设备
@@ -2439,8 +2481,11 @@ public interface SystemClient {
      * @param factorId
      * @return
      */
+    //****************************************************
     @PostMapping(value = "/provider/HjGhformworktApi/getFactorData" )
-    public AjaxResult getFactorData(@RequestParam(value = "factorId") Integer factorId, @RequestParam(value = "date") String date,
+    public AjaxResult getFactorData(@RequestParam(value = "factorId") Integer factorId,
+                                    @RequestParam(value = "date") String date,
+                                    @RequestParam(value = "endTime") String endTime,
                                     @RequestParam(value = "pageSize") Integer pageSize,
                                     @RequestParam(value = "pageNum") Integer pageNum);
 
@@ -2449,8 +2494,11 @@ public interface SystemClient {
      * @param structureId
      * @return
      */
+    //****************************************************
     @PostMapping(value = "/provider/HjGhformworktApi/selectUserAlarms" )
-    public AjaxResult selectUserAlarms(@RequestParam(value = "structureId") Integer structureId, @RequestParam(value = "date") String date,
+    public AjaxResult selectUserAlarms(@RequestParam(value = "structureId") Integer structureId,
+                                       @RequestParam(value = "date") String date,
+                                       @RequestParam(value = "endTime") String endTime,
                                        @RequestParam(value = "pageSize") Integer pageSize,
                                        @RequestParam(value = "pageNum") Integer pageNum);
 
@@ -2543,8 +2591,12 @@ public interface SystemClient {
      * @param factorId
      * @return
      */
+    //****************************************************
     @PostMapping(value = "/provider/hjDeeppit/getFactorData" )
-    public JSONObject getFactorDataDeeppit(@RequestParam(value = "factorId") Integer factorId, @RequestParam(value = "date") String date, @RequestParam(value = "pageSize") Integer pageSize,
+    public JSONObject getFactorDataDeeppit(@RequestParam(value = "factorId") Integer factorId,
+                                           @RequestParam(value = "date") String date,
+                                           @RequestParam(value = "endTime") String endTime,
+                                           @RequestParam(value = "pageSize") Integer pageSize,
                                            @RequestParam(value = "pageNum") Integer pageNum);
 
     /**
@@ -2560,8 +2612,12 @@ public interface SystemClient {
      * @param structureId
      * @return
      */
+    //****************************************************
     @PostMapping(value = "/provider/hjDeeppit/selectUserAlarms" )
-    public AjaxResult selectUserAlarmsDeeppit(@RequestParam(value = "structureId") Integer structureId, @RequestParam(value = "date") String date, @RequestParam(value = "pageSize") Integer pageSize,
+    public AjaxResult selectUserAlarmsDeeppit(@RequestParam(value = "structureId") Integer structureId,
+                                              @RequestParam(value = "date") String date,
+                                              @RequestParam(value = "endTime") String endTime,
+                                              @RequestParam(value = "pageSize") Integer pageSize,
                                               @RequestParam(value = "pageNum") Integer pageNum);
 
     /**

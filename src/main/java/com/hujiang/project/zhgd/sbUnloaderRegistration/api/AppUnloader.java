@@ -21,7 +21,7 @@ public class AppUnloader {
 
     @PostMapping(value = "/getUnloader")
     public JSONObject getUnloader(@RequestParam("projectId")Integer projectId){
-       return systemClient.getUnloader(projectId);
+        return systemClient.getUnloader(projectId);
     }
     @PostMapping(value = "/getSbUnloaderRealtimeList")
     public JSONObject getSbUnloaderRealtimeList(@RequestParam(value = "projectId")Integer projectId,
@@ -41,9 +41,10 @@ public class AppUnloader {
     public JSONObject getSbUnloaderHistory(@RequestParam(value = "projectId")Integer projectId,
                                            @RequestParam(value = "deviceId",required = false) String deviceId,
                                            @RequestParam(value = "time",required = false)String time,
+                                           @RequestParam(value = "endTime",required = false)String endTime,
                                            PageDomain pageDomain){
 
-        return systemClient.getSbUnloaderHistory(projectId,deviceId,time,pageDomain.getPageSize(),pageDomain.getPageNum());
+        return systemClient.getSbUnloaderHistory(projectId,deviceId,time,endTime,pageDomain.getPageSize(),pageDomain.getPageNum());
     }
 
     /**
@@ -58,8 +59,9 @@ public class AppUnloader {
     public JSONObject getSbUnloaderAlarmtimeList(@RequestParam("projectId")Integer projectId,
                                                  @RequestParam(value = "deviceId") String deviceId,
                                                  @RequestParam(value = "time",required = false)String time,
+                                                 @RequestParam(value="endTime",required = false)String endTime,
                                                  PageDomain pageDomain){
 
-        return systemClient.getSbUnloaderAlarmtimeList(projectId,deviceId,time,pageDomain.getPageSize(),pageDomain.getPageNum());
+        return systemClient.getSbUnloaderAlarmtimeList(projectId,deviceId,time,endTime,pageDomain.getPageSize(),pageDomain.getPageNum());
     }
 }

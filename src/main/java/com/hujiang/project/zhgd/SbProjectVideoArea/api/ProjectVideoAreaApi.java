@@ -2,6 +2,7 @@ package com.hujiang.project.zhgd.SbProjectVideoArea.api;
 
 import com.alibaba.fastjson.JSONObject;
 import com.hujiang.framework.web.domain.AjaxResult;
+import com.hujiang.project.zhgd.SbProjectVideoArea.domain.ProjectVideoJT;
 import com.hujiang.project.zhgd.SbProjectVideoArea.domain.SbJTArea;
 import com.hujiang.project.zhgd.SbProjectVideoArea.domain.SbProjectVideoArea;
 import com.hujiang.project.zhgd.SbProjectVideoArea.domain.Video;
@@ -94,5 +95,19 @@ public class ProjectVideoAreaApi {
     @PostMapping("/getVideoListImgUrl")
     public List<Video> getVideoListImgUrl(Integer cid){
         return client.getVideoListImgUrl(cid);
+    }
+    /**
+     * 项目监控列表
+     * @param pid
+     * @return
+     */
+    @PostMapping("/getVideoProject")
+    public ProjectVideoJT getVideoProject(Integer pid){
+        return client.getVideoProject(pid);
+    }
+
+    @PostMapping("/getProjectVideoImgUrl")
+    public List<Video> getProjectVideoImgUrl(Integer pid){
+        return client.getProjectVideoImgUrl(pid);
     }
 }
