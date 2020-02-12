@@ -108,7 +108,15 @@ public class HjProjectWorkers
 	private String constructionName;
 	/** 所属班组名称*/
 	private String workTypenameName;
+	private  String quarantine;
 
+	public String getQuarantine() {
+		return quarantine;
+	}
+
+	public void setQuarantine(String quarantine) {
+		this.quarantine = quarantine;
+	}
 	public String getWorkTypenameName() {
 		return workTypenameName;
 	}

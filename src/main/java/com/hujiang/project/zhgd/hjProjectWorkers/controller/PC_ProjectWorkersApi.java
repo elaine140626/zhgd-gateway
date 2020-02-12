@@ -55,6 +55,13 @@ public class PC_ProjectWorkersApi extends BaseController {
         return (Map<String, Object>) restTemplateUtil.PostPage(hjProjectWorkers, Constants.SERVICE_NAME + "provider/pc/projectWorkersApi/list", pageDomain);
     }
     /**
+     * 查询项目工人列表
+     */
+    @PostMapping("/quarantineList")
+    public Map<String, Object> quarantineList(HjProjectWorkers hjProjectWorkers, PageDomain pageDomain) throws Exception {
+        return (Map<String, Object>) restTemplateUtil.PostPage(hjProjectWorkers, Constants.SERVICE_NAME + "provider/pc/projectWorkersApi/quarantineList", pageDomain);
+    }
+    /**
      * 修改前查询
      * @param id 人员id
      * @param
@@ -75,6 +82,10 @@ public class PC_ProjectWorkersApi extends BaseController {
     @PostMapping(value = "outOrIn")
     public  Map<String,Object> out(Integer tag,String ids){
         return systemClient.outOrIn(tag,ids);
+    }
+    @PostMapping(value = "updateQuarantine")
+    public  AjaxResult updateQuarantine(Integer tag,String ids){
+        return systemClient.updateQuarantine(tag,ids);
     }
 
     /**

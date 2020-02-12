@@ -61,18 +61,20 @@ public class PcApi  extends BaseController {
     @RequestMapping("/historyRecord")
     @ResponseBody
     public AjaxResult historyRecord(@RequestParam(value = "time",required = false)String time,
+                                    @RequestParam(value = "endTime", required = false) String endTime,
                                     @RequestParam(value = "hxzid")String hxzid,
                                     @RequestParam(value = "pageNum")String pageNum,
                                     @RequestParam(value = "pageSize")String pageSize,
                                     @RequestParam(value = "status",required = false)String status){
-        return client.historyRecord(time, hxzid, pageNum, pageSize, status);
+        return client.historyRecord(time,endTime, hxzid, pageNum, pageSize, status);
     }
 
     @GetMapping("/historyRecordExcel")
     public  void historyRecordExcel(@RequestParam(value = "time")String time,
-                                                      @RequestParam(value = "hxzid")String hxzid,
+                                    @RequestParam(value = "endTime",required = false) String endTime,
+                                    @RequestParam(value = "hxzid")String hxzid,
                                     HttpServletResponse response)throws Exception{
-        List<SbCraneAddrecord> list = client.historyRecordExcel(time, hxzid);
+        List<SbCraneAddrecord> list = client.historyRecordExcel(time,endTime, hxzid);
         ExcelUtil<SbCraneAddrecord> util = new ExcelUtil<SbCraneAddrecord>(SbCraneAddrecord.class);
         //生成Excel
         AjaxResult a = util.exportExcel(list, "塔吊历史记录");

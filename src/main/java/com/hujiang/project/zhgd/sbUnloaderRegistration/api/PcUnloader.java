@@ -38,10 +38,11 @@ public class PcUnloader extends BaseController {
     public JSONObject getRealtimeHistory(@RequestParam("projectId")Integer projectId,
                                          @RequestParam(value = "deviceId") String deviceId,
                                          @RequestParam(value = "time",required = false)String time,
+                                         @RequestParam(value = "endTime", required = false) String endTime,
                                          @RequestParam(value = "alarmType")Integer alarmType, PageDomain pageDomain
-                                         ){
+    ){
 
-        return systemClient.getRealtimeHistory(projectId,deviceId,time,alarmType,pageDomain.getPageSize(),pageDomain.getPageNum());
+        return systemClient.getRealtimeHistory(projectId,deviceId,time,endTime,alarmType,pageDomain.getPageSize(),pageDomain.getPageNum());
     }
 
 
@@ -49,23 +50,27 @@ public class PcUnloader extends BaseController {
     @PostMapping(value = "/getSbUnloaderHistory")
     public JSONObject getSbUnloaderHistory(@RequestParam(value = "projectId")Integer projectId,
                                            @RequestParam(value = "deviceId") String deviceId,
-                                           @RequestParam(value = "time",required = false)String time,PageDomain pageDomain){
+                                           @RequestParam(value = "time",required = false)String time,
+                                           @RequestParam(value = "endTime",required = false)String endTime,
+                                           PageDomain pageDomain){
 
 
-        return systemClient.getSbUnloaderPcHistory(projectId,deviceId,time,pageDomain.getPageSize(),pageDomain.getPageNum());
+        return systemClient.getSbUnloaderPcHistory(projectId,deviceId,time,endTime,pageDomain.getPageSize(),pageDomain.getPageNum());
     }
     @GetMapping("/exportUnloader")
     public void exportUnloader(@RequestParam(value = "ids",required = false)String ids,
                                @RequestParam(value = "judge")int judge,
+                               @RequestParam(value = "startTime",required = false)String startTime,
+                               @RequestParam(value = "endTime",required = false)String endTime,
                                @RequestParam(value = "deviceId",required = false)String deviceId,
-                                   HttpServletResponse response)throws Exception
+                               HttpServletResponse response)throws Exception
     {
 
 
         String title = null;
         if(judge==5){
             ExcelUtil<ExportUnloaderRealtime> util = new ExcelUtil<ExportUnloaderRealtime>(ExportUnloaderRealtime.class);
-            List<ExportUnloaderRealtime> exportUnloaderRealtimeList = systemClient.exportUnloaderRealtime(ids,deviceId);
+            List<ExportUnloaderRealtime> exportUnloaderRealtimeList = systemClient.exportUnloaderRealtime(ids,startTime,endTime,deviceId);
 
             title = "卸料实时历史记录";
             //生成Excel
@@ -87,7 +92,7 @@ public class PcUnloader extends BaseController {
             }
         }else {
             ExcelUtil<ExportUnloaderAlarmtime> util = new ExcelUtil<ExportUnloaderAlarmtime>(ExportUnloaderAlarmtime.class);
-            List<ExportUnloaderAlarmtime> exportUnloaderAlarmtimeList = systemClient.exportUnloaderAlarmtime(ids,deviceId,judge);
+            List<ExportUnloaderAlarmtime> exportUnloaderAlarmtimeList = systemClient.exportUnloaderAlarmtime(ids,startTime,endTime,deviceId,judge);
             if(judge==1){
                 title = "卸料载重报警历史记录";
             }else if (judge==2){

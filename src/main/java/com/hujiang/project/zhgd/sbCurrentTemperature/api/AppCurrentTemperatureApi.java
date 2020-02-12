@@ -49,8 +49,9 @@ public class AppCurrentTemperatureApi extends BaseController {
     @PostMapping("/list")
     public JSONObject list(@RequestParam(value = "sn")String sn,
                            @RequestParam(value = "dateTime",required = false)String dateTime,
+                           @RequestParam(value = "endTime",required = false)String endTime,
                            @RequestParam(value = "pageNum") Integer pageNum,
                            @RequestParam(value = "pageSize") Integer pageSize){
-        return client.list(sn, dateTime, pageNum, pageSize);
+        return client.list(sn, dateTime,endTime, pageNum, pageSize);
     }
 }
