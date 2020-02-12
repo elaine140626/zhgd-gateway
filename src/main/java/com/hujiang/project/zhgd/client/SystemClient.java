@@ -2714,14 +2714,14 @@ public interface SystemClient {
 
     /**
      * 集团对讲列表
-     * @param cid
+     * @param
      * @return
      */
     @PostMapping("/provider/sbGroupTalkback/getAccountList")
     public List<SbGroupTalkback> getAccountList(@RequestBody SbGroupTalkback sbGroupTalkback);
     /**
      * 对讲列表
-     * @param cid
+     * @param
      * @return
      */
     @PostMapping("/provider/sbAccountTalkback/getAccountListPage")
@@ -2760,4 +2760,25 @@ public interface SystemClient {
      */
     @PostMapping("/provider/groupTitleApi/getTitle")
     public AjaxResult getTitle(@RequestBody SbGroupTitle sbGroupTitle);
+
+    @PostMapping(value = "/provider/equipment")
+    public JSONObject equipment(@RequestParam(value = "cid")int cid);
+    @PostMapping(value = "/provider/marginAlarm")
+    public JSONObject marginAlarm(@RequestParam(value = "cid")int cid);
+    @PostMapping(value = "/provider/lifterAlarm")
+    public JSONObject lifterAlarm(@RequestParam(value = "cid")int cid);
+    @PostMapping(value = "/provider/company")
+    public AjaxResult company(@RequestParam(value = "cid")Integer cid);
+    @PostMapping(value = "/provider/totalList")
+    public AjaxResult totalList(@RequestParam(value = "cid")Integer cid);
+    @PostMapping(value = "/provider/projectList")
+    public AjaxResult projectList(@RequestParam(value = "cid")Integer cid);
+    @PostMapping(value = "/provider/count")
+    public AjaxResult count(@RequestParam(value = "cid")Integer cid);
+    @PostMapping(value = "/provider/clickCard")
+    public AjaxResult clickCard(@RequestParam(value = "cid")Integer cid,@RequestParam(value = "start")Long startTime,@RequestParam(value = "end")Long endTime);
+    @PostMapping(value = "/provider/plateList")
+    public AjaxResult plateList(@RequestParam(value = "cid")Integer cid,@RequestParam(value = "start")Long startTime,@RequestParam(value = "end")Long endTime);
+    @PostMapping(value = "/provider/environmentList")
+    public AjaxResult environmentList(@RequestParam(value = "cid")Integer cid);
 }
