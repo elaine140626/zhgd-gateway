@@ -2776,9 +2776,9 @@ public interface SystemClient {
     @PostMapping(value = "/provider/count")
     public AjaxResult count(@RequestParam(value = "cid")Integer cid);
     @PostMapping(value = "/provider/clickCard")
-    public AjaxResult clickCard(@RequestParam(value = "cid")Integer cid,@RequestParam(value = "start")Long startTime,@RequestParam(value = "end")Long endTime);
+    public AjaxResult clickCard(@RequestParam(value = "cid")Integer cid,@RequestParam(value = "start")Long start,@RequestParam(value = "end")Long end);
     @PostMapping(value = "/provider/plateList")
-    public AjaxResult plateList(@RequestParam(value = "cid")Integer cid,@RequestParam(value = "start")Long startTime,@RequestParam(value = "end")Long endTime);
+    public AjaxResult plateList(@RequestParam(value = "cid")Integer cid,@RequestParam(value = "start")Long start,@RequestParam(value = "end")Long end);
     @PostMapping(value = "/provider/environmentList")
     public AjaxResult environmentList(@RequestParam(value = "cid")Integer cid);
 }
