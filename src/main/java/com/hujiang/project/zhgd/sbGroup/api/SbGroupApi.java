@@ -46,12 +46,12 @@ public class SbGroupApi {
         return client.count(cid);
     }
     @PostMapping(value = "/clickCard")
-    public AjaxResult clickCard(@RequestParam(value = "cid")Integer cid,@RequestParam(value = "start")Long startTime,@RequestParam(value = "end")Long endTime){
-        return client.clickCard(cid,startTime,endTime);
+    public AjaxResult clickCard(@RequestParam(value = "cid")Integer cid,@RequestParam(value = "start")Long start,@RequestParam(value = "end")Long end){
+        return client.clickCard(cid,start,end);
     }
     @PostMapping(value = "/plateList")
-    public AjaxResult plateList(@RequestParam(value = "cid")Integer cid,@RequestParam(value = "start")Long startTime,@RequestParam(value = "end")Long endTime){
-        return client.plateList(cid,startTime,endTime);
+    public AjaxResult plateList(@RequestParam(value = "cid")Integer cid,@RequestParam(value = "start")Long start,@RequestParam(value = "end")Long end){
+        return client.plateList(cid,start,end);
     }
     @PostMapping(value = "/environmentList")
     public AjaxResult environmentList(@RequestParam(value = "cid")Integer cid){
