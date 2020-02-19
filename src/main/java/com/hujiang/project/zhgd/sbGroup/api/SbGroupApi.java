@@ -41,6 +41,10 @@ public class SbGroupApi {
     public AjaxResult projectList(@RequestParam(value = "cid")Integer cid){
         return client.projectList(cid);
     }
+    @PostMapping(value = "/searchProjectList")
+    public AjaxResult searchProjectList(@RequestParam(value = "cid")Integer cid,@RequestParam(value = "name")String name){
+        return client.searchProjectList(cid,name);
+    }
     @PostMapping(value = "/count")
     public AjaxResult count(@RequestParam(value = "cid")Integer cid){
         return client.count(cid);
