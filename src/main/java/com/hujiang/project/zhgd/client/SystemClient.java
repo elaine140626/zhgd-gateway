@@ -2773,6 +2773,8 @@ public interface SystemClient {
     public AjaxResult totalList(@RequestParam(value = "cid")Integer cid);
     @PostMapping(value = "/provider/projectList")
     public AjaxResult projectList(@RequestParam(value = "cid")Integer cid);
+    @PostMapping(value = "/provider/searchProjectList")
+    public AjaxResult searchProjectList(@RequestParam(value = "cid")Integer cid,@RequestParam(value = "name")String name);
     @PostMapping(value = "/provider/count")
     public AjaxResult count(@RequestParam(value = "cid")Integer cid);
     @PostMapping(value = "/provider/clickCard")
