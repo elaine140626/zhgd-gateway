@@ -9,6 +9,7 @@ import com.hujiang.project.zhgd.SbProjectVideoArea.domain.ProjectVideoJT;
 import com.hujiang.project.zhgd.SbProjectVideoArea.domain.SbJTArea;
 import com.hujiang.project.zhgd.SbProjectVideoArea.domain.Video;
 import com.hujiang.project.zhgd.hjAttendanceDevice.domain.HjAttendanceDevice;
+import com.hujiang.project.zhgd.hjAttendanceLocation.domain.HjAttendanceLocation;
 import com.hujiang.project.zhgd.hjDeeppit.domain.SbProjectDeeppitStructures;
 import com.hujiang.project.zhgd.hjProjectImage.domain.HjProjectImage;
 import com.hujiang.project.zhgd.hjZhgdDriver.domain.HjZhgdDriver;
@@ -2783,4 +2784,19 @@ public interface SystemClient {
     public AjaxResult plateList(@RequestParam(value = "cid")Integer cid,@RequestParam(value = "start")Long start,@RequestParam(value = "end")Long end);
     @PostMapping(value = "/provider/environmentList")
     public AjaxResult environmentList(@RequestParam(value = "cid")Integer cid);
+
+
+
+    @PostMapping(value = "/provider/location/insert")
+    public AjaxResult insertHjAttendanceLocation(@RequestBody HjAttendanceLocation hjAttendanceLocation);
+
+    @PostMapping(value = "/provider/location/modify")
+    public AjaxResult updateHjAttendanceLocation(@RequestBody HjAttendanceLocation hjAttendanceLocation);
+
+    @PostMapping(value = "/provider/location/query")
+    public AjaxResult selectHjAttendanceLocationList(@RequestBody HjAttendanceLocation hjAttendanceLocation);
+
+    @PostMapping(value = "/provider/location/remove")
+    public AjaxResult deleteHjAttendanceLocationByIds(@RequestParam(value = "id")String id);
+
 }
