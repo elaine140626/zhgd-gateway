@@ -17,7 +17,7 @@ public class TemperatureApi {
         logger.info("体温数据：" + json);
 
         JSONObject result=new JSONObject();
-        result.put("code",0);
+        result.put("code",0); 
         result.put("msg","成功");
         return result.toJSONString();
     }
