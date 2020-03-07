@@ -14,16 +14,17 @@ public class AttendanceDeviceApi {
 
     @Autowired
     private SystemClient client;
+
     @PostMapping(value = "/insertAttendanceDevice")
     public AjaxResult insertAttendanceDevice( HjAttendanceDevice hjAttendanceDevice){
-
         return client.insertAttendanceDevice(hjAttendanceDevice);
     }
+
      @PostMapping(value = "/updateAttendanceDevice")
     public AjaxResult updateAttendanceDevice( HjAttendanceDevice hjAttendanceDevice){
-
         return client.updateAttendanceDevice(hjAttendanceDevice);
     }
+
     @PostMapping(value = "/selectAttendanceDevice")
     public Map<String,Object> selectAttendanceDevice(HjAttendanceDevice hjAttendanceDevice, Integer pageNum, Integer pageSize){
         return client.selectAttendanceDevice(hjAttendanceDevice,pageNum,pageSize);
