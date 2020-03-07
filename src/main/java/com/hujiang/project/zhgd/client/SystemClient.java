@@ -12,6 +12,8 @@ import com.hujiang.project.zhgd.hjAttendanceDevice.domain.HjAttendanceDevice;
 import com.hujiang.project.zhgd.hjDeeppit.domain.SbProjectDeeppitStructures;
 import com.hujiang.project.zhgd.hjProjectImage.domain.HjProjectImage;
 import com.hujiang.project.zhgd.hjZhgdDriver.domain.HjZhgdDriver;
+import com.hujiang.project.zhgd.lyCompany.domain.LyCompany;
+import com.hujiang.project.zhgd.lyPersonnel.domain.LyPersonnel;
 import com.hujiang.project.zhgd.lzfw.domain.*;
 import com.hujiang.project.zhgd.hjDeveceProjectworkers.domain.HjDeviceProjectworkers;
 import com.hujiang.project.zhgd.SbProjectVideo.domain.SbProjectVideo;
@@ -2783,4 +2785,28 @@ public interface SystemClient {
     public AjaxResult plateList(@RequestParam(value = "cid")Integer cid,@RequestParam(value = "start")Long start,@RequestParam(value = "end")Long end);
     @PostMapping(value = "/provider/environmentList")
     public AjaxResult environmentList(@RequestParam(value = "cid")Integer cid);
+
+    /**
+     * 楼宇公司
+     * @param lyCompany
+     * @param pageSize
+     * @param pageNum
+     * @return
+     */
+    @RequestMapping(value = "/provider/lyCompany/selectPageList",method = RequestMethod.POST)
+    AjaxResult lyCompanySelectPageList(@RequestBody LyCompany lyCompany, @RequestParam("pageSize") Integer pageSize, @RequestParam("pageNum") Integer pageNum);
+    @RequestMapping(value = "/provider/lyCompany/selectList",method = RequestMethod.POST)
+    AjaxResult lyCompanySelectList(@RequestBody LyCompany lyCompany);
+
+    @RequestMapping(value = "/provider/lyCompany/insert",method = RequestMethod.POST)
+    AjaxResult lyCompanyInsert(@RequestBody LyCompany lyCompany);
+ @RequestMapping(value = "/provider/lyCompany/selectId",method = RequestMethod.POST)
+    AjaxResult lyCompanySelectId(@RequestParam Integer id);
+    @RequestMapping(value = "/provider/lyCompany/update",method = RequestMethod.POST)
+    AjaxResult lyCompanyUpdate(@RequestBody LyCompany lyCompany);
+    @RequestMapping(value = "/provider/lyCompany/delete",method = RequestMethod.POST)
+    AjaxResult lyCompanyDelete(@RequestParam String ids);
+    @RequestMapping(value = "/api/lyPersonnel/insertPersonnel",method = RequestMethod.POST)
+    AjaxResult insertPersonnel(@RequestBody LyPersonnel lyPersonnel);
+
 }
