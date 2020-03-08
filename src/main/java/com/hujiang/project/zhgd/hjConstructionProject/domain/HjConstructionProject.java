@@ -19,8 +19,18 @@ public class HjConstructionProject
 	private Integer constructionId;
 	/** 项目ID */
 	private Integer projectId;
+	/** 所属项目公司层级 */
+	private String path;
 
-	public void setId(Integer id) 
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public void setId(Integer id)
 	{
 		this.id = id;
 	}
@@ -53,6 +63,7 @@ public class HjConstructionProject
             .append("id", getId())
             .append("constructionId", getConstructionId())
             .append("projectId", getProjectId())
+            .append("path", getPath())
             .toString();
     }
 }

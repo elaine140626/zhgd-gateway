@@ -1,11 +1,9 @@
 package com.hujiang.project.zhgd.zhNode.api;
 
 import com.hujiang.common.utils.poi.ExcelUtil;
-import com.hujiang.framework.web.controller.BaseController;
 import com.hujiang.framework.web.domain.AjaxResult;
 import com.hujiang.project.zhgd.Util;
 import com.hujiang.project.zhgd.client.SystemClient;
-import com.hujiang.project.zhgd.lzfw.domain.HjReportPc;
 import com.hujiang.project.zhgd.zhNode.domain.*;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +23,8 @@ import java.util.List;
  * @author: yant
  **/
 @RestController
-@RequestMapping(value = "/api/Node",method = RequestMethod.POST)
-public class NodeApi{
+@RequestMapping(value = "/api/Node", method = RequestMethod.POST)
+public class NodeApi {
     @Autowired
     private SystemClient client;
 
@@ -36,14 +34,14 @@ public class NodeApi{
      */
 
     @GetMapping("/exportZhProgressPlan")
-    public void exportZhProgressPlan( Integer progressId, HttpServletResponse response)throws Exception{
+    public void exportZhProgressPlan(Integer progressId, HttpServletResponse response) throws Exception {
         System.out.println("导出Excel：");
         List<ZhNodePc> list = client.exportZhProgressPlan(progressId);
         ExcelUtil<ZhNodePc> util = new ExcelUtil<ZhNodePc>(ZhNodePc.class);
         //生成Excel
         AjaxResult a = util.exportExcel(list, "节点计划");
         //设置下载文件名
-        String fileName = URLEncoder.encode((String)a.get("msg"), "UTF-8");
+        String fileName = URLEncoder.encode((String) a.get("msg"), "UTF-8");
         File file = new File(Util.getPath(), (String) a.get("msg"));
         try (InputStream inputStream = new FileInputStream(file);
              OutputStream outputStream = response.getOutputStream();) {
@@ -53,12 +51,10 @@ public class NodeApi{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if(file.exists()){
+        if (file.exists()) {
             file.delete();
         }
     }
-
-
 
 
     /**
@@ -66,19 +62,56 @@ public class NodeApi{
      */
     @PostMapping("selectZhNodeList")
     @ResponseBody
-    public AjaxResult selectZhNodeList(ZhNode node)
-    {
+    public AjaxResult selectZhNodeList(ZhNode node) {
 
         return client.selectZhNodeList(node);
     }
+
+    /**
+     * 查询进度节点列表
+     */
+    @PostMapping("selectCruxZhNode")
+    @ResponseBody
+    public AjaxResult selectCruxZhNode(ZhNode node) {
+
+        return client.selectCruxZhNode(node);
+    }
+
+    /**
+     * 查询即将开始节点列表
+     */
+    @PostMapping("selectWarningZhNode")
+    @ResponseBody
+    public AjaxResult selectWarningZhNode(ZhNode node) {
+        return client.selectWarningZhNode(node);
+    }
+
+
+    /**
+     * 查询即将开始节点列表
+     */
+    @PostMapping("selectBeginZhNode")
+    @ResponseBody
+    public AjaxResult selectBeginZhNode(ZhNode node) {
+        return client.selectBeginZhNode(node);
+    }
+
+    /**
+     * 查询即将结束节点列表
+     */
+    @PostMapping("selectEndZhNode")
+    @ResponseBody
+    public AjaxResult selectEndZhNode(ZhNode node) {
+        return client.selectEndZhNode(node);
+    }
+
 
     /**
      * 查询计划节点关联列表
      */
     @PostMapping("selectZhProgressNodeList")
     @ResponseBody
-    public AjaxResult selectZhProgressNodeList(ZhProgressNode zhProgressNode)
-    {
+    public AjaxResult selectZhProgressNodeList(ZhProgressNode zhProgressNode) {
         return client.selectZhProgressNodeList(zhProgressNode);
     }
 
@@ -87,9 +120,17 @@ public class NodeApi{
      */
     @PostMapping("selectZhProgressPlanList")
     @ResponseBody
-    public AjaxResult selectZhProgressPlanList(ZhProgressPlan zhProgressPlan)
-    {
+    public AjaxResult selectZhProgressPlanList(ZhProgressPlan zhProgressPlan) {
         return client.selectZhProgressPlanList(zhProgressPlan);
+    }
+
+    /**
+     * 首页查询进度计划列表
+     */
+    @PostMapping("selectZhProgressPlan")
+    @ResponseBody
+    public AjaxResult selectZhProgressPlan(ZhProgressPlan zhProgressPlan) {
+        return client.selectZhProgressPlan(zhProgressPlan);
     }
 
     /**
@@ -97,11 +138,9 @@ public class NodeApi{
      */
     @PostMapping("selectZhPreposeList")
     @ResponseBody
-    public AjaxResult selectZhPreposeList(ZhPrepose zhPrepose)
-    {
+    public AjaxResult selectZhPreposeList(ZhPrepose zhPrepose) {
         return client.selectZhPreposeList(zhPrepose);
     }
-
 
 
     /**
@@ -109,8 +148,7 @@ public class NodeApi{
      */
     @PostMapping("addNode")
     @ResponseBody
-    public AjaxResult addNode(ZhNode zhNode)
-    {
+    public AjaxResult addNode(ZhNode zhNode) {
         return client.addNode(zhNode);
     }
 
@@ -119,29 +157,25 @@ public class NodeApi{
      */
     @PostMapping("addProgressPlan")
     @ResponseBody
-    public AjaxResult addProgressPlan(ZhProgressPlan zhProgressPlan )
-    {
+    public AjaxResult addProgressPlan(ZhProgressPlan zhProgressPlan) {
         return client.addProgressPlan(zhProgressPlan);
     }
-
 
 
     /**
      * 删除节点
      */
-    @PostMapping( "removeNode")
+    @PostMapping("removeNode")
     @ResponseBody
-    public AjaxResult removeNode(int id)
-    {
+    public AjaxResult removeNode(int id) {
         return client.removeNode(id);
     }
 
     /**
      * 根据id删除进度计划
      */
-    @PostMapping( "remoProgressPlan")
-    public AjaxResult removeProgressPlan(int id)
-    {
+    @PostMapping("remoProgressPlan")
+    public AjaxResult removeProgressPlan(int id) {
         return client.removeProgressPlan(id);
     }
 
@@ -150,15 +184,14 @@ public class NodeApi{
      */
     @PostMapping("editNode")
     @ResponseBody
-    public AjaxResult editNode(ZhNode zhNode)
-    {
-        if ((zhNode.getParentIds() == null || zhNode.getParentIds() == "" || zhNode.getParentIds().equals("null") ) || (zhNode.getPrincipals() == null || zhNode.getPrincipals() == "" || zhNode.getPrincipals().equals("null"))){
-            zhNode.setParentId(null);
-            zhNode.setPrincipal(null);
-        }else {
-            zhNode.setPrincipal(Integer.valueOf(zhNode.getPrincipals()));
-            zhNode.setParentId(Integer.valueOf(zhNode.getParentIds()));
-        }
+    public AjaxResult editNode(ZhNode zhNode) {
+//        if ((zhNode.getParentIds() == null || zhNode.getParentIds() == "" || zhNode.getParentIds().equals("null") ) || (zhNode.getPrincipals() == null || zhNode.getPrincipals() == "" || zhNode.getPrincipals().equals("null"))){
+//            zhNode.setParentId(null);
+//            zhNode.setPrincipal(null);
+//        }else {
+//            zhNode.setPrincipal(Integer.valueOf(zhNode.getPrincipals()));
+//            zhNode.setParentId(Integer.valueOf(zhNode.getParentIds()));
+//        }
         return client.editNode(zhNode);
     }
 
@@ -167,8 +200,7 @@ public class NodeApi{
      */
     @PostMapping("editProgressPlan")
     @ResponseBody
-    public AjaxResult editProgressPlan(ZhProgressPlan zhProgressPlan)
-    {
+    public AjaxResult editProgressPlan(ZhProgressPlan zhProgressPlan) {
         return client.editProgressPlan(zhProgressPlan);
     }
 
@@ -178,17 +210,16 @@ public class NodeApi{
      */
     @PostMapping("addPrepose")
     @ResponseBody
-    public AjaxResult addPrepose(ZhPrepose zhPrepose)
-    {
+    public AjaxResult addPrepose(ZhPrepose zhPrepose) {
         return client.addPrepose(zhPrepose);
     }
+
     /**
      * 根据id删除前置节点
      */
     @PostMapping("removePreposeById")
     @ResponseBody
-    public AjaxResult removePreposeById(int id)
-    {
+    public AjaxResult removePreposeById(int id) {
         return client.removePreposeById(id);
     }
 
@@ -197,19 +228,43 @@ public class NodeApi{
      */
     @PostMapping("addProgressNode")
     @ResponseBody
-    public AjaxResult addProgressNode(ZhProgressNode zhProgressNode)
-    {
+    public AjaxResult addProgressNode(ZhProgressNode zhProgressNode) {
         return client.addProgressNode(zhProgressNode);
     }
+
     /**
      * 删除进度中的关联节点
      */
     @PostMapping("removeProgressNode")
     @ResponseBody
-    public AjaxResult removeaddProgressNode(int id)
-    {
+    public AjaxResult removeaddProgressNode(int id) {
         return client.removeaddProgressNode(id);
     }
 
+    /**
+     * 更新计划中节点进度
+     */
+    @PostMapping("editNodeWithProgress")
+    @ResponseBody
+    public AjaxResult editNodeWithProgress(ZhProgressNode zhProgressNode) {
+        return client.editNodeWithProgress(zhProgressNode);
+    }
+
+    /**
+     * 查询计划关联节点列表
+     */
+    @PostMapping("selectZhNodeProgressList")
+    @ResponseBody
+    public AjaxResult selectZhNodeProgressList(ZhProgressNode zhProgressNode) {
+        return client.selectZhNodeProgressList(zhProgressNode);
+    }
+
+    /**
+     * 查询计划可以导入的节点列表
+     */
+    @PostMapping("selectAddZhNodeList")
+    public AjaxResult selectAddZhNodeList(@RequestParam(value = "projectId") Integer projectId) {
+        return client.selectAddZhNodeList(projectId);
+    }
 
 }

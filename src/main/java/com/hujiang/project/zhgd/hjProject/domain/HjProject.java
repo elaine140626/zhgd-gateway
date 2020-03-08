@@ -72,8 +72,49 @@ public class HjProject
 	private String updateDate;
 	/** 人脸库编号 */
 	private String faceGroup;
+	/** 集团ID */
+	private String cid;
 
-	public void setId(Integer id) 
+	private String constructionName;
+
+	/** 建设单位 */
+	private String buildUnit;
+	/** 所属部门 */
+	private String projectDept;
+
+	public String getProjectDept() {
+		return projectDept;
+	}
+
+	public void setProjectDept(String projectDept) {
+		this.projectDept = projectDept;
+	}
+
+	public String getBuildUnit() {
+		return buildUnit;
+	}
+
+	public void setBuildUnit(String buildUnit) {
+		this.buildUnit = buildUnit;
+	}
+
+	public String getConstructionName() {
+		return constructionName;
+	}
+
+	public void setConstructionName(String constructionName) {
+		this.constructionName = constructionName;
+	}
+
+	public String getCid() {
+		return cid;
+	}
+
+	public void setCid(String cid) {
+		this.cid = cid;
+	}
+
+	public void setId(Integer id)
 	{
 		this.id = id;
 	}

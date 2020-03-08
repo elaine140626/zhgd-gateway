@@ -57,11 +57,13 @@ public class HjGhformworktApi extends BaseController {
      * @return
      */
     @PostMapping(value = "getFactorData" )
-    public AjaxResult getFactorData(@RequestParam(value = "factorId") Integer factorId,@RequestParam(value = "date") String date,
+    public AjaxResult getFactorData(@RequestParam(value = "factorId") Integer factorId,
+                                    @RequestParam(value = "date") String date,
+                                    @RequestParam(value = "endTime") String endTime,
                                     @RequestParam(value = "pageSize")Integer pageSize,
                                     @RequestParam(value = "pageNum")Integer pageNum){
 
-        return client.getFactorData(factorId,date,pageSize,pageNum);
+        return client.getFactorData(factorId,date,endTime,pageSize,pageNum);
     }
 
     /**
@@ -70,11 +72,13 @@ public class HjGhformworktApi extends BaseController {
      * @return
      */
     @PostMapping(value = "selectUserAlarms" )
-    public AjaxResult selectUserAlarms(@RequestParam(value = "structureId")Integer structureId,@RequestParam(value = "date") String date,
+    public AjaxResult selectUserAlarms(@RequestParam(value = "structureId")Integer structureId,
+                                       @RequestParam(value = "date") String date,
+                                       @RequestParam(value = "endTime") String endTime,
                                        @RequestParam(value = "pageSize")Integer pageSize,
                                        @RequestParam(value = "pageNum")Integer pageNum){
 
-        return client.selectUserAlarms(structureId,date,pageSize,pageNum);
+        return client.selectUserAlarms(structureId,date,endTime,pageSize,pageNum);
 
     }
 

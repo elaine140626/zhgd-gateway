@@ -1,5 +1,7 @@
 package com.hujiang.project.zhgd.zhNode.domain;
 
+import com.hujiang.common.utils.DateUtils;
+import com.hujiang.common.utils.StringUtils;
 import io.swagger.annotations.ApiModel;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -9,68 +11,222 @@ import java.util.Date;
 
 /**
  * 节点计划详情表 zh_node
- * 
+ *
  * @author hujiang
  * @date 2019-08-01
  */
 @ApiModel(value = "节点计划模型")
-public class ZhNode
-{
-	/** id */
-	private Integer id;
-	/** 节点编号 */
-	private Integer number;
-	/** 父节点id(顶级为0) */
-	private Integer parentId;
-	/** 节点名称 */
-	private String name;
-	/** 状态 0:正常开始 1:未开始 2:延期未开始 3:延期开始 4:延期完成 5:正常完成 */
-	private Integer state;
-	/** 预计开始时间 */
-	private  String predictStart;
-	/** 预计结束时间 */
-	private String predictEnd;
-	/** 实际开始时间 */
-	private String start;
-	/** 实际结束时间 */
-	private String end;
-	/** 进度(%) */
-	private Integer progress;
-	/** 详情 */
-	private String content;
-	/** 创建时间 */
-	private String found;
-	/** 创建人id */
-	private Integer creatorId;
-	/** 管控级别 */
-	private Integer controlRank;
-	/** 负责人 */
-	private Integer principal;
-	/** 流水段id */
-	private Integer pipeliningSegment;
-	/** 备注 */
-	private String comment;
+public class ZhNode {
+    /**
+     * id
+     */
+    private Integer id;
+    /**
+     * 节点编号
+     */
+    private Integer number;
+    /**
+     * 父节点id(顶级为0)
+     */
+    private Integer parentId;
+    /**
+     * 节点名称
+     */
+    private String name;
+    /**
+     * 状态 0:正常开始 1:未开始 2:延期未开始 3:延期开始 4:延期完成 5:正常完成
+     */
+    private Integer state;
+    /**
+     * 预计开始时间
+     */
+    private String predictStart;
+    /**
+     * 预计结束时间
+     */
+    private String predictEnd;
+    /**
+     * 实际开始时间
+     */
+    private String start;
+    /**
+     * 实际结束时间
+     */
+    private String end;
+    /**
+     * 进度(%)
+     */
+    private Integer progress;
+    /**
+     * 详情
+     */
+    private String content;
+    /**
+     * 创建时间
+     */
+    private String found;
+    /**
+     * 创建人id
+     */
+    private Integer creatorId;
+    /**
+     * 管控级别
+     */
+    private Integer controlRank;
+    /**
+     * 负责人
+     */
+    private Integer principal;
+    /**
+     * 流水段id
+     */
+    private Integer pipeliningSegment;
+    /**
+     * 备注
+     */
+    private String comment;
+//    /** 负责人 */
+//    private String principals;
+//    /** 父节点id(顶级为0) */
+//    private String parentIds;
+    /*** 项目id */
+    private Integer projectId;
+    /*** 是否关键节点 */
+    private boolean crux;
 
-    /** 负责人 */
-    private String principals;
-    /** 父节点id(顶级为0) */
-    private String parentIds;
+    /**
+     * 状态 0:正常开始 1:未开始 2:延期未开始 3:延期开始 4:延期完成 5:正常完成 6:提前开始 7：提前完成
+     */
+    private Integer status;
 
-    public String getPrincipals() {
-        return principals;
+    /**
+     * 能否在计划中导入
+     */
+    private boolean addAble;
+
+    private boolean hasNode;
+    /**
+     * 是否前置节点
+     */
+    private boolean prepose;
+    /**
+     * 是否可以作为父级节点
+     */
+    private boolean befather;
+    /**
+     * 导入进度的百分比
+     */
+    private Integer progressRatio;
+
+    public Integer getProgressRatio() {
+        return progressRatio;
     }
 
-    public void setPrincipals(String principals) {
-        this.principals = principals;
+    public void setProgressRatio(Integer progressRatio) {
+        this.progressRatio = progressRatio;
     }
 
-    public String getParentIds() {
-        return parentIds;
+    public boolean isBefather() {
+        return befather;
     }
 
-    public void setParentIds(String parentIds) {
-        this.parentIds = parentIds;
+    public void setBefather(boolean befather) {
+        this.befather = befather;
     }
+
+    public boolean isHasNode() {
+        return hasNode;
+    }
+
+    public void setHasNode(boolean hasNode) {
+        this.hasNode = hasNode;
+    }
+
+    public boolean isPrepose() {
+        return prepose;
+    }
+
+    public void setPrepose(boolean prepose) {
+        this.prepose = prepose;
+    }
+
+    public boolean isAddAble() {
+        return addAble;
+    }
+
+    public void setAddAble(boolean addAble) {
+        this.addAble = addAble;
+    }
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Integer getStatus() {
+        Date date = new Date();
+        if (state != null) {
+            switch (state) {
+                case 0:
+                    if (StringUtils.isEmpty(predictStart)&&StringUtils.isEmpty(start)) {
+                        if (DateUtils.getDate(predictStart).getTime() == DateUtils.getDate(start).getTime()) {
+                            status = 0;
+                        } else if (DateUtils.getDate(predictStart).getTime() > DateUtils.getDate(start).getTime()) {
+                            status = 6;
+                        } else if (DateUtils.getDate(predictStart).getTime() < DateUtils.getDate(start).getTime()) {
+                            status = 3;
+                        }
+                        return status;
+                    }
+                    break;
+                case 1:
+                    if (StringUtils.isEmpty(predictStart)) {
+                        if (DateUtils.getDate(predictStart).getTime() > date.getTime()) {
+                            status = 1;
+                        } else if (DateUtils.getDate(predictStart).getTime() < date.getTime()) {
+                            status = 2;
+                        }
+                        return status;
+                    }
+                    break;
+                case 2:
+                    if (StringUtils.isEmpty(predictEnd)&&StringUtils.isEmpty(end)) {
+                        if (DateUtils.getDate(predictEnd).getTime() == DateUtils.getDate(end).getTime()) {
+                            status = 5;
+                        } else if (DateUtils.getDate(predictEnd).getTime() > DateUtils.getDate(end).getTime()) {
+                            status = 7;
+                        } else if (DateUtils.getDate(predictEnd).getTime() < DateUtils.getDate(end).getTime()) {
+                            status = 4;
+                        }
+                        return status;
+                    }
+                    break;
+            }
+        }
+        return status;
+    }
+
+    public boolean isCrux() {
+        return crux;
+    }
+
+    public void setCrux(boolean crux) {
+        this.crux = crux;
+    }
+
+    //    public String getPrincipals() {
+//        return principals;
+//    }
+//
+//    public void setPrincipals(String principals) {
+//        this.principals = principals;
+//    }
+//
+//    public String getParentIds() {
+//        return parentIds;
+//    }
+//
+//    public void setParentIds(String parentIds) {
+//        this.parentIds = parentIds;
+//    }
 
     public Integer getId() {
         return id;
@@ -208,6 +364,14 @@ public class ZhNode
         this.comment = comment;
     }
 
+    public Integer getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
+    }
+
     @Override
     public String toString() {
         return "ZhNode{" +
@@ -228,6 +392,8 @@ public class ZhNode
                 ", principal=" + principal +
                 ", pipeliningSegment=" + pipeliningSegment +
                 ", comment='" + comment + '\'' +
+                ", projectId=" + projectId +
+                ", crux=" + crux +
                 '}';
     }
 }

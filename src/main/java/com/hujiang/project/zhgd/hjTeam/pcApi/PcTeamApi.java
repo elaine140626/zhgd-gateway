@@ -50,7 +50,8 @@ public class PcTeamApi  extends BaseController {
     public  Map<String,Object> insertHjTeam( HjTeam hjTeam)throws Exception
     {
         logger.info("保存班组信息开始---insertHjTeam---start");
-        return ( Map<String,Object>)restTemplateUtil.Post(hjTeam, Constants.SERVICE_NAME+"/provider/pcCompanyLibrary/insertHjTeam");
+        return systemClient.insertHjTeam(hjTeam);
+//        return ( Map<String,Object>)restTemplateUtil.Post(hjTeam, Constants.SERVICE_NAME+"/provider/pcCompanyLibrary/insertHjTeam");
     }
     /**
      * 新建保存班组信息--对外
@@ -77,7 +78,8 @@ public class PcTeamApi  extends BaseController {
         logger.info("查询指定班组信息开始---selectHjTeamId---start");
         Map<String,Object> map = new HashMap();
         map.put("id",id);
-        return ( Map<String,Object>)restTemplateUtil.Post(map, Constants.SERVICE_NAME+"/provider/pcCompanyLibrary/selectHjTeamId");
+        return systemClient.selectHjTeamId(id);
+//       return ( Map<String,Object>)restTemplateUtil.Post(map, Constants.SERVICE_NAME+"/provider/pcCompanyLibrary/selectHjTeamId");
     }
 
     /**
@@ -133,7 +135,8 @@ public class PcTeamApi  extends BaseController {
     public  Map<String,Object> updateHjTeam( HjTeam hjTeam)throws Exception
     {
         logger.info("修改班组信息开始---updateHjTeam---start");
-        return ( Map<String,Object>)restTemplateUtil.Post(hjTeam, Constants.SERVICE_NAME+"/provider/pcCompanyLibrary/updateHjTeam");
+        return systemClient.updateHjTeam(hjTeam);
+//        return ( Map<String,Object>)restTemplateUtil.Post(hjTeam, Constants.SERVICE_NAME+"/provider/pcCompanyLibrary/updateHjTeam");
     }
     /**
      * 删除班组信息
@@ -147,7 +150,8 @@ public class PcTeamApi  extends BaseController {
         logger.info("删除班组信息开始---updateHjTeam---start");
         Map<String,Object> map = new HashMap();
         map.put("ids",ids);
-        return ( Map<String,Object>)restTemplateUtil.Post(map, Constants.SERVICE_NAME+"/provider/pcCompanyLibrary/deleteHjTeam");
+        return systemClient.deleteHjTeam(ids);
+//        return ( Map<String,Object>)restTemplateUtil.Post(map, Constants.SERVICE_NAME+"/provider/pcCompanyLibrary/deleteHjTeam");
     }
 
 

@@ -45,7 +45,24 @@ public class ProjectWorkerPC
 	/** 居住地址 */
 	@Excel(name = "居住地址")
 	private String idAddress ;
+	private String quarantine;
+private String faceImg;
 
+	public String getFaceImg() {
+		return faceImg;
+	}
+
+	public void setFaceImg(String faceImg) {
+		this.faceImg = faceImg;
+	}
+
+	public String getQuarantine() {
+		return quarantine;
+	}
+
+	public void setQuarantine(String quarantine) {
+		this.quarantine = quarantine;
+	}
 	public String getIdCode() {
 		return idCode;
 	}

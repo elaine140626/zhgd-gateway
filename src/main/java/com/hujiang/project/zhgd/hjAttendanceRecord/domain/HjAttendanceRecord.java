@@ -32,7 +32,28 @@ public class HjAttendanceRecord
 	/** 上传时间 */
 	private String uploadTime;
 
-	public void setId(Integer id) 
+	/** 考勤设备类型 */
+	private String deviceType;
+	/** 考勤设备唯一识别码 */
+	private String deviceSn;
+
+	public String getDeviceType() {
+		return deviceType;
+	}
+
+	public void setDeviceType(String deviceType) {
+		this.deviceType = deviceType;
+	}
+
+	public String getDeviceSn() {
+		return deviceSn;
+	}
+
+	public void setDeviceSn(String deviceSn) {
+		this.deviceSn = deviceSn;
+	}
+
+	public void setId(Integer id)
 	{
 		this.id = id;
 	}
@@ -126,6 +147,8 @@ public class HjAttendanceRecord
 				", sitePhoto='" + sitePhoto + '\'' +
 				", createDate=" + createDate +
 				", uploadTime='" + uploadTime + '\'' +
+				", deviceType='" + deviceType + '\'' +
+				", deviceSn='" + deviceSn + '\'' +
 				'}';
 	}
 }

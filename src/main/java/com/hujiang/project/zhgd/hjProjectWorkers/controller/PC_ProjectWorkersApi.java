@@ -10,7 +10,6 @@ import com.hujiang.framework.web.domain.AjaxResult;
 import com.hujiang.framework.web.page.PageDomain;
 import com.hujiang.framework.web.page.TableDataInfo;
 import com.hujiang.project.zhgd.Constants;
-import com.hujiang.project.zhgd.RestTemplateUtil;
 import com.hujiang.project.zhgd.Util;
 import com.hujiang.project.zhgd.client.SystemClient;
 import com.hujiang.project.zhgd.hjProjectWorkers.domain.*;
@@ -43,8 +42,6 @@ public class PC_ProjectWorkersApi extends BaseController {
     @Autowired
     private IHjProjectWorkersService hjProjectWorkersService;
     @Autowired
-    private RestTemplateUtil restTemplateUtil;
-    @Autowired
     private SystemClient systemClient;
 
     /**
@@ -52,8 +49,13 @@ public class PC_ProjectWorkersApi extends BaseController {
      */
     @PostMapping("/list")
     public Map<String, Object> list(HjProjectWorkers hjProjectWorkers, PageDomain pageDomain) throws Exception {
-        return (Map<String, Object>) restTemplateUtil.PostPage(hjProjectWorkers, Constants.SERVICE_NAME + "provider/pc/projectWorkersApi/list", pageDomain);
-    }
+        return systemClient.listProjectWorker(hjProjectWorkers,pageDomain);}
+    /**
+     * 查询项目工人列表
+     */
+    @PostMapping("/quarantineList")
+    public Map<String, Object> quarantineList(HjProjectWorkers hjProjectWorkers, PageDomain pageDomain) throws Exception {
+       return systemClient.quarantineList(hjProjectWorkers,pageDomain);}
     /**
      * 修改前查询
      * @param id 人员id
@@ -64,8 +66,8 @@ public class PC_ProjectWorkersApi extends BaseController {
     public  Map<String,Object> queryProjectWorkers(Integer id)throws Exception{
         Map<String,Object> map = new HashMap<>();
         map.put("id",id);
-        return (Map<String, Object>) restTemplateUtil.Post(map, Constants.SERVICE_NAME + "provider/pc/projectWorkersApi/queryProjectWorkers");
-    }
+        return systemClient.queryProjectWorkers(id);
+  }
     /**
      * 同步人员 进出或退场
      * @param tag
@@ -75,6 +77,10 @@ public class PC_ProjectWorkersApi extends BaseController {
     @PostMapping(value = "outOrIn")
     public  Map<String,Object> out(Integer tag,String ids){
         return systemClient.outOrIn(tag,ids);
+    }
+    @PostMapping(value = "updateQuarantine")
+    public  AjaxResult updateQuarantine(Integer tag,String ids){
+        return systemClient.updateQuarantine(tag,ids);
     }
 
     /**
@@ -140,8 +146,7 @@ public class PC_ProjectWorkersApi extends BaseController {
     {
         System.out.println(hjProjectWorkers);
         hjProjectWorkers.setUpdateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-        return (Map<String, Object>)restTemplateUtil.Post(hjProjectWorkers,Constants.SERVICE_NAME+"provider/pc/projectWorkersApi/edit");
-    }
+        return systemClient.editSave(hjProjectWorkers);}
 
     /**
      * 获取合同统计

@@ -39,9 +39,75 @@ public class SbProjectVideo
 	private String position;
 	/** 所在位置照片 */
 	private String photograph;
+	/** 序列号 */
+	private String videoSn;
+	/** 是否支持云端控制 1支持 0不支持 */
+	private String isControl;
+	/** 虎匠编号	 */
+	private String hjCode;
+	/** 流量卡号	 */
+	private String flowCard;
+	/** 出库日期	 */
+	private String shipmentDate;
+	private String longitude;//经度
+	private String latitude;//纬度
 
-	public void setId(Integer id) 
-	{
+	public String getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+
+	public String getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+	public String getHjCode() {
+		return hjCode;
+	}
+
+	public void setHjCode(String hjCode) {
+		this.hjCode = hjCode;
+	}
+
+	public String getFlowCard() {
+		return flowCard;
+	}
+
+	public void setFlowCard(String flowCard) {
+		this.flowCard = flowCard;
+	}
+
+	public String getShipmentDate() {
+		return shipmentDate;
+	}
+
+	public void setShipmentDate(String shipmentDate) {
+		this.shipmentDate = shipmentDate;
+	}
+
+	public String getVideoSn() {
+		return videoSn;
+	}
+
+	public void setVideoSn(String videoSn) {
+		this.videoSn = videoSn;
+	}
+
+	public String getIsControl() {
+		return isControl;
+	}
+
+	public void setIsControl(String isControl) {
+		this.isControl = isControl;
+	}
+
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

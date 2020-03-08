@@ -3,7 +3,9 @@ package com.hujiang.project.zhgd.SbProjectVideo.api;
 import com.alibaba.fastjson.JSONObject;
 import com.hujiang.framework.web.domain.AjaxResult;
 import com.hujiang.project.zhgd.SbProjectVideo.domain.SbProjectVideo;
+import com.hujiang.project.zhgd.SbProjectVideoArea.domain.Video;
 import com.hujiang.project.zhgd.client.SystemClient;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -89,7 +91,27 @@ public class ProjectVideo {
         return client.projectVideoEditSave(sbProjectVideo);
     }
 
+    /**
+     * 云台控制方向
+     * @param pid
+     * @param deviceSerial
+     * @param direction
+     */
+    @PostMapping("/ysCloudControldirection")
+public void ysCloudControldirection(Integer pid, String deviceSerial , Integer direction, Video video){
+         client.ysCloudControldirection(pid,deviceSerial,direction,video);
+}
 
-
+    /**
+     * 更新摄像头坐标
+     * @param videoSn
+     * @param longitude
+     * @param latitude
+     * @return
+     */
+    @PostMapping("/updateVideoCoordinate")
+    public AjaxResult updateVideoCoordinate(SbProjectVideo sbProjectVideo){
+        return client.updateVideoCoordinate(sbProjectVideo);
+    }
 
 }
