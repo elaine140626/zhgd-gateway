@@ -57,7 +57,8 @@ public class PcCompanyLibraryApi {
         Map<String,Object> map = new HashMap<>();
         map.put("hjCompanyLibrary",hjCompanyLibrary);
         map.put("companyId",companyId);
-        return (AjaxResult) restTemplateUtil.PostPage(map, Constants.SERVICE_NAME+"provider/pcCompanyLibrary/companyLibraryList",page);
+        return client.listLibarary(hjCompanyLibrary,companyId,page);
+//        return (AjaxResult) restTemplateUtil.PostPage(map, Constants.SERVICE_NAME+"provider/pcCompanyLibrary/companyLibraryList",page);
     }
     /**
      * 保存公司库信息
@@ -132,7 +133,8 @@ public class PcCompanyLibraryApi {
     public Map<String,Object> deleteHjCompanyLibraryIds(String ids)throws Exception{
         Map<String,Object> map = new HashMap<>();
         map.put("ids",ids);
-        return (Map<String,Object>)restTemplateUtil.Post(map,Constants.SERVICE_NAME+"provider/pcCompanyLibrary/deleteHjCompanyLibrary");
+        return client.deleteHjCompanyLibraryIds(ids);
+//        return (Map<String,Object>)restTemplateUtil.Post(map,Constants.SERVICE_NAME+"provider/pcCompanyLibrary/deleteHjCompanyLibrary");
     }
     /**
      * 查询子公司列表

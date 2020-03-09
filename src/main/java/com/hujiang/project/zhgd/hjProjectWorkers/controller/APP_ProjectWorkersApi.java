@@ -125,7 +125,8 @@ public class APP_ProjectWorkersApi {
         System.out.println(url);
         Map<String, Object> map = new HashMap<>();
         map.put("url", url);
-        return (Map<String, Object>) restTemplateUtil.PostFile(map, Constants.SERVICE_NAME + "provider/projectWorkersApi/queryWitnessComparison", file);
+        return systemClient.queryWitnessComparison(file,url);
+//        return (Map<String, Object>) restTemplateUtil.PostFile(map, Constants.SERVICE_NAME + "provider/projectWorkersApi/queryWitnessComparison", file);
     }
 
 
@@ -141,7 +142,8 @@ public class APP_ProjectWorkersApi {
 //        System.out.println(file.getOriginalFilename());
         //        return hjProjectWorkersService.updateProjectWorkers(hj);
         hj.setUpdateDate(new SimpleDateFormat().format(new Date()));
-        return (Map<String, Object>) restTemplateUtil.PostFile(hj, Constants.SERVICE_NAME + "provider/projectWorkersApi/updateProjectWorkers", file);
+        return  systemClient.updateProjectWorkersP(hj,file);
+//        return (Map<String, Object>) restTemplateUtil.PostFile(hj, Constants.SERVICE_NAME + "provider/projectWorkersApi/updateProjectWorkers", file);
     }
 
     /**
@@ -156,8 +158,9 @@ public class APP_ProjectWorkersApi {
         map.put("id",id);
         map.put("bankName",bankName);
         map.put("cardNum",cardNum);
-        return(Map<String,Object>) restTemplateUtil.PostFile(map,Constants.SERVICE_NAME+"provider/projectWorkersApi/updateProjectWorkersBank",file);
-
+        return systemClient.updateProjectWorkersBank(id,bankName,cardNum,file);
+//        return(Map<String,Object>) restTemplateUtil.PostFile(map,Constants.SERVICE_NAME+"provider/projectWorkersApi/updateProjectWorkersBank",file);
+//
     }
     /**
      * 人员信息 是否签订
@@ -184,7 +187,8 @@ public class APP_ProjectWorkersApi {
         Map<String, Object> map = new HashMap<>();
         map.put("configStr", configStr);
         System.out.println(file.getOriginalFilename());
-        return (Map<String, Object>) restTemplateUtil.PostFile(map, Constants.SERVICE_NAME + "provider/projectWorkersApi/getAliOcrIdCard", file);
+        return systemClient.getAliOcrIdCard(file,configStr);
+//        return (Map<String, Object>) restTemplateUtil.PostFile(map, Constants.SERVICE_NAME + "provider/projectWorkersApi/getAliOcrIdCard", file);
     }
 
     /**
@@ -198,7 +202,8 @@ public class APP_ProjectWorkersApi {
         Map<String, Object> map = new HashMap<>();
         map.put("imageUrl1", imageUrl1);
         map.put("imageUrl2", imageUrl2);
-        return (Map<String, Object>) restTemplateUtil.Post(map, Constants.SERVICE_NAME + "provider/projectWorkersApi/faceVerify");
+        return systemClient.faceVerify(imageUrl1,imageUrl2);
+//        return (Map<String, Object>) restTemplateUtil.Post(map, Constants.SERVICE_NAME + "provider/projectWorkersApi/faceVerify");
     }
 
 
