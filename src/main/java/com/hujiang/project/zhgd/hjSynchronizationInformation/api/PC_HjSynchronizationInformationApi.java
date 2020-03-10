@@ -39,7 +39,8 @@ public class PC_HjSynchronizationInformationApi extends BaseController {
     @PostMapping("/list")
     public AjaxResult list(HjSynchronizationInformation hjSynchronizationInformation, PageDomain pageDomain)throws Exception
     {
-        return (AjaxResult)restTemplateUtil.PostPage(hjSynchronizationInformation, Constants.SERVICE_NAME+"provider/synchronizationInformationApi/list",pageDomain);
+        return SystemClient.listIN(hjSynchronizationInformation,pageDomain);
+//        return (AjaxResult)restTemplateUtil.PostPage(hjSynchronizationInformation, Constants.SERVICE_NAME+"provider/synchronizationInformationApi/list",pageDomain);
     }
 
     /**

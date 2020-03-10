@@ -63,6 +63,7 @@ public class HjBlacklistApi extends BaseController
 	public Map uploadBlacklist(MultipartFile file, String ids)throws Exception{
 		Map<String,String> map = new HashMap<>();
 		map.put("ids",ids);
-		return (Map)restTemplateUtil.PostFile(map, Constants.SERVICE_NAME + "provider/hjBlacklist/uploadBlacklist", file);
+		return client.uploadBlacklist(file,ids);
+//		return (Map)restTemplateUtil.PostFile(map, Constants.SERVICE_NAME + "provider/hjBlacklist/uploadBlacklist", file);
 	}
 }
