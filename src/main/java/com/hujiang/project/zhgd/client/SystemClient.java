@@ -15,8 +15,6 @@ import com.hujiang.project.zhgd.hjAttendanceLocation.domain.HjAttendanceLocation
 import com.hujiang.project.zhgd.hjDeeppit.domain.SbProjectDeeppitStructures;
 import com.hujiang.project.zhgd.hjProjectImage.domain.HjProjectImage;
 import com.hujiang.project.zhgd.hjZhgdDriver.domain.HjZhgdDriver;
-import com.hujiang.project.zhgd.lyCompany.domain.LyCompany;
-import com.hujiang.project.zhgd.lyPersonnel.domain.LyPersonnel;
 import com.hujiang.project.zhgd.lzfw.domain.*;
 import com.hujiang.project.zhgd.hjDeveceProjectworkers.domain.HjDeviceProjectworkers;
 import com.hujiang.project.zhgd.SbProjectVideo.domain.SbProjectVideo;
@@ -2887,6 +2885,7 @@ public interface SystemClient {
     public AjaxResult plateList(@RequestParam(value = "cid")Integer cid,@RequestParam(value = "start")Long start,@RequestParam(value = "end")Long end);
     @PostMapping(value = "/provider/environmentList")
     public AjaxResult environmentList(@RequestParam(value = "cid")Integer cid);
+<<<<<<< HEAD
 
 
    
@@ -2929,4 +2928,6 @@ public interface SystemClient {
     @RequestMapping(value = "/api/lyPersonnel/insertPersonnel",method = RequestMethod.POST)
     AjaxResult insertPersonnel(@RequestBody LyPersonnel lyPersonnel);
 
+=======
+>>>>>>> parent of cce798a... 0307
 }
