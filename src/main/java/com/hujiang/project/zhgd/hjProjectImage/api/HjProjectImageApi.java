@@ -21,8 +21,8 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/api/projectImage", method = RequestMethod.POST)
 public class HjProjectImageApi {
-//    @Autowired
-//    private RestTemplateUtil restTemplateUtil;
+    @Autowired
+    private RestTemplateUtil restTemplateUtil;
     @Autowired
     private SystemClient client;
 
@@ -47,7 +47,7 @@ public class HjProjectImageApi {
     public  Map<String, Object> insertProjectImage(HjProjectImage hjProjectImage, MultipartFile[] file) {
         Map<String, Object> result = null;
         try {
-            result = client.PostFile(hjProjectImage,  file);
+            result = (Map<String, Object>) restTemplateUtil.PostFile(hjProjectImage, Constants.SERVICE_NAME + "provider/projectImage/insertProjectImage", file);
         } catch (Exception e) {
             e.printStackTrace();
         }

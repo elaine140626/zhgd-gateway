@@ -58,11 +58,11 @@ public class ProjectContnroller extends BaseController {
      * @return
      */
     @RequestMapping("selectProjectList")
-    public AjaxResult list(HjProject hjProject,Integer cid, PageDomain page)throws Exception {
+    public AjaxResult list(HjProject hjProject,Integer cid, PageDomain pageDomain)throws Exception {
         Map<String,Object> map  = new HashMap<>();
         map.put("hjProject",hjProject);
         map.put("cid",cid);
-        return client.listProject(hjProject,cid,page);
+        return client.listProject(hjProject,cid,pageDomain.getPageSize(),pageDomain.getPageNum());
 //        return (AjaxResult)restTemplateUtil.PostPage(map,Constants.SERVICE_NAME+"provider/project/selectProjectList",page);
     }
 
@@ -84,8 +84,8 @@ public class ProjectContnroller extends BaseController {
         map.put("cid",cid);
         map.put("remark1",remark1);
         map.put("shortName1",shortName1);
-        return client.addSaveProject(hjProject,cid,file,remark1,shortName1);
-//        return(Map<String,Object>) restTemplateUtil.PostFile(map,Constants.SERVICE_NAME+"provider/project/addProject",file);
+//        return client.addSaveProject(hjProject,cid,file,remark1,shortName1);
+        return(Map<String,Object>) restTemplateUtil.PostFile(map,Constants.SERVICE_NAME+"provider/project/addProject",file);
     }
 
     /**
@@ -98,8 +98,8 @@ public class ProjectContnroller extends BaseController {
      */
     @RequestMapping("/updateProject")
     public Map<String,Object> updateProject(HjProject hjProject, MultipartFile file) throws Exception {
-        return client.updateProject(hjProject,file);
-//        return(Map<String,Object>) restTemplateUtil.PostFile(hjProject,Constants.SERVICE_NAME+"provider/project/updateProject",file);
+//        return client.updateProject(hjProject,file);
+        return(Map<String,Object>) restTemplateUtil.PostFile(hjProject,Constants.SERVICE_NAME+"provider/project/updateProject",file);
     }
 
     /**

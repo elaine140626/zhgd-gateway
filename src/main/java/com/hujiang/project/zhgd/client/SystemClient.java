@@ -3,7 +3,6 @@ package com.hujiang.project.zhgd.client;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
-import com.hujiang.framework.aspectj.lang.enums.BusinessType;
 import com.hujiang.framework.web.domain.AjaxResult;
 
 import com.hujiang.framework.web.page.PageDomain;
@@ -15,6 +14,9 @@ import com.hujiang.project.zhgd.hjAttendanceLocation.domain.HjAttendanceLocation
 import com.hujiang.project.zhgd.hjDeeppit.domain.SbProjectDeeppitStructures;
 import com.hujiang.project.zhgd.hjProjectImage.domain.HjProjectImage;
 import com.hujiang.project.zhgd.hjZhgdDriver.domain.HjZhgdDriver;
+import com.hujiang.project.zhgd.lyAttendanceRecord.domain.LyAttendanceRecord;
+import com.hujiang.project.zhgd.lyCompany.domain.LyCompany;
+import com.hujiang.project.zhgd.lyPersonnel.domain.LyPersonnel;
 import com.hujiang.project.zhgd.lzfw.domain.*;
 import com.hujiang.project.zhgd.hjDeveceProjectworkers.domain.HjDeviceProjectworkers;
 import com.hujiang.project.zhgd.SbProjectVideo.domain.SbProjectVideo;
@@ -65,7 +67,6 @@ import com.hujiang.project.zhgd.sbProjectVideoPreset.domain.SbProjectVideoPreset
 import com.hujiang.project.zhgd.sbUnloaderRegistration.domain.ExportUnloaderAlarmtime;
 import com.hujiang.project.zhgd.sbUnloaderRegistration.domain.ExportUnloaderRealtime;
 import com.hujiang.project.zhgd.zhNode.domain.*;
-import io.swagger.annotations.ApiOperation;
 import org.aspectj.weaver.loadtime.Aj;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -74,109 +75,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @FeignClient(value = "user-api")
 public interface SystemClient {
-    @PostMapping(value = "provider/projectImage/insertProjectImage")
-    public  Map<String, Object> PostFile(@RequestBody HjProjectImage hjProjectImage, MultipartFile[] file);
-    @PostMapping("provider/FileApi/uploadFile/uploadFile")
-    public Map<String,Object> uploadFile(Integer folderId,
-                                         Integer projectId,
-                                         String uploadAccount,
-                                         String folderName,
-                                         MultipartFile file);
-    @RequestMapping("/provider/project/addProject")
-    public Map<String,Object> addSaveProject(@RequestBody HjProject hjProject, Integer cid, MultipartFile file,String remark1 ,String shortName1);
-    @RequestMapping("/provider/project/updateProject")
-    public Map<String,Object> updateProject(@RequestBody HjProject hjProject, MultipartFile file);
-    @PostMapping("/provider/hjBlacklist/uploadBlacklist")
-    public Map uploadBlacklist(MultipartFile file, String ids);
-    @RequestMapping(value = "/provider/projectWorkersApi/getAliOcrIdCard")
-    @ResponseBody
-    public Map<String, Object> getAliOcrIdCard(MultipartFile file, String configStr);
-    @RequestMapping(value = "/provider/projectWorkersApifaceVerify")
-    @ResponseBody
-    public Map<String, Object> faceVerify(String imageUrl1, String imageUrl2);
-    @RequestMapping(value = "/provider/projectWorkersApi/queryWitnessComparison")
-    @ResponseBody
-    public Map<String, Object> queryWitnessComparison(MultipartFile file, String url);
-    @RequestMapping("/provider/projectWorkersApi/updateProjectWorkers")
-    @ResponseBody
-    public Map<String, Object> updateProjectWorkersP(@RequestBody HjProjectWorkers hj, MultipartFile file) ;
-    @RequestMapping("/provider/projectWorkersApi/updateProjectWorkersBank")
-    @ResponseBody
-    public Map<String, Object> updateProjectWorkersBank(int id,String bankName,String cardNum, MultipartFile file);
-    @RequestMapping("/provider/attendanceRecordApi/insertAdministration")
-    @ResponseBody
-    public Map<String, Object> insertAdministrationAttendanceRecord(@RequestBody HjAttendanceRecord hjAttendanceRecord,
-                                                     MultipartFile file);
-
-
-
-
-
-
-
-    @PostMapping("/provider/synchronizationInformationApi/list")
-    public AjaxResult listIN(@RequestBody HjSynchronizationInformation hjSynchronizationInformation, PageDomain pageDomain);
-    @RequestMapping("/provider/constructionCompanyApi/deleteConstructionCompanyIds")
-    @ResponseBody
-    public Map<String, Object>  deleteHjConstructionCompanyIds(String ids);
-    @RequestMapping("/provider/constructionCompanyApi/selectConstructionCompanyId")
-    public Map<String,Object> selectHjConstructionCompanyIds(Integer id);
-    @RequestMapping("/provider/constructionCompanyApi/selectConstructionCompanyList")
-    public Map<String,Object> selectHjConstructionCompanyListTwoE(String param ,String suid, Integer projectId, PageDomain pageDomain);
-    @RequestMapping("/provider/constructionCompanyApi/updateConstructionCompany")
-    public Map<String,Object> updateConstructionCompany( @RequestBody HjConstructionCompany hjConstructionCompany);
-    @RequestMapping("/provider/constructionCompanyApi/insertConstructionCompany")
-    public Map<String,Object> insertConstructionCompanys( @RequestBody HjConstructionCompany hjConstructionCompany, Integer projectId);
-    @PostMapping( "/provider/project/remove")
-    public Map<String,Object> removep(String ids);
-    @RequestMapping("/provider/project/getProject")
-    public  Map<String, Object> getProject(Integer projectId);
-
-    @RequestMapping("/provider/project/selectProjectList")
-    public AjaxResult listProject(@RequestBody HjProject hjProject,Integer cid, PageDomain page);
-    @RequestMapping("/provider/pcCompanyLibrary/deleteHjCompanyLibrary")
-    public Map<String,Object> deleteHjCompanyLibraryIds(String ids);
-    @RequestMapping("/provider/pcCompanyLibrary/companyLibraryList")
-    public AjaxResult listLibarary(@RequestBody HjCompanyLibrary hjCompanyLibrary,Integer companyId, PageDomain page);
-    @RequestMapping("/provider/pcCompanyLibrary/deleteHjTeam")
-    @ResponseBody
-    public  Map<String,Object> deleteHjTeam(String  ids);
-    @RequestMapping("/provider/pcCompanyLibrary/updateHjTeam")
-    @ResponseBody
-    public  Map<String,Object> updateHjTeam( @RequestBody HjTeam hjTeam);
-    @RequestMapping("/provider/pcCompanyLibrary/selectHjTeamId")
-    @ResponseBody
-    public Map<String,Object> selectHjTeamId(Integer id);
-    @RequestMapping("/provider/pcCompanyLibrary/insertHjTeam/insertHjTeam")
-    @ResponseBody
-    public  Map<String,Object> insertHjTeam( @RequestBody HjTeam hjTeam);
-    @PostMapping("/pc/projectWorkersApi/edit")
-    public Map<String, Object> editSave(@RequestBody HjProjectWorkers hjProjectWorkers);
-    @PostMapping("/pc/projectWorkersApi/list")
-    public Map<String, Object> listProjectWorker(@RequestBody HjProjectWorkers hjProjectWorkers, PageDomain pageDomain);
-    /**
-     * 查询项目工人列表
-     */
-    @PostMapping("/pc/projectWorkersApi/quarantineList")
-    public Map<String, Object> quarantineList(@RequestBody HjProjectWorkers hjProjectWorkers, PageDomain pageDomain);
-    /**
-     * 修改前查询
-     * @param id 人员id
-     * @param
-     * @return
-     */
-    @PostMapping(value = "/pc/projectWorkersApi/queryProjectWorkers")
-    public  Map<String,Object> queryProjectWorkers(Integer id);
-
-
     @PostMapping("/provider/pcEquipmentWarning/warningCount")
     public JSONObject warningCount(@RequestParam(value = "projectId") Integer projectId);
     @PostMapping("/provider/pcEquipmentWarning/getWarningList")
@@ -1122,7 +1025,7 @@ public interface SystemClient {
      */
     @RequestMapping(value = "/provider/attendanceRecordApi/selectAdministration",method = RequestMethod.POST)
     Map<String, Object> selectAdministration(HjAttendanceRecord hjAttendanceRecord);
-     /**
+    /**
      * 人脸考勤
      * @param
      * @return
@@ -1151,7 +1054,7 @@ public interface SystemClient {
      * @return
      */
     @RequestMapping(value = "/provider/attendanceRecordApi/getWorkType",method = RequestMethod.POST)
-     JSONObject attendanceRecordApiGetWorkType(@RequestParam("projectId") Integer projectId);
+    JSONObject attendanceRecordApiGetWorkType(@RequestParam("projectId") Integer projectId);
     /**
      * 分包单位考勤情况
      * @param projectId
@@ -1210,7 +1113,7 @@ public interface SystemClient {
      */
     @RequestMapping(value = "/provider/dictionariesApi/selectDictionaries",method = RequestMethod.POST)
     Map<String, Object> selectDictionaries(HjDictionaries hjDictionaries);
-      /**
+    /**
      * 数据字典
      * @param
      * @return
@@ -1301,7 +1204,7 @@ public interface SystemClient {
      * @return id 用户id
      */
     @RequestMapping(value = "/provider/systemuser/app/updateUserPassword",method = RequestMethod.POST)
-     Map<String, Object> updateUserPassword(PasswordParam passwordParam);
+    Map<String, Object> updateUserPassword(PasswordParam passwordParam);
     /**
      * 切换项目
      * @param userId 人员id
@@ -1384,7 +1287,7 @@ public interface SystemClient {
      * @return
      */
     @RequestMapping(value = "/provider/systemRoleApi/addSystemRole",method = RequestMethod.POST)
-   Map<String, Object> insertSystemRole(@RequestBody HjSystemRole hjSystemRole, @RequestParam(value = "ids") String ids);
+    Map<String, Object> insertSystemRole(@RequestBody HjSystemRole hjSystemRole, @RequestParam(value = "ids") String ids);
 
     /**
      * 修改前显示
@@ -1407,7 +1310,7 @@ public interface SystemClient {
      * @return
      */
     @RequestMapping(value = "/provider/systemRoleApi/deleteSystemRole",method = RequestMethod.POST)
-     Map<String, Object> deleteSystemRole(@RequestParam("ids") String ids);
+    Map<String, Object> deleteSystemRole(@RequestParam("ids") String ids);
 
 
     /**
@@ -1488,7 +1391,7 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/pc/projectWorkersApi/outOrIn")
-   Map<String,Object> outOrIn(@RequestParam("tag") Integer tag, @RequestParam("ids") String ids);
+    Map<String,Object> outOrIn(@RequestParam("tag") Integer tag, @RequestParam("ids") String ids);
     @PostMapping(value = "/provider/pc/projectWorkersApi/updateQuarantine")
     AjaxResult updateQuarantine(@RequestParam("tag") Integer tag, @RequestParam("ids") String ids);
 
@@ -1533,14 +1436,14 @@ public interface SystemClient {
      * @return
      */
     @PostMapping("/provider/pc/projectWorkersApi/getDataCount")
-     JSONObject projectWorkersApiGetDataCount(@RequestParam(value = "projectId") Integer projectId);
+    JSONObject projectWorkersApiGetDataCount(@RequestParam(value = "projectId") Integer projectId);
     /**
      * 获取合同统计
      * @param projectId
      * @return
      */
     @PostMapping("/provider/pc/projectWorkersApi/getKQCount")
-     JSONObject projectWorkersApiGetKQCount(@RequestParam(value = "projectId") Integer projectId);
+    JSONObject projectWorkersApiGetKQCount(@RequestParam(value = "projectId") Integer projectId);
     /**
      * 导出班组数据源
      * @param hjTeam
@@ -1589,7 +1492,7 @@ public interface SystemClient {
      * @return
      */
     @PostMapping("/provider/pc/projectWorkersApi/selectPdfWorkers")
-   List<PdfWorkers> selectPdfWorkers(@RequestParam("ids") String ids);
+    List<PdfWorkers> selectPdfWorkers(@RequestParam("ids") String ids);
 
     /**
      * 功能描述 :接收上传的考勤记录
@@ -1731,7 +1634,7 @@ public interface SystemClient {
      */
     @PostMapping("/provider/ProjectVideoAreaApi/getVideoListJT")
     public List<SbJTArea> getVideoListJT(@RequestParam(value = "cid") Integer cid);
- @PostMapping("/provider/ProjectVideoAreaApi/getVideoListImgUrl")
+    @PostMapping("/provider/ProjectVideoAreaApi/getVideoListImgUrl")
     public List<Video> getVideoListImgUrl(@RequestParam(value = "cid") Integer cid);
     /**
      * 项目的监控列表
@@ -1808,7 +1711,7 @@ public interface SystemClient {
      * @param latitude
      * @return
      */
-     @PostMapping("/provider/ProjectVideo/updateVideoCoordinate")
+    @PostMapping("/provider/ProjectVideo/updateVideoCoordinate")
     public AjaxResult updateVideoCoordinate(@RequestBody SbProjectVideo sbProjectVideo);
 
     /**
@@ -1876,7 +1779,7 @@ public interface SystemClient {
      */
     @PostMapping("/provider/appProjectElectricityBox/getAppProjectElectricityBox")
     public JSONObject getAppProjectElectricityBox(@RequestParam(value = "projectId") Integer projectId);
-     @PostMapping("/provider/appProjectElectricityBox/getBoxList")
+    @PostMapping("/provider/appProjectElectricityBox/getBoxList")
     public AjaxResult getBoxList(@RequestParam(value = "pid") Integer pid);
     /**
      * 电箱导出Excel数据源
@@ -2291,14 +2194,14 @@ public interface SystemClient {
      * @return
      */
     @PostMapping(value = "/provider/project/selectListProjectArea")
-       Map<String, Object> selectListProjectArea(@RequestParam(value = "companyId") Integer companyId, @RequestParam(value = "region") String region);
+    Map<String, Object> selectListProjectArea(@RequestParam(value = "companyId") Integer companyId, @RequestParam(value = "region") String region);
     /**
      * 查询子公司列表
      * @param
      * @return
      */
     @PostMapping("/provider/pcCompanyLibrary/selectHjCompanyList")
-      List<HjCompanyLibrary> selectHjCompanyList(@RequestParam(value = "companyId") Integer companyId);
+    List<HjCompanyLibrary> selectHjCompanyList(@RequestParam(value = "companyId") Integer companyId);
 
 
 
@@ -2427,7 +2330,7 @@ public interface SystemClient {
      */
     @PostMapping(value = "/provider/instructions/clean")
     public List<HjDeviceProjectworkers> clean(@RequestParam(value = "deviceNo") String deviceNo);
- /**
+    /**
      * 删除记录
      */
     @PostMapping(value = "/provider/instructions/deleteId")
@@ -2835,14 +2738,14 @@ public interface SystemClient {
      */
     @PostMapping("/provider/ProjectVideoPresetApi/insertPreset")
     public AjaxResult insertPreset(@RequestParam(value = "pid") Integer pid,@RequestParam(value = "deviceSerial") String deviceSerial);
-   /**
+    /**
      * 清除预置点
      * @param
      * @return
      */
     @PostMapping("/provider/ProjectVideoPresetApi/clearPreset")
     public AjaxResult clearPreset(@RequestParam(value = "pid") Integer pid,@RequestParam(value = "deviceSerial") String deviceSerial ,@RequestParam(value = "index") Integer  index);
- /**
+    /**
      * 查询预置点
      * @param
      * @return
@@ -2885,15 +2788,9 @@ public interface SystemClient {
     public AjaxResult plateList(@RequestParam(value = "cid")Integer cid,@RequestParam(value = "start")Long start,@RequestParam(value = "end")Long end);
     @PostMapping(value = "/provider/environmentList")
     public AjaxResult environmentList(@RequestParam(value = "cid")Integer cid);
-<<<<<<< HEAD
-
-
-   
-
-
-
-    @PostMapping(value = "/provider/location/insert")
-    public AjaxResult insertHjAttendanceLocation(@RequestBody HjAttendanceLocation hjAttendanceLocation);
+//定点
+@PostMapping(value = "/provider/location/insert")
+public AjaxResult insertHjAttendanceLocation(@RequestBody HjAttendanceLocation hjAttendanceLocation);
 
     @PostMapping(value = "/provider/location/modify")
     public AjaxResult updateHjAttendanceLocation(@RequestBody HjAttendanceLocation hjAttendanceLocation);
@@ -2903,9 +2800,7 @@ public interface SystemClient {
 
     @PostMapping(value = "/provider/location/remove")
     public AjaxResult deleteHjAttendanceLocationByIds(@RequestParam(value = "id")String id);
-
-  
-   /**
+    /**
      * 楼宇公司
      * @param lyCompany
      * @param pageSize
@@ -2919,15 +2814,74 @@ public interface SystemClient {
 
     @RequestMapping(value = "/provider/lyCompany/insert",method = RequestMethod.POST)
     AjaxResult lyCompanyInsert(@RequestBody LyCompany lyCompany);
- @RequestMapping(value = "/provider/lyCompany/selectId",method = RequestMethod.POST)
+    @RequestMapping(value = "/provider/lyCompany/selectId",method = RequestMethod.POST)
     AjaxResult lyCompanySelectId(@RequestParam Integer id);
     @RequestMapping(value = "/provider/lyCompany/update",method = RequestMethod.POST)
     AjaxResult lyCompanyUpdate(@RequestBody LyCompany lyCompany);
     @RequestMapping(value = "/provider/lyCompany/delete",method = RequestMethod.POST)
     AjaxResult lyCompanyDelete(@RequestParam String ids);
-    @RequestMapping(value = "/api/lyPersonnel/insertPersonnel",method = RequestMethod.POST)
+    @RequestMapping(value = "/provider/lyPersonnel/insertPersonnel",method = RequestMethod.POST)
     AjaxResult insertPersonnel(@RequestBody LyPersonnel lyPersonnel);
+    @RequestMapping(value = "/provider/lyPersonnel/selectPersonnelCompany",method = RequestMethod.POST)
+    AjaxResult selectPersonnelCompany(@RequestBody LyPersonnel lyPersonnel);
+    @RequestMapping(value = "/provider/lyRecord/selectPersonnelRecord",method = RequestMethod.POST)
+    AjaxResult selectPersonnelRecord(@RequestBody LyAttendanceRecord lyAttendanceRecord);
+    @RequestMapping(value = "/provider/lyRecord/getPersonnelDT",method = RequestMethod.POST)
+    AjaxResult getPersonnelDT(@RequestParam Integer pid,@RequestParam String time);
+    @RequestMapping(value = "/provider/lyRecord/getPersonnelRecord",method = RequestMethod.POST)
+    AjaxResult getPersonnelRecord(@RequestParam Integer pid,@RequestParam String time);
+    @RequestMapping(value = "/provider/lyRecord/selectPersonnelById",method = RequestMethod.POST)
+    AjaxResult selectPersonnelById(@RequestParam Integer personnelId);
 
-=======
->>>>>>> parent of cce798a... 0307
+    //改动代码
+    @PostMapping("/provider/synchronizationInformationApi/list")
+    public AjaxResult listIN(@RequestBody HjSynchronizationInformation hjSynchronizationInformation,@RequestParam Integer pageSize,@RequestParam Integer pageNum);
+    @PostMapping("/provider/constructionCompanyApi/deleteConstructionCompanyIds")
+    public Map<String, Object>  deleteHjConstructionCompanyIds(@RequestParam String ids);
+    @PostMapping("/provider/constructionCompanyApi/selectConstructionCompanyId")
+    public Map<String,Object> selectHjConstructionCompanyIds(@RequestParam Integer id);
+    @PostMapping("/provider/constructionCompanyApi/selectConstructionCompanyList")
+    public Map<String,Object> selectHjConstructionCompanyListTwoE(@RequestParam String param  ,@RequestParam String suid,@RequestParam Integer projectId,@RequestParam PageDomain pageDomain);
+    @PostMapping("/provider/constructionCompanyApi/updateConstructionCompany")
+    public Map<String,Object> updateConstructionCompany( @RequestBody HjConstructionCompany hjConstructionCompany);
+    @PostMapping("/provider/constructionCompanyApi/insertConstructionCompany")
+    public Map<String,Object> insertConstructionCompanys( @RequestBody HjConstructionCompany hjConstructionCompany,@RequestParam Integer projectId);
+    @PostMapping( "/provider/project/remove")
+    public Map<String,Object> removep(@RequestParam String ids);
+    @PostMapping("/provider/project/getProject")
+    public  Map<String, Object> getProject(@RequestParam Integer projectId);
+
+    @PostMapping("/provider/project/selectProjectList")
+    public AjaxResult listProject(@RequestBody HjProject hjProject,@RequestParam Integer cid,@RequestParam Integer pageSize,@RequestParam Integer pageNum);
+    @PostMapping("/provider/pcCompanyLibrary/deleteHjCompanyLibrary")
+    public Map<String,Object> deleteHjCompanyLibraryIds(@RequestParam String ids);
+    @PostMapping("/provider/pcCompanyLibrary/companyLibraryList")
+    public AjaxResult listLibarary(@RequestBody HjCompanyLibrary hjCompanyLibrary,@RequestParam Integer companyId,@RequestParam Integer pageSize,@RequestParam Integer pageNum);
+    @PostMapping("/provider/pcCompanyLibrary/deleteHjTeam")
+    public  Map<String,Object> deleteHjTeam(@RequestParam String  ids);
+    @PostMapping("/provider/pcCompanyLibrary/updateHjTeam")
+    public  Map<String,Object> updateHjTeam( @RequestBody HjTeam hjTeam);
+    @PostMapping("/provider/pcCompanyLibrary/selectHjTeamId")
+    public Map<String,Object> selectHjTeamId(@RequestParam Integer id);
+    @PostMapping("/provider/pcCompanyLibrary/insertHjTeam")
+    public  Map<String,Object> insertHjTeam( @RequestBody HjTeam hjTeam);
+    @PostMapping("/provider/pc/projectWorkersApi/edit")
+    public Map<String, Object> editSave(@RequestBody HjProjectWorkers hjProjectWorkers);
+    @PostMapping("/provider/pc/projectWorkersApi/list")
+    public Map<String, Object> listProjectWorker(@RequestBody HjProjectWorkers hjProjectWorkers,@RequestParam Integer pageSize,@RequestParam Integer pageNum);
+    /**
+     * 查询项目工人列表
+     */
+    @PostMapping("/provider/pc/projectWorkersApi/quarantineList")
+    public Map<String, Object> quarantineList(@RequestBody HjProjectWorkers hjProjectWorkers,@RequestParam Integer pageSize,@RequestParam Integer pageNum);
+    /**
+     * 修改前查询
+     * @param id 人员id
+     * @param
+     * @return
+     */
+    @PostMapping(value = "/provider/pc/projectWorkersApi/queryProjectWorkers")
+    public  Map<String,Object> queryProjectWorkers(@RequestParam Integer id);
+
+
 }
