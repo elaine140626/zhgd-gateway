@@ -28,8 +28,7 @@ import java.util.logging.Logger;
  **/
 @RestController
 @RequestMapping(value = "/api/DustEmission",method = RequestMethod.POST)
-public class
-DustEmissionApi extends BaseController {
+public class DustEmissionApi extends BaseController {
     private Logger logger = Logger.getLogger(DustEmissionApi.class.getName());
     @Autowired
     private SystemClient client;

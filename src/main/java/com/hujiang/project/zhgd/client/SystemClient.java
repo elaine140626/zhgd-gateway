@@ -3,17 +3,18 @@ package com.hujiang.project.zhgd.client;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
+import com.hujiang.framework.aspectj.lang.enums.BusinessType;
 import com.hujiang.framework.web.domain.AjaxResult;
 
+import com.hujiang.framework.web.page.PageDomain;
 import com.hujiang.project.zhgd.SbProjectVideoArea.domain.ProjectVideoJT;
 import com.hujiang.project.zhgd.SbProjectVideoArea.domain.SbJTArea;
 import com.hujiang.project.zhgd.SbProjectVideoArea.domain.Video;
 import com.hujiang.project.zhgd.hjAttendanceDevice.domain.HjAttendanceDevice;
+import com.hujiang.project.zhgd.hjAttendanceLocation.domain.HjAttendanceLocation;
 import com.hujiang.project.zhgd.hjDeeppit.domain.SbProjectDeeppitStructures;
 import com.hujiang.project.zhgd.hjProjectImage.domain.HjProjectImage;
 import com.hujiang.project.zhgd.hjZhgdDriver.domain.HjZhgdDriver;
-import com.hujiang.project.zhgd.lyCompany.domain.LyCompany;
-import com.hujiang.project.zhgd.lyPersonnel.domain.LyPersonnel;
 import com.hujiang.project.zhgd.lzfw.domain.*;
 import com.hujiang.project.zhgd.hjDeveceProjectworkers.domain.HjDeviceProjectworkers;
 import com.hujiang.project.zhgd.SbProjectVideo.domain.SbProjectVideo;
@@ -64,6 +65,7 @@ import com.hujiang.project.zhgd.sbProjectVideoPreset.domain.SbProjectVideoPreset
 import com.hujiang.project.zhgd.sbUnloaderRegistration.domain.ExportUnloaderAlarmtime;
 import com.hujiang.project.zhgd.sbUnloaderRegistration.domain.ExportUnloaderRealtime;
 import com.hujiang.project.zhgd.zhNode.domain.*;
+import io.swagger.annotations.ApiOperation;
 import org.aspectj.weaver.loadtime.Aj;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -72,11 +74,109 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @FeignClient(value = "user-api")
 public interface SystemClient {
+    @PostMapping(value = "provider/projectImage/insertProjectImage")
+    public  Map<String, Object> PostFile(@RequestBody HjProjectImage hjProjectImage, MultipartFile[] file);
+    @PostMapping("provider/FileApi/uploadFile/uploadFile")
+    public Map<String,Object> uploadFile(Integer folderId,
+                                         Integer projectId,
+                                         String uploadAccount,
+                                         String folderName,
+                                         MultipartFile file);
+    @RequestMapping("/provider/project/addProject")
+    public Map<String,Object> addSaveProject(@RequestBody HjProject hjProject, Integer cid, MultipartFile file,String remark1 ,String shortName1);
+    @RequestMapping("/provider/project/updateProject")
+    public Map<String,Object> updateProject(@RequestBody HjProject hjProject, MultipartFile file);
+    @PostMapping("/provider/hjBlacklist/uploadBlacklist")
+    public Map uploadBlacklist(MultipartFile file, String ids);
+    @RequestMapping(value = "/provider/projectWorkersApi/getAliOcrIdCard")
+    @ResponseBody
+    public Map<String, Object> getAliOcrIdCard(MultipartFile file, String configStr);
+    @RequestMapping(value = "/provider/projectWorkersApifaceVerify")
+    @ResponseBody
+    public Map<String, Object> faceVerify(String imageUrl1, String imageUrl2);
+    @RequestMapping(value = "/provider/projectWorkersApi/queryWitnessComparison")
+    @ResponseBody
+    public Map<String, Object> queryWitnessComparison(MultipartFile file, String url);
+    @RequestMapping("/provider/projectWorkersApi/updateProjectWorkers")
+    @ResponseBody
+    public Map<String, Object> updateProjectWorkersP(@RequestBody HjProjectWorkers hj, MultipartFile file) ;
+    @RequestMapping("/provider/projectWorkersApi/updateProjectWorkersBank")
+    @ResponseBody
+    public Map<String, Object> updateProjectWorkersBank(int id,String bankName,String cardNum, MultipartFile file);
+    @RequestMapping("/provider/attendanceRecordApi/insertAdministration")
+    @ResponseBody
+    public Map<String, Object> insertAdministrationAttendanceRecord(@RequestBody HjAttendanceRecord hjAttendanceRecord,
+                                                     MultipartFile file);
+
+
+
+
+
+
+
+    @PostMapping("/provider/synchronizationInformationApi/list")
+    public AjaxResult listIN(@RequestBody HjSynchronizationInformation hjSynchronizationInformation, PageDomain pageDomain);
+    @RequestMapping("/provider/constructionCompanyApi/deleteConstructionCompanyIds")
+    @ResponseBody
+    public Map<String, Object>  deleteHjConstructionCompanyIds(String ids);
+    @RequestMapping("/provider/constructionCompanyApi/selectConstructionCompanyId")
+    public Map<String,Object> selectHjConstructionCompanyIds(Integer id);
+    @RequestMapping("/provider/constructionCompanyApi/selectConstructionCompanyList")
+    public Map<String,Object> selectHjConstructionCompanyListTwoE(String param ,String suid, Integer projectId, PageDomain pageDomain);
+    @RequestMapping("/provider/constructionCompanyApi/updateConstructionCompany")
+    public Map<String,Object> updateConstructionCompany( @RequestBody HjConstructionCompany hjConstructionCompany);
+    @RequestMapping("/provider/constructionCompanyApi/insertConstructionCompany")
+    public Map<String,Object> insertConstructionCompanys( @RequestBody HjConstructionCompany hjConstructionCompany, Integer projectId);
+    @PostMapping( "/provider/project/remove")
+    public Map<String,Object> removep(String ids);
+    @RequestMapping("/provider/project/getProject")
+    public  Map<String, Object> getProject(Integer projectId);
+
+    @RequestMapping("/provider/project/selectProjectList")
+    public AjaxResult listProject(@RequestBody HjProject hjProject,Integer cid, PageDomain page);
+    @RequestMapping("/provider/pcCompanyLibrary/deleteHjCompanyLibrary")
+    public Map<String,Object> deleteHjCompanyLibraryIds(String ids);
+    @RequestMapping("/provider/pcCompanyLibrary/companyLibraryList")
+    public AjaxResult listLibarary(@RequestBody HjCompanyLibrary hjCompanyLibrary,Integer companyId, PageDomain page);
+    @RequestMapping("/provider/pcCompanyLibrary/deleteHjTeam")
+    @ResponseBody
+    public  Map<String,Object> deleteHjTeam(String  ids);
+    @RequestMapping("/provider/pcCompanyLibrary/updateHjTeam")
+    @ResponseBody
+    public  Map<String,Object> updateHjTeam( @RequestBody HjTeam hjTeam);
+    @RequestMapping("/provider/pcCompanyLibrary/selectHjTeamId")
+    @ResponseBody
+    public Map<String,Object> selectHjTeamId(Integer id);
+    @RequestMapping("/provider/pcCompanyLibrary/insertHjTeam/insertHjTeam")
+    @ResponseBody
+    public  Map<String,Object> insertHjTeam( @RequestBody HjTeam hjTeam);
+    @PostMapping("/pc/projectWorkersApi/edit")
+    public Map<String, Object> editSave(@RequestBody HjProjectWorkers hjProjectWorkers);
+    @PostMapping("/pc/projectWorkersApi/list")
+    public Map<String, Object> listProjectWorker(@RequestBody HjProjectWorkers hjProjectWorkers, PageDomain pageDomain);
+    /**
+     * 查询项目工人列表
+     */
+    @PostMapping("/pc/projectWorkersApi/quarantineList")
+    public Map<String, Object> quarantineList(@RequestBody HjProjectWorkers hjProjectWorkers, PageDomain pageDomain);
+    /**
+     * 修改前查询
+     * @param id 人员id
+     * @param
+     * @return
+     */
+    @PostMapping(value = "/pc/projectWorkersApi/queryProjectWorkers")
+    public  Map<String,Object> queryProjectWorkers(Integer id);
+
+
     @PostMapping("/provider/pcEquipmentWarning/warningCount")
     public JSONObject warningCount(@RequestParam(value = "projectId") Integer projectId);
     @PostMapping("/provider/pcEquipmentWarning/getWarningList")
@@ -2785,8 +2885,27 @@ public interface SystemClient {
     public AjaxResult plateList(@RequestParam(value = "cid")Integer cid,@RequestParam(value = "start")Long start,@RequestParam(value = "end")Long end);
     @PostMapping(value = "/provider/environmentList")
     public AjaxResult environmentList(@RequestParam(value = "cid")Integer cid);
+<<<<<<< HEAD
 
-    /**
+
+   
+
+
+
+    @PostMapping(value = "/provider/location/insert")
+    public AjaxResult insertHjAttendanceLocation(@RequestBody HjAttendanceLocation hjAttendanceLocation);
+
+    @PostMapping(value = "/provider/location/modify")
+    public AjaxResult updateHjAttendanceLocation(@RequestBody HjAttendanceLocation hjAttendanceLocation);
+
+    @PostMapping(value = "/provider/location/query")
+    public AjaxResult selectHjAttendanceLocationList(@RequestBody HjAttendanceLocation hjAttendanceLocation);
+
+    @PostMapping(value = "/provider/location/remove")
+    public AjaxResult deleteHjAttendanceLocationByIds(@RequestParam(value = "id")String id);
+
+  
+   /**
      * 楼宇公司
      * @param lyCompany
      * @param pageSize
@@ -2809,4 +2928,6 @@ public interface SystemClient {
     @RequestMapping(value = "/api/lyPersonnel/insertPersonnel",method = RequestMethod.POST)
     AjaxResult insertPersonnel(@RequestBody LyPersonnel lyPersonnel);
 
+=======
+>>>>>>> parent of cce798a... 0307
 }

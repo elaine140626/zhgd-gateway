@@ -10,20 +10,25 @@ hujiang:
   profile: D:/profile/
   # 获取ip地址开关
   addressEnabled: true
+
 hystrix:
+  shareSecurityContext: true
   command:
     default:
+      circuitBreaker:
+        sleepWindowInMilliseconds: 100000
+        forceClosed: true
       execution:
         timeout:
           enabled: false
         isolation:
           thread:
-            timeoutInMilliseconds: 10000
+            timeoutInMilliseconds: 600000
 
 ribbon:
   OkToRetryOnAllOperations: false #对所有操作请求都进行重试,默认false
-  ReadTimeout: 10000   #负载均衡超时时间，默认值5000
-  ConnectTimeout: 5000 #ribbon请求连接的超时时间，默认值2000
+  ReadTimeout: 120000   #负载均衡超时时间，默认值120000
+  ConnectTimeout: 30000 #ribbon请求连接的超时时间，默认值 30000
   MaxAutoRetries: 0     #对当前实例的重试次数，默认0
   MaxAutoRetriesNextServer: 1 #对切换实例的重试次数，默认1
 
@@ -81,8 +86,8 @@ spring:
   # 文件上传
   servlet:
     multipart:
-      max-file-size:  100MB
-      max-request-size:  100MB
+      max-file-size:  30MB
+      max-request-size:  30MB
   # 服务模块
   devtools:
     restart:
@@ -100,7 +105,7 @@ eureka:
     lease-expiration-duration-in-seconds: 2
     instance-id: consumer8080
     prefer-ip-address: true # 访问路径可以显示 IP
-    ip-address: localhost
+    ip-address: 47.106.71.3
   client:
     healthcheck:
       # 开启健康检查 （需要spring-boot-starter-actuator依赖）
@@ -108,8 +113,8 @@ eureka:
     register-with-eureka: true # 不向注册中心注册自己
     fetch-registry: true        # 是否检索服务
     service-url:
-
-         defaultZone: http://localhost:9005/eureka/  # 注册中心访问地址
+      defaultZone: http://47.112.23.241:9001/eureka/,http://47.112.23.241:9002/eureka/  # 注册中心访问地址
+      #  defaultZone: http://localhost:9005/eureka/  # 注册中心访问地址
 # MyBatis
 mybatis:
   # 搜索指定包别名
@@ -192,7 +197,4 @@ feign:
         connect-timeout: 60000
         read-timeout: 60000
 
-
-  hystrix:
-    enabled: false
 

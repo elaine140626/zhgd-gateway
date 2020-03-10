@@ -90,7 +90,8 @@ public class AttendanceRecordApi {
     public Map<String, Object> insertAdministration( HjAttendanceRecord hjAttendanceRecord,
                                                     MultipartFile file)throws Exception
     {
-        return (Map<String, Object>)restTemplateUtil.PostFile(hjAttendanceRecord, Constants.SERVICE_NAME+"provider/attendanceRecordApi/insertAdministration",file);
+        return client.insertAdministrationAttendanceRecord(hjAttendanceRecord,file);
+//        return (Map<String, Object>)restTemplateUtil.PostFile(hjAttendanceRecord, Constants.SERVICE_NAME+"provider/attendanceRecordApi/insertAdministration",file);
     }
 
 
