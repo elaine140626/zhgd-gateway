@@ -80,7 +80,8 @@ public class ConstructionCompanyController extends BaseController {
                 map.put(f.getName(), String.valueOf(f.get(hjConstructionCompany)));
             }
         }
-        return (Map<String,Object>)restTemplateUtil.Post(map, Constants.SERVICE_NAME+"/provider/constructionCompanyApi/insertConstructionCompany");
+        return systemClient.insertConstructionCompanys(hjConstructionCompany,projectId);
+//        return (Map<String,Object>)restTemplateUtil.Post(map, Constants.SERVICE_NAME+"/provider/constructionCompanyApi/insertConstructionCompany");
     }
     /**
      * 修改保存参建单位
@@ -90,7 +91,8 @@ public class ConstructionCompanyController extends BaseController {
     @RequestMapping("/updateConstructionCompany")
     public Map<String,Object> updateConstructionCompany( HjConstructionCompany hjConstructionCompany)throws Exception
     {
-        return (Map<String,Object>)restTemplateUtil.Post(hjConstructionCompany, Constants.SERVICE_NAME+"/provider/constructionCompanyApi/updateConstructionCompany");
+        return systemClient.updateConstructionCompany(hjConstructionCompany);
+//        return (Map<String,Object>)restTemplateUtil.Post(hjConstructionCompany, Constants.SERVICE_NAME+"/provider/constructionCompanyApi/updateConstructionCompany");
     }
     /**
      * 查询参建单位列表
@@ -108,7 +110,8 @@ public class ConstructionCompanyController extends BaseController {
         map.put("param",param);
         map.put("projectId",projectId);
         map.put("suid",suid);
-        return (Map<String,Object>)restTemplateUtil.PostPage(map, Constants.SERVICE_NAME+"/provider/constructionCompanyApi/selectConstructionCompanyList",pageDomain);
+        return  systemClient.selectHjConstructionCompanyListTwoE(param,suid,projectId,pageDomain);
+//        return (Map<String,Object>)restTemplateUtil.PostPage(map, Constants.SERVICE_NAME+"/provider/constructionCompanyApi/selectConstructionCompanyList",pageDomain);
     }
 
     /**
@@ -149,7 +152,8 @@ public class ConstructionCompanyController extends BaseController {
     {
         Map<String,Object> map = new HashMap<>();
         map.put("id",id);
-        return (Map<String,Object>)restTemplateUtil.Post(map, Constants.SERVICE_NAME+"/provider/constructionCompanyApi/selectConstructionCompanyId");
+        return systemClient.selectHjConstructionCompanyIds(id);
+//        return (Map<String,Object>)restTemplateUtil.Post(map, Constants.SERVICE_NAME+"/provider/constructionCompanyApi/selectConstructionCompanyId");
     }
 
 
@@ -180,7 +184,8 @@ public class ConstructionCompanyController extends BaseController {
     public Map<String, Object>  deleteHjConstructionCompanyIds(String ids)throws Exception{
         Map<String,Object> map = new HashMap<>();
         map.put("ids",ids);
-        return (Map<String, Object> )restTemplateUtil.Post(map, Constants.SERVICE_NAME+"/provider/constructionCompanyApi/deleteConstructionCompanyIds");
+        return systemClient.deleteHjConstructionCompanyIds(ids);
+//        return (Map<String, Object> )restTemplateUtil.Post(map, Constants.SERVICE_NAME+"/provider/constructionCompanyApi/deleteConstructionCompanyIds");
     }
 
 

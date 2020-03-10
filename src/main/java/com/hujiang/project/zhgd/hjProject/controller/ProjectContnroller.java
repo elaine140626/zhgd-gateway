@@ -62,8 +62,8 @@ public class ProjectContnroller extends BaseController {
         Map<String,Object> map  = new HashMap<>();
         map.put("hjProject",hjProject);
         map.put("cid",cid);
-
-        return (AjaxResult)restTemplateUtil.PostPage(map,Constants.SERVICE_NAME+"provider/project/selectProjectList",page);
+        return client.listProject(hjProject,cid,page);
+//        return (AjaxResult)restTemplateUtil.PostPage(map,Constants.SERVICE_NAME+"provider/project/selectProjectList",page);
     }
 
 
@@ -84,8 +84,8 @@ public class ProjectContnroller extends BaseController {
         map.put("cid",cid);
         map.put("remark1",remark1);
         map.put("shortName1",shortName1);
-
-        return(Map<String,Object>) restTemplateUtil.PostFile(map,Constants.SERVICE_NAME+"provider/project/addProject",file);
+        return client.addSaveProject(hjProject,cid,file,remark1,shortName1);
+//        return(Map<String,Object>) restTemplateUtil.PostFile(map,Constants.SERVICE_NAME+"provider/project/addProject",file);
     }
 
     /**
@@ -98,8 +98,8 @@ public class ProjectContnroller extends BaseController {
      */
     @RequestMapping("/updateProject")
     public Map<String,Object> updateProject(HjProject hjProject, MultipartFile file) throws Exception {
-
-        return(Map<String,Object>) restTemplateUtil.PostFile(hjProject,Constants.SERVICE_NAME+"provider/project/updateProject",file);
+        return client.updateProject(hjProject,file);
+//        return(Map<String,Object>) restTemplateUtil.PostFile(hjProject,Constants.SERVICE_NAME+"provider/project/updateProject",file);
     }
 
     /**
@@ -111,7 +111,8 @@ public class ProjectContnroller extends BaseController {
     {
         Map<String,Object> map  = new HashMap<>();
         map.put("ids",ids);
-        return (Map<String,Object>)restTemplateUtil.Post(map,Constants.SERVICE_NAME+"provider/project/remove");
+        return client.removep(ids);
+//        return (Map<String,Object>)restTemplateUtil.Post(map,Constants.SERVICE_NAME+"provider/project/remove");
     }
 
     /**
@@ -123,7 +124,8 @@ public class ProjectContnroller extends BaseController {
     public  Map<String, Object> getProject(Integer projectId)throws Exception {
         Map<String,Object> map  = new HashMap<>();
         map.put("projectId",projectId);
-        return (Map<String,Object>)restTemplateUtil.Post(map,Constants.SERVICE_NAME+"provider/project/getProject");
+        return client.getProject(projectId);
+//        return (Map<String,Object>)restTemplateUtil.Post(map,Constants.SERVICE_NAME+"provider/project/getProject");
     }
     /**
      * 集团看板
