@@ -49,13 +49,13 @@ public class PC_ProjectWorkersApi extends BaseController {
      */
     @PostMapping("/list")
     public Map<String, Object> list(HjProjectWorkers hjProjectWorkers, PageDomain pageDomain) throws Exception {
-        return systemClient.listProjectWorker(hjProjectWorkers,pageDomain);}
+        return systemClient.listProjectWorker(hjProjectWorkers,pageDomain.getPageSize(),pageDomain.getPageNum());}
     /**
      * 查询项目工人列表
      */
     @PostMapping("/quarantineList")
     public Map<String, Object> quarantineList(HjProjectWorkers hjProjectWorkers, PageDomain pageDomain) throws Exception {
-       return systemClient.quarantineList(hjProjectWorkers,pageDomain);}
+       return systemClient.quarantineList(hjProjectWorkers,pageDomain.getPageSize(),pageDomain.getPageNum());}
     /**
      * 修改前查询
      * @param id 人员id

@@ -67,8 +67,8 @@ public class FileApi extends BaseController {
         map.put("projectId",projectId);
         map.put("uploadAccount",uploadAccount);
         map.put("folderName",folderName);
-        return  client.uploadFile(folderId,projectId,uploadAccount,folderName,file);
-//        return ( Map<String,Object>)restTemplateUtil.PostFile(map, Constants.SERVICE_NAME+"provider/FileApi/uploadFile",file);
+//        return  client.uploadFile(folderId,projectId,uploadAccount,folderName,file);
+        return ( Map<String,Object>)restTemplateUtil.PostFile(map, Constants.SERVICE_NAME+"provider/FileApi/uploadFile",file);
     }
     /**
      * 删除文件

@@ -52,12 +52,12 @@ public class PcCompanyLibraryApi {
      * @throws Exception
      */
     @RequestMapping("companyLibraryList")
-    public AjaxResult list(HjCompanyLibrary hjCompanyLibrary,Integer companyId, PageDomain page)throws Exception {
+    public AjaxResult list(HjCompanyLibrary hjCompanyLibrary,Integer companyId, PageDomain pageDomain)throws Exception {
         System.out.println(hjCompanyLibrary);
         Map<String,Object> map = new HashMap<>();
         map.put("hjCompanyLibrary",hjCompanyLibrary);
         map.put("companyId",companyId);
-        return client.listLibarary(hjCompanyLibrary,companyId,page);
+        return client.listLibarary(hjCompanyLibrary,companyId,pageDomain.getPageSize(),pageDomain.getPageNum());
 //        return (AjaxResult) restTemplateUtil.PostPage(map, Constants.SERVICE_NAME+"provider/pcCompanyLibrary/companyLibraryList",page);
     }
     /**
